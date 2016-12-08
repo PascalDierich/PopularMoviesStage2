@@ -2,10 +2,6 @@ package com.pascaldierich.popularmoviesstage2.domain.executor;
 
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInteractor;
 
-/**
- * Created by pascaldierich on 08.12.16.
- */
-
 public interface Executor {
 
     /**

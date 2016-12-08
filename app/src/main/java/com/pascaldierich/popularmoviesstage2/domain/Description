@@ -1,0 +1,19 @@
+Package domain
+
+This package contains to the INNER LAYER
+
+Its responsible for the business logic and have to be framework independent!
+
+    It contains always the packages:
+
+        - executor
+            -> executor is responsible for running the interactors in the Background.
+
+        - interactors (use-cases) [the real business logic]
+            -> small interactor classes (Single Responsibly Principle) are solving each one specific problem
+
+        - model
+            -> holds the data for the interactors in business logic format (e.g. no Cursor)
+
+        - repository
+            -> provides interfaces for outer layers so the interactors can access the data (repository pattern)

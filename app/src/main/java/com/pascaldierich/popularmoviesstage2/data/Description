@@ -1,0 +1,13 @@
+Package data
+
+This package contains to the OUTER LAYER
+
+Its responsible for accessing and storing data!
+
+    For example:
+
+        - network tasks
+
+        - ContentProvider
+
+        - Shared Preferences

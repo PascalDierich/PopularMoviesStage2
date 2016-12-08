@@ -1,0 +1,10 @@
+Package domain.interactors
+
+This package contains the two packages:
+
+    - base
+        -> base provides an abstract interactor which provides basic Thread methods
+           (e.g. execute, cancel) and let the real interactors run in background or main Thread
+
+        -> and an the interface Interactor which gets implemented by abstract interactor
+           and provides the execute method which runs the real business logic

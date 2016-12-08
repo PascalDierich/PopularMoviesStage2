@@ -1,0 +1,17 @@
+Package presentation
+
+This package contains to the OUTER LAYER
+
+Its responsible for all the framework (android) specific UI components!
+
+    it provides packages like:
+
+        - presenters (MVP)
+            -> presenters are responsible for controlling the Views (e.g. activities, fragments)
+               and handle their events (e.g. onClickListener, lifecycle)
+
+        - ui
+            -> contains all (!) layout files
+
+        - converter
+            -> converter are responsible for converting the inner models to the outer models (and the other way around)
