@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Popular Movies Stage 2</string>
+
+    <!-- ##################### -->
+    <!-- # NETWORK-CONSTANTS # -->
+    <!-- ##################### -->
+    <string name="api_key" translatable="false">5c359398433009bb5d168d4cfb3e5cf3</string>
+
+    <string name="sort_by_pop" translatable="false">&amp;sort_by=popularity.desc</string>
+    <string name="sort_by_rat" translatable="false">&amp;sort_by=vote_average.desc</string>
+
+    <string name="poster_path" translatable="false">https://image.tmdb.org/t/p/w500</string>
+
+
+
+
+
+
+
+
+
 </resources>

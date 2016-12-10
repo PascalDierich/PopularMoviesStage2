@@ -3,11 +3,6 @@ package com.pascaldierich.popularmoviesstage2.domain.interactors.base;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 
-
-/**
- * Created by pascaldierich on 08.12.16.
- */
-
 /**
  * Created by dmilicic on 8/4/15.
  * <p/>
@@ -60,7 +55,7 @@ public abstract class AbstractInteractor implements Interactor {
         this.mIsRunning = true;
 
         // start running this interactor in a background thread
-//        mThreadExecutor.execute(this); // TODO: create interactor
+        mThreadExecutor.execute(this);
     }
 }
 
