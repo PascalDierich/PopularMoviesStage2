@@ -7,13 +7,10 @@ package com.pascaldierich.popularmoviesstage2.domain.repository;
 /**
  * A sample repository with CRUD operations on a model.
  */
-public interface Repository {
+public interface FavoriteRepository {
 
-    boolean insert();
+    /*
+    TODO: insert DB methods like insert, read etc
+     */
 
-    boolean update();
-
-    void get(Object id);
-
-    boolean delete();
 }
