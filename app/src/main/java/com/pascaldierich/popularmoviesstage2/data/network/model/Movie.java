@@ -23,27 +23,27 @@ public class Movie {
         mReleaseDate = release;
     }
 
-    public String getmId() {
+    public String getId() {
         return mId;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public String getmPosterPath() {
+    public String getPosterPath() {
         return mPosterPath;
     }
 
-    public String getmDescription() {
+    public String getDescription() {
         return mDescription;
     }
 
-    public String getmVoteAverage() {
+    public String getVoteAverage() {
         return mVoteAverage;
     }
 
-    public String getmReleaseDate() {
+    public String getReleaseDate() {
         return mReleaseDate;
     }
 
