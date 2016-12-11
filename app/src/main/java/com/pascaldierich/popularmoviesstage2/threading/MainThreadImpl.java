@@ -10,6 +10,7 @@ import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
  */
 
 public class MainThreadImpl implements MainThread {
+    private static final String LOG_TAG = "MainThreadImpl";
 
     private static MainThread sMainThread;
 
@@ -21,6 +22,7 @@ public class MainThreadImpl implements MainThread {
 
     @Override
     public void post(Runnable runnable) {
+
         mHandler.post(runnable);
     }
 

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pascaldierich.popularmoviesstage2">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <!-- INTERNET-PERMISSION -->
     <uses-permission android:name="android.permission.INTERNET"/>
 

@@ -2,6 +2,7 @@ package com.pascaldierich.popularmoviesstage2.domain.repository;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,8 +11,8 @@ import java.util.List;
 
 public interface MoviesRepository {
 
-    List<Movie> downloadPopularMovies();
+    ArrayList<Movie> downloadPopularMovies();
 
-    List<Movie> downloadTopRatedMovies();
+    ArrayList<Movie> downloadTopRatedMovies();
 
 }

@@ -7,6 +7,7 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesIn
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class DownloadTopRatedMoviesInteractorImpl extends AbstractInteractor imp
 
     @Override
     public void run() {
-        final List<Movie> movieList = mRepository.downloadTopRatedMovies();
+        final ArrayList<Movie> movieList = mRepository.downloadTopRatedMovies();
 
         mMainThread.post(new Runnable() {
             @Override

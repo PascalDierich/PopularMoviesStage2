@@ -1,5 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.domain.executor.impl;
 
+import android.os.Looper;
+import android.util.Log;
+
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInteractor;
 
@@ -14,6 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class ThreadExecutor implements Executor {
+    private static final String LOG_TAG = "ThreadExecutor";
 
     // This is a singleton
     private static volatile ThreadExecutor sThreadExecutor;
@@ -38,11 +42,24 @@ public class ThreadExecutor implements Executor {
 
     @Override
     public void execute(final AbstractInteractor interactor) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.d(LOG_TAG, "execute: Looper on Main");
+        } else {
+            Log.d(LOG_TAG, "execute: Looper NOT on Main");
+        }
+        Log.d(LOG_TAG, "execute: got called");
         mThreadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
                 // run the main logic
+                Log.d(LOG_TAG, "run: befor interactor.run");
                 interactor.run();
+                if (Looper.myLooper() == Looper.getMainLooper()) {
+                    Log.d(LOG_TAG, "run: is on Main Thread");
+                } else {
+                    Log.d(LOG_TAG, "run: is NOT on Main Thread");
+                }
+                
 
                 // mark it as finished
                 interactor.onFinished();

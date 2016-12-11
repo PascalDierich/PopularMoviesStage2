@@ -1,5 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.base;
 
+import android.os.Looper;
+import android.util.Log;
+
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 
@@ -14,6 +17,7 @@ import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
  * but the request will come from the UI thread unless the request was specifically assigned to a background thread.
  */
 public abstract class AbstractInteractor implements Interactor {
+    private static final String LOG_TAG = "AbstractInteractor";
 
     protected Executor mThreadExecutor;
     protected MainThread mMainThread;
@@ -53,6 +57,10 @@ public abstract class AbstractInteractor implements Interactor {
 
         // mark this interactor as running
         this.mIsRunning = true;
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.d(LOG_TAG, "execute: MainThread");
+        }
+        Log.d(LOG_TAG, "execute: NOT MatinThread");
 
         // start running this interactor in a background thread
         mThreadExecutor.execute(this);

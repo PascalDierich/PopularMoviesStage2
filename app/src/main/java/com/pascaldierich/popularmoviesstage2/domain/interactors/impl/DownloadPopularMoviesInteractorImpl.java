@@ -1,5 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
+import android.os.Looper;
+import android.util.Log;
+
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
@@ -7,6 +10,7 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesIn
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +18,7 @@ import java.util.List;
  */
 
 public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor implements DownloadMoviesInteractor {
+    private static final String LOG_TAG = DownloadPopularMoviesInteractorImpl.class.getSimpleName();
 
     private DownloadMoviesInteractor.Callback mCallback;
     private MoviesRepository mRepository;
@@ -21,6 +26,8 @@ public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor impl
     public DownloadPopularMoviesInteractorImpl(Executor threadExecutor, MainThread mainThread,
                                                Callback callback, MoviesRepository repository) {
         super(threadExecutor, mainThread);
+
+        Log.d(LOG_TAG, "is in constructor");
 
         if (repository == null || callback == null) {
             throw new IllegalArgumentException("Arguments can not be null");
@@ -32,11 +39,20 @@ public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor impl
 
     @Override
     public void run() {
-        final List<Movie> movieList = mRepository.downloadPopularMovies();
+        Log.d(LOG_TAG, "run: should start now download");
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            Log.d(LOG_TAG, "run: Looper on Main");
+        } else {
+            Log.d(LOG_TAG, "run: Looper NOT on Main");
+        }
+
+        final ArrayList<Movie> movieList = mRepository.downloadPopularMovies();
+        Log.d(LOG_TAG, "movieList got downloaded");
 
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
+                Log.d(LOG_TAG, "run: runs");
                 mCallback.onDownloadFinish(movieList);
             }
         });

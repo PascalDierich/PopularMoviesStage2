@@ -10,6 +10,9 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 public interface MainPresenter extends BasePresenter {
 
     interface View extends BaseView {
+        void showMovies();
+
+
         // TODO: Add your view methods
     }
 
