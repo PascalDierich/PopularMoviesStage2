@@ -16,25 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
     private static final String LOG_TAG = "RestClient";
 
-    private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String BASE_URL = "https://api.themoviedb.org/";
 
     private static Retrofit s_retrofit;
 
     static {
 
-
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
-
         s_retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
                 .build();
     }
 

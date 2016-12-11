@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.data.network.services;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,10 @@ import retrofit2.http.Query;
 
 public interface DownloadService {
 
-    @GET("movie/popular")
-    Call<ArrayList<Movie>> getPopular(@Query("api_key") String api_key);
+    @GET("3/movie/popular")
+    Call<Page> getPopular(@Query("api_key") String api_key);
 
-    @GET("movie/top_rated")
+    @GET("3/movie/top_rated")
     Call<ArrayList<Movie>> getTopRated(@Query("api_key") String api_key);
 
 }

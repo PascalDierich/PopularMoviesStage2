@@ -1,9 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
-import android.os.Debug;
+import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "onCreate: lakf");
         setContentView(R.layout.activity_main);
 
         init();
@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         } else {
             Log.d(LOG_TAG, "MainAcitivity: is NOT on Main Thread");
         }
+
         mMainPresenter = new MainPresenterImpl(
-                ThreadExecutor.getInstance(),
+                ThreadExecutor.getInstance(), // TODO inject dependencies
                 MainThreadImpl.getInstance(),
                 this,
                 new MoviesRepositoryImpl()

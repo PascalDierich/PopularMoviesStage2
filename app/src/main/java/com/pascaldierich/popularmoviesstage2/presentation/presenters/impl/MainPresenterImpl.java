@@ -7,8 +7,10 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.TestInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadPopularMoviesInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadTopRatedMoviesInteractorImpl;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.TestInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
@@ -21,7 +23,8 @@ import java.util.List;
  */
 
 public class MainPresenterImpl extends AbstractPresenter implements MainPresenter,
-        DownloadMoviesInteractor.Callback {
+        DownloadMoviesInteractor.Callback,
+        TestInteractor.Callback {
     private static final String LOG_TAG = MainPresenterImpl.class.getSimpleName();
 
     private MainPresenter.View mView;
@@ -44,6 +47,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
             Log.d(LOG_TAG, "constructor: is NOT on Main Thread");
         }
         getPopularMovies();
+        startTest();
     }
 
     @Override
@@ -114,5 +118,20 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     @Override
     public void getFavoriteMovies() {
 
+    }
+
+    @Override
+    public void startTest() {
+        TestInteractor testInteractor = new TestInteractorImpl(
+                mExecutor,
+                mMainThread,
+                this
+        );
+        testInteractor.execute();
+    }
+
+    @Override
+    public void onTestFinish(int i) {
+        Log.d(LOG_TAG, "onTestFinish: test finished with i = " + i);
     }
 }

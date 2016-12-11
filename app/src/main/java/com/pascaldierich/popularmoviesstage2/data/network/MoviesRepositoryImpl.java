@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 import com.pascaldierich.popularmoviesstage2.data.network.services.DownloadService;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 
@@ -37,13 +38,18 @@ public class MoviesRepositoryImpl implements MoviesRepository {
         }
         Log.d(LOG_TAG, "downloadPopularMovies: is executing");
 //        Call<List<Movie>> call = mClient.getPopular("5c359398433009bb5d168d4cfb3e5cf3");
-        ArrayList<Movie> movieList = null;
+//        ArrayList<Movie> movieList = null;
+
+        Page movieList;
 
         Log.d(LOG_TAG, "downloadPopularMovies: Looper is on MainThread == " + (Looper.getMainLooper() == Looper.myLooper()));
 
         try {
             movieList = mClient.getPopular("5c359398433009bb5d168d4cfb3e5cf3").execute().body();
+            mClient.getPopular("5c359398433009bb5d168d4cfb3e5cf3").execute().body();
 
+            Log.d(LOG_TAG, "downloadPopularMovies: mPage = " + movieList.getPage());
+            Log.d(LOG_TAG, "downloadPopularMovies: Page.class: " + movieList.getmResults().get(1).getDescription());
 
             Log.d(LOG_TAG, "downloadPopularMovies: is going to call download");
 //            movieList = call.execute().body();
@@ -52,16 +58,19 @@ public class MoviesRepositoryImpl implements MoviesRepository {
             Log.d(LOG_TAG, "downloadPopularMovies: Exception while call.execute.body() --> \n" + e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
+            Log.e(LOG_TAG, "downloadPopularMovies: Exception while retrofite.execute " + "\n" +
+                    " --> " + e.fillInStackTrace());
             e.printStackTrace();
         }
 
         Log.d(LOG_TAG, "downloadPopularMovies: is returning movieList now");
-        return movieList;
+        return null;
+//        return movieList;
     }
 
     @Override
     public ArrayList<Movie> downloadTopRatedMovies() {
-        Call<ArrayList<Movie>> call = mClient.getTopRated(""); // TODO: Api_key ???
+        Call<ArrayList<Movie>> call = mClient.getTopRated("5c359398433009bb5d168d4cfb3e5cf3"); // TODO: Api_key in strings.xml
         ArrayList<Movie> movieList = null;
 
         try {

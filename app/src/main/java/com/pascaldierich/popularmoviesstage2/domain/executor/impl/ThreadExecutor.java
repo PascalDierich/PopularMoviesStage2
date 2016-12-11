@@ -22,15 +22,15 @@ public class ThreadExecutor implements Executor {
     // This is a singleton
     private static volatile ThreadExecutor sThreadExecutor;
 
-    private static final int                     CORE_POOL_SIZE  = 3;
-    private static final int                     MAX_POOL_SIZE   = 5;
-    private static final int                     KEEP_ALIVE_TIME = 120;
-    private static final TimeUnit                TIME_UNIT       = TimeUnit.SECONDS;
-    private static final BlockingQueue<Runnable> WORK_QUEUE      = new LinkedBlockingQueue<Runnable>();
+    private static final int CORE_POOL_SIZE = 3;
+    private static final int MAX_POOL_SIZE = 5;
+    private static final int KEEP_ALIVE_TIME = 120;
+    private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
+    private static final BlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingQueue<Runnable>();
 
     private ThreadPoolExecutor mThreadPoolExecutor;
 
-    private ThreadExecutor() {
+    public ThreadExecutor() {
         long keepAlive = KEEP_ALIVE_TIME;
         mThreadPoolExecutor = new ThreadPoolExecutor(
                 CORE_POOL_SIZE,
@@ -59,7 +59,7 @@ public class ThreadExecutor implements Executor {
                 } else {
                     Log.d(LOG_TAG, "run: is NOT on Main Thread");
                 }
-                
+
 
                 // mark it as finished
                 interactor.onFinished();

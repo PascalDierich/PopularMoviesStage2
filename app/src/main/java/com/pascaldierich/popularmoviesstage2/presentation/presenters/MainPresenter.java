@@ -22,4 +22,6 @@ public interface MainPresenter extends BasePresenter {
 
     void getFavoriteMovies();
     // TODO: Add your presenter methods
+
+    void startTest();
 }
