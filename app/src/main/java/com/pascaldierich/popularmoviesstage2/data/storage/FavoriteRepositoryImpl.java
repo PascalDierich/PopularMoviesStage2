@@ -3,13 +3,10 @@ package com.pascaldierich.popularmoviesstage2.data.storage;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
 import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepository;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 /**
  * Created by pascaldierich on 12.12.16.

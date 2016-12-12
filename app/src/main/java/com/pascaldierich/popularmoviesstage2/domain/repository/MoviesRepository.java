@@ -1,10 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.domain.repository;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
-import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
 
 /**
  * Created by pascaldierich on 10.12.16.
@@ -12,8 +8,8 @@ import java.util.List;
 
 public interface MoviesRepository {
 
-    Page downloadPopularMovies();
+    PageMovies downloadPopularMovies();
 
-    Page downloadTopRatedMovies();
+    PageMovies downloadTopRatedMovies();
 
 }

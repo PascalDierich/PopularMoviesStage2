@@ -2,7 +2,7 @@ package com.pascaldierich.popularmoviesstage2.data.network;
 
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
 import com.pascaldierich.popularmoviesstage2.data.network.services.DownloadService;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 
@@ -24,8 +24,8 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     }
 
     @Override
-    public Page downloadPopularMovies() {
-        Page movieList;
+    public PageMovies downloadPopularMovies() {
+        PageMovies movieList;
 
         try {
             movieList = mClient.getPopular("5c359398433009bb5d168d4cfb3e5cf3").execute().body();
@@ -43,9 +43,9 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     }
 
     @Override
-    public Page downloadTopRatedMovies() {
-        Call<Page> call = mClient.getTopRated("5c359398433009bb5d168d4cfb3e5cf3"); // TODO: Api_key in strings.xml
-        Page movieList = null;
+    public PageMovies downloadTopRatedMovies() {
+        Call<PageMovies> call = mClient.getTopRated("5c359398433009bb5d168d4cfb3e5cf3"); // TODO: Api_key in strings.xml
+        PageMovies movieList = null;
 
         try {
             movieList = call.execute().body();

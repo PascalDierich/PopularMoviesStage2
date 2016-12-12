@@ -1,6 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.data.network.services;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.network.model.Review;
 import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
 
@@ -16,9 +18,9 @@ import retrofit2.http.Query;
 public interface DetailService {
 
     @GET("3/movie/{id}/reviews")
-    Call<Review> getReviews(@Path("id") String id, @Query("api_key") String api_key);
+    Call<PageReviews> getReviews(@Path("id") int id, @Query("api_key") String api_key);
 
     @GET("3/movie/{id}/videos")
-    Call<Trailer> getTrailers(@Path("id") String id, @Query("api_key") String api_key);
+    Call<PageTrailers> getTrailers(@Path("id") int id, @Query("api_key") String api_key);
 
 }

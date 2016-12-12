@@ -4,8 +4,6 @@ package com.pascaldierich.popularmoviesstage2.domain.repository;
  * Created by pascaldierich on 08.12.16.
  */
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
-
 import java.util.ArrayList;
 
 /**

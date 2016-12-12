@@ -1,18 +1,11 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
-import android.os.Looper;
-import android.util.Log;
-
-import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
-import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by pascaldierich on 10.12.16.
@@ -38,7 +31,7 @@ public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor impl
 
     @Override
     public void run() {
-        final Page movieList = mRepository.downloadPopularMovies();
+        final PageMovies movieList = mRepository.downloadPopularMovies();
 
         mMainThread.post(new Runnable() {
             @Override

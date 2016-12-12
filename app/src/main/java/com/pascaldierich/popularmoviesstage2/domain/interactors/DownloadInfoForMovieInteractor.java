@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors;
 
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 
 /**
@@ -9,8 +11,8 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 public interface DownloadInfoForMovieInteractor extends Interactor {
 
     interface Callback {
-        void onDownloadTrailerFinish();
+        void onDownloadTrailerFinish(PageTrailers pageTrailers);
 
-        void onDownloadReviewFinish();
+        void onDownloadReviewFinish(PageReviews pageReviews);
     }
 }

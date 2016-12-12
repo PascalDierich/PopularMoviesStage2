@@ -1,9 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
-import android.os.Looper;
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
+import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
@@ -71,7 +70,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     }
 
     @Override
-    public void onDownloadFinish(Page movies) {
+    public void onDownloadFinish(PageMovies movies) {
         if (movies == null || movies.getResults().size() == 0) {
             throw new IllegalArgumentException("Arguments can not be null");
         }
