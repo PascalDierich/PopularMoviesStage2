@@ -29,7 +29,6 @@ public abstract class MovieContract {
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_RELEASE = "release";
-        public static final String COLUMN_LENGTH = "length";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_RATING = "rating";
         public static final String COLUMN_THUMBNAIL = "thumbnail"; // saves the whole image
@@ -39,11 +38,10 @@ public abstract class MovieContract {
         public static final int COLUMN_ID_ID = 0;
         public static final int COLUMN_TITLE_ID = 1;
         public static final int COLUMN_RELEASE_ID = 2;
-        public static final int COLUMN_LENGTH_ID = 3;
-        public static final int COLUMN_DESCRIPTION_ID = 4;
-        public static final int COLUMN_RATING_ID = 5;
-        public static final int COLUMN_TRAILER_ID = 6;
-        public static final int COLUMN_THUMBNAIL_ID = 7;
+        public static final int COLUMN_DESCRIPTION_ID = 3;
+        public static final int COLUMN_RATING_ID = 4;
+        public static final int COLUMN_TRAILER_ID = 5;
+        public static final int COLUMN_THUMBNAIL_ID = 6;
 
         static Uri buildMovieUriWithId(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

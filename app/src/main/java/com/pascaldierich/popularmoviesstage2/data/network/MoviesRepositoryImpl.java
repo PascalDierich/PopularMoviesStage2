@@ -2,7 +2,7 @@ package com.pascaldierich.popularmoviesstage2.data.network;
 
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.data.network.services.DownloadService;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 

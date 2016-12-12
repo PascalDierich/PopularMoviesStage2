@@ -1,6 +1,7 @@
-package com.pascaldierich.popularmoviesstage2.data.network.model;
+package com.pascaldierich.popularmoviesstage2.data.network.model.pages;
 
 import com.google.gson.annotations.SerializedName;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 
 import java.util.ArrayList;
 

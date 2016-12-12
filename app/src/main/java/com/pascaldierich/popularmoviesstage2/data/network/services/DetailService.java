@@ -1,10 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.data.network.services;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
-import com.pascaldierich.popularmoviesstage2.data.network.model.Review;
-import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

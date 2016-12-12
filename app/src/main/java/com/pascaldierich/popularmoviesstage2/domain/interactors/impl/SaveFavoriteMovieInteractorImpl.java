@@ -1,7 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
-import android.graphics.Bitmap;
-
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInteractor;
@@ -17,14 +16,12 @@ public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implemen
     SaveFavoriteMovieInteractor.Callback mCallback;
     SaveMovieRepository mRepository;
 
-    String[] mDetailInfo;
-    Bitmap mBitmap;
+    DataMovieObject mMovieObject;
 
     public SaveFavoriteMovieInteractorImpl(Executor threadExecutor, MainThread mainThread,
                                            SaveFavoriteMovieInteractor.Callback callback,
                                            SaveMovieRepository repository,
-                                           String[] detailInfo,
-                                           Bitmap bitmap) {
+                                           DataMovieObject movieObject) {
         super(threadExecutor, mainThread);
 
         if (repository == null || callback == null) {
@@ -33,13 +30,12 @@ public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implemen
 
         this.mCallback = callback;
         this.mRepository = repository;
-        this.mDetailInfo = detailInfo;
-        this.mBitmap = bitmap;
+        this.mMovieObject = movieObject;
     }
 
     @Override
     public void run() {
-        final boolean success = mRepository.saveAsFavorite(mDetailInfo, mBitmap);
+        final boolean success = mRepository.saveAsFavorite(mMovieObject);
 
         mMainThread.post(new Runnable() {
             @Override

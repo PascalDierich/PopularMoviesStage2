@@ -2,8 +2,8 @@ package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadInfoForMovieInteractor;
@@ -12,6 +12,7 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInf
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.SaveFavoriteMovieInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 
@@ -32,8 +33,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
                                MainThread mainThread,
                                View view,
                                DetailInfoMoviesRepository detailRepository,
-                               SaveMovieRepository saveRepository
-                                ) {
+                               SaveMovieRepository saveRepository) {
         super(executor, mainThread);
         this.mView = view;
         this.mDetailRepository = detailRepository;
@@ -63,14 +63,12 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 
     @Override
     public void saveAsFavorite() {
-        // TODO: make trailer to String (!!!!!!!)
         SaveFavoriteMovieInteractor interactor = new SaveFavoriteMovieInteractorImpl(
                 mExecutor,
                 mMainThread,
                 this,
                 mSaveRepository,
-                null,
-                null
+                Converter.DetailMovieObjectToDataMovieObject(null)   // --> TODO: null = DetailMovieObject
         );
         interactor.execute();
     }

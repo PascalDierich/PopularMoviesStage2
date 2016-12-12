@@ -1,7 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 
 /**

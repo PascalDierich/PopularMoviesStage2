@@ -15,3 +15,4 @@ Its responsible for all the framework (android) specific UI components!
 
         - converter
             -> converter are responsible for converting the inner models to the outer models (and the other way around)
+                -> Converters are static !

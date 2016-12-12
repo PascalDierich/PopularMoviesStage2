@@ -29,20 +29,17 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 
     private ArrayList<String[]> cursorToArrayList(Cursor cursor) {
         cursor.moveToFirst();
-        ArrayList<String[]> movies = new ArrayList<>();
+        ArrayList<String[]> movieList = new ArrayList<>();
 
         while (cursor.moveToNext()) {
-            movies.add(new String[]{
+            movieList.add(new String[]{
                     cursor.getString(MovieContract.MovieEntry.COLUMN_TITLE_ID),
-                    cursor.getString(MovieContract.MovieEntry.COLUMN_THUMBNAIL_ID), // TODO: remove: kein String
                     cursor.getString(MovieContract.MovieEntry.COLUMN_DESCRIPTION_ID),
                     cursor.getString(MovieContract.MovieEntry.COLUMN_RATING_ID),
-                    cursor.getString(MovieContract.MovieEntry.COLUMN_RELEASE_ID),
-                    cursor.getString(MovieContract.MovieEntry.COLUMN_LENGTH_ID),
-                    cursor.getString(MovieContract.MovieEntry.COLUMN_TRAILER_ID)
+                    cursor.getString(MovieContract.MovieEntry.COLUMN_RELEASE_ID)
             });
         }
-        return movies;
+        return movieList;
     }
 
 }

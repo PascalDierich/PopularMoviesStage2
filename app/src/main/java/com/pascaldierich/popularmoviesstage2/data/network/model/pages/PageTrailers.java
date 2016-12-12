@@ -1,6 +1,7 @@
-package com.pascaldierich.popularmoviesstage2.data.network.model;
+package com.pascaldierich.popularmoviesstage2.data.network.model.pages;
 
 import com.google.gson.annotations.SerializedName;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
 
 import java.util.ArrayList;
 
@@ -8,15 +9,15 @@ import java.util.ArrayList;
  * Created by pascaldierich on 12.12.16.
  */
 
-public class PageReviews {
+public class PageTrailers {
 
     @SerializedName("page")
     private int mPage;
 
     @SerializedName("results")
-    private ArrayList<Review> mResults;
+    private ArrayList<Trailer> mResults;
 
-    public PageReviews(int page, ArrayList<Review> results) {
+    public PageTrailers(int page, ArrayList<Trailer> results) {
         this.mPage = page;
         this.mResults = results;
     }
@@ -25,7 +26,7 @@ public class PageReviews {
         return this.mPage;
     }
 
-    public ArrayList<Review> getResults() {
+    public ArrayList<Trailer> getResults() {
         return this.mResults;
     }
 }

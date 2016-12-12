@@ -2,7 +2,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
@@ -12,6 +12,8 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadTop
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.QueryFavoriteInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepository;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 
@@ -70,11 +72,11 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     }
 
     @Override
-    public void onDownloadFinish(PageMovies movies) {
+    public void onDownloadFinish(PageMovies movies) { // TODO: convert
         if (movies == null || movies.getResults().size() == 0) {
             throw new IllegalArgumentException("Arguments can not be null");
         }
-        Log.d(LOG_TAG, "onDownloadFinish with movieList != null");
+        ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
         // TODO: mView.showMovies()
 
@@ -115,7 +117,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     }
 
     @Override
-    public void onQueryFinished(ArrayList<String[]> faveMovies) {
+    public void onQueryFinished(ArrayList<String[]> faveMovies) { // TODO: convert
         Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
     }
 }

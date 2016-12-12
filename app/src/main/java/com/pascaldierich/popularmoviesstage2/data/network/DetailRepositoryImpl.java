@@ -2,16 +2,12 @@ package com.pascaldierich.popularmoviesstage2.data.network;
 
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
-import com.pascaldierich.popularmoviesstage2.data.network.model.Review;
-import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.network.services.DetailService;
-import com.pascaldierich.popularmoviesstage2.data.network.services.DownloadService;
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by pascaldierich on 12.12.16.

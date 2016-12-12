@@ -20,10 +20,8 @@ public class MovieDbHelper extends SQLiteOpenHelper {
                 + MovieContract.MovieEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + MovieContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL,"
                 + MovieContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL,"
-                + MovieContract.MovieEntry.COLUMN_LENGTH + " INTEGER NOT NULL,"
-                + MovieContract.MovieEntry.COLUMN_RELEASE + " INTEGER NOT NULL,"
+                + MovieContract.MovieEntry.COLUMN_RELEASE + " TEXT NOT NULL,"
                 + MovieContract.MovieEntry.COLUMN_RATING + " REAL NOT NULL,"
-                + MovieContract.MovieEntry.COLUMN_TRAILER + " TEXT," // saves Trailer String[] with convertArrayToString()
                 + MovieContract.MovieEntry.COLUMN_THUMBNAIL + " BLOB" // save image as Blob
                 + ")";
 

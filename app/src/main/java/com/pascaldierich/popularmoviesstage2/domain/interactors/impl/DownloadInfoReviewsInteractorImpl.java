@@ -1,6 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadInfoForMovieInteractor;

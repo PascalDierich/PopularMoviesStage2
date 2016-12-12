@@ -1,6 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.PageMovies;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 
 /**

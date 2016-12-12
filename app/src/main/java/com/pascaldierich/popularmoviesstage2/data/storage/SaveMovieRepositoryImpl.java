@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 
 import java.io.ByteArrayOutputStream;
 
@@ -24,32 +26,25 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
     }
 
     @Override
-    public boolean saveAsFavorite(String[] detailInfo, Bitmap bitmap) {
-        ContentValues values = detailInfoToContentValues(detailInfo, bitmap);
+    public boolean saveAsFavorite(DataMovieObject movieObject) {
+
+        ContentValues values = detailInfoToContentValues(movieObject);
 
         Uri uri = mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, values);
 
         return uri != null; // check if success
     }
 
-    private ContentValues detailInfoToContentValues(String[] detailInfo, Bitmap bitmap) {
+    private ContentValues detailInfoToContentValues(DataMovieObject movieObject) {
         ContentValues values = new ContentValues();
 
-        values.put(MovieContract.MovieEntry.COLUMN_TITLE, detailInfo[0]);
-        values.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, getBitmapAsByteArray(bitmap));
-        values.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, detailInfo[2]);
-        values.put(MovieContract.MovieEntry.COLUMN_RATING, detailInfo[3]);
-        values.put(MovieContract.MovieEntry.COLUMN_RELEASE, detailInfo[4]);
-        values.put(MovieContract.MovieEntry.COLUMN_LENGTH, detailInfo[5]);
-        values.put(MovieContract.MovieEntry.COLUMN_TRAILER, detailInfo[6]); // TODO: here trailer IS ALREADY STRING!!!
+        values.put(MovieContract.MovieEntry.COLUMN_ID, movieObject.getmId());
+        values.put(MovieContract.MovieEntry.COLUMN_TITLE, movieObject.getmTitle());
+        values.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, movieObject.getmThumbnail());
+        values.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, movieObject.getmDescription());
+        values.put(MovieContract.MovieEntry.COLUMN_RATING, movieObject.getmRating());
+        values.put(MovieContract.MovieEntry.COLUMN_RELEASE, movieObject.getmRelease());
 
         return values;
-    }
-
-    private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-
-        return stream.toByteArray();
     }
 }
