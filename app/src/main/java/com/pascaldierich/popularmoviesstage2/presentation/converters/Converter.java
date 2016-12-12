@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.converters;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
@@ -8,6 +9,7 @@ import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -21,10 +23,9 @@ public class Converter {
         ArrayList<DetailMovieObject> result = new ArrayList<>();
         ArrayList<Movie> movieArrayList = movies.getResults();
 
-
         for (Movie movie: movieArrayList) {
             result.add(new DetailMovieObject(
-                    Integer.getInteger(movie.getId()),
+                    Integer.parseInt(movie.getId()),
                     movie.getTitle(),
                     movie.getDescription(),
                     movie.getReleaseDate(),
@@ -35,8 +36,7 @@ public class Converter {
                     null    // String[] review
             ));
         }
-
-        return null;
+        return result;
     }
 
     public static DataMovieObject DetailMovieObjectToDataMovieObject(DetailMovieObject object) {

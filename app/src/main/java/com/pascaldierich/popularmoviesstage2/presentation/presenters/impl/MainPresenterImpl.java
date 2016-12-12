@@ -14,6 +14,7 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepositor
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 
@@ -44,6 +45,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
 
         getPopularMovies(); // TODO: ändern zu get InitialData -> read out preferences
         getFavoriteMovies();
+        getTopRatedMovies();
     }
 
     @Override
@@ -72,12 +74,16 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     }
 
     @Override
-    public void onDownloadFinish(PageMovies movies) { // TODO: convert
+    public void onDownloadFinish(PageMovies movies) {
         if (movies == null || movies.getResults().size() == 0) {
             throw new IllegalArgumentException("Arguments can not be null");
         }
         ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
+        if (movieObjectArrayList == null) {
+            Log.d(LOG_TAG, "onDownloadFinish: is Null... :(");
+        }
+        Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = "  +movieObjectArrayList.size());
         // TODO: mView.showMovies()
 
     }

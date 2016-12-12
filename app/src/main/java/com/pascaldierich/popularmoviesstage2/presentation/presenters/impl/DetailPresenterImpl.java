@@ -9,6 +9,7 @@ import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadInfoForMovieInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.SaveFavoriteMovieInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoReviewsInteractorImpl;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoTrailersInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.SaveFavoriteMovieInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
@@ -39,24 +40,31 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
         this.mDetailRepository = detailRepository;
         this.mSaveRepository = saveRepository;
 
-        getReviews();
-        getTrailer();
+        getReviews(550);
+        getTrailer(550);
     }
 
 
     @Override
-    public void getTrailer() {
-
+    public void getTrailer(int id) {
+        DownloadInfoForMovieInteractor interactor = new DownloadInfoTrailersInteractorImpl(
+                mExecutor,
+                mMainThread,
+                this,
+                mDetailRepository,
+                id
+        );
+        interactor.execute();
     }
 
     @Override
-    public void getReviews() {
+    public void getReviews(int id) {
         DownloadInfoForMovieInteractor interactor = new DownloadInfoReviewsInteractorImpl(
                 mExecutor,
                 mMainThread,
                 this,
                 mDetailRepository,
-                -1 // TODO: get id
+                id // TODO: get id
         );
         interactor.execute();
     }

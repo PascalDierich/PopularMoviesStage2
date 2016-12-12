@@ -13,9 +13,9 @@ public interface DetailPresenter extends BasePresenter {
 
     }
 
-    void getTrailer();
+    void getTrailer(int id);
 
-    void getReviews();
+    void getReviews(int id);
 
     void saveAsFavorite();
 }
