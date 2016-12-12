@@ -14,7 +14,6 @@ import java.io.IOException;
  */
 
 public class DetailRepositoryImpl implements DetailInfoMoviesRepository {
-    private static final String LOG_TAG = DetailRepositoryImpl.class.getSimpleName();
 
     private DetailService mClient;
 
@@ -31,11 +30,6 @@ public class DetailRepositoryImpl implements DetailInfoMoviesRepository {
 
             return page;
         } catch (IOException e) {
-            Log.d(LOG_TAG, "downloadPopularMovies: Exception while call.execute.body() --> \n" + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "downloadPopularMovies: Exception while retrofite.execute " + "\n" +
-                    " --> " + e.fillInStackTrace());
             e.printStackTrace();
         }
 
@@ -50,11 +44,8 @@ public class DetailRepositoryImpl implements DetailInfoMoviesRepository {
 
             return page;
         } catch (IOException e) {
-            Log.d(LOG_TAG, "downloadPopularMovies: Exception while call.execute.body() --> \n" + e.getMessage());
             e.printStackTrace();
         } catch (Exception e) {
-            Log.e(LOG_TAG, "downloadPopularMovies: Exception while retrofit.execute " + "\n" +
-                    " --> " + e.fillInStackTrace());
             e.printStackTrace();
         }
         return null;

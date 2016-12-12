@@ -15,7 +15,6 @@ import retrofit2.Call;
  */
 
 public class MoviesRepositoryImpl implements MoviesRepository {
-    private static final String LOG_TAG = "MoviesRepositoryImpl";
 
     private DownloadService mClient;
 
@@ -32,11 +31,6 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 
             return movieList;
         } catch (IOException e) {
-            Log.d(LOG_TAG, "downloadPopularMovies: Exception while call.execute.body() --> \n" + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            Log.e(LOG_TAG, "downloadPopularMovies: Exception while retrofite.execute " + "\n" +
-                    " --> " + e.fillInStackTrace());
             e.printStackTrace();
         }
         return null; // TODO

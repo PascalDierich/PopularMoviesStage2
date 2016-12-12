@@ -14,7 +14,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RestClient {
-    private static final String LOG_TAG = "RestClient";
 
     private static final String BASE_URL = "https://api.themoviedb.org/";
 
@@ -29,7 +28,6 @@ public class RestClient {
     }
 
     public static <T> T getService(Class<T> serviceClass) {
-        Log.d(LOG_TAG, "getService: is initializing");
         return s_retrofit.create(serviceClass);
     }
 }

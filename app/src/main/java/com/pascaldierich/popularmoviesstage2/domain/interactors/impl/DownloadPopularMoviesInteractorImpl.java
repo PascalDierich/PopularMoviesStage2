@@ -12,7 +12,6 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
  */
 
 public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor implements DownloadMoviesInteractor {
-    private static final String LOG_TAG = DownloadPopularMoviesInteractorImpl.class.getSimpleName();
 
     private DownloadMoviesInteractor.Callback mCallback;
     private MoviesRepository mRepository;

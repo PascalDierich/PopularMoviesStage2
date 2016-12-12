@@ -57,10 +57,6 @@ public abstract class AbstractInteractor implements Interactor {
 
         // mark this interactor as running
         this.mIsRunning = true;
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            Log.d(LOG_TAG, "execute: MainThread");
-        }
-        Log.d(LOG_TAG, "execute: NOT MatinThread");
 
         // start running this interactor in a background thread
         mThreadExecutor.execute(this);
