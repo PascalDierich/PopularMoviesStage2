@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
@@ -10,6 +11,14 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 
 public class DetailFragment extends Fragment implements BaseView {
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(false);
+
+        initPresenter();
+    }
 
 
     @Override
@@ -24,6 +33,11 @@ public class DetailFragment extends Fragment implements BaseView {
 
     @Override
     public void showError(String message) {
+
+    }
+
+    @Override
+    public void initPresenter() {
 
     }
 }

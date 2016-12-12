@@ -4,18 +4,17 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePr
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by pascaldierich on 08.12.16.
  */
 
-public interface DetailPresenter extends BasePresenter {
+public interface MainActivityPresenter extends BasePresenter {
 
     interface View extends BaseView {
-
+        boolean getUiMode();
+        void setTwoPaneMode(boolean twoPaneMode);
     }
 
-    void getTrailer(int id);
+    void setUiMode();
 
-    void getReviews(int id);
 
-    void saveAsFavorite();
 }

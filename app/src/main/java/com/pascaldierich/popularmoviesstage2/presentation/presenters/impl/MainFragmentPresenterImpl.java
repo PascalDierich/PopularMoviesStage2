@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
@@ -14,31 +15,33 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepositor
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivityPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment;
 
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 08.12.16.
+ * Created by pascaldierich on 12.12.16.
  */
 
-public class MainPresenterImpl extends AbstractPresenter implements MainPresenter,
+public class MainFragmentPresenterImpl extends AbstractPresenter implements MainFragmentPresenter,
         DownloadMoviesInteractor.Callback,
         QueryFavoriteMoviesInteractor.Callback {
-    private static final String LOG_TAG = MainPresenterImpl.class.getSimpleName();
+    private static final String LOG_TAG = MainFragmentPresenterImpl.class.getSimpleName();
 
-    private MainPresenter.View mView;
+    private MainFragmentPresenter.View mView;
     private MoviesRepository mMoviesRepository;
     private FavoriteRepository mFavoriteRepository;
 
-    public MainPresenterImpl(Executor executor,
-                             MainThread mainThread,
-                             View view,
-                             MoviesRepository moviesRepository,
-                             FavoriteRepository favoriteRepository) {
-        super(executor, mainThread);
+    public MainFragmentPresenterImpl(Executor executor,
+                                     MainThread mainThread,
+                                     Bundle savedInstanceState,
+                                     MainFragmentPresenter.View view,
+                                     MoviesRepository moviesRepository,
+                                     FavoriteRepository favoriteRepository) {
+        super(executor, mainThread, savedInstanceState);
         this.mView = view;
         this.mMoviesRepository = moviesRepository;
         this.mFavoriteRepository = favoriteRepository;

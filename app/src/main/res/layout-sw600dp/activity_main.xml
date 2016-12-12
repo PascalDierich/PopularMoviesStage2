@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/fragment_movies"
-        android:name="com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MovieFragment"
+        android:name="com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"

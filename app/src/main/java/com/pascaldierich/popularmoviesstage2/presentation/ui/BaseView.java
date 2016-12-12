@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui;
 
+import android.os.Bundle;
+
 /**
  * Created by pascaldierich on 08.12.16.
  */
@@ -22,5 +24,7 @@ public interface BaseView {
      * @param message The error message to be displayed.
      */
     void showError(String message);
+
+    void initPresenter(Bundle savedInstanceState);
 
 }
