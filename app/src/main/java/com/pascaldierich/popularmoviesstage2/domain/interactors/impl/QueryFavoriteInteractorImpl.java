@@ -23,6 +23,11 @@ public class QueryFavoriteInteractorImpl extends AbstractInteractor implements Q
                                        QueryFavoriteMoviesInteractor.Callback callback,
                                        FavoriteRepository repository) {
         super(threadExecutor, mainThread);
+
+        if (repository == null || callback == null) {
+            throw new IllegalArgumentException("Arguments can not be null");
+        }
+
         this.mCallback = callback;
         this.mRepository = repository;
     }

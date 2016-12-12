@@ -7,8 +7,11 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadInfoForMovieInteractor;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.SaveFavoriteMovieInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoReviewsInteractorImpl;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.SaveFavoriteMovieInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
+import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 
@@ -17,20 +20,24 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.Abstra
  */
 
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
-        DownloadInfoForMovieInteractor.Callback {
+        DownloadInfoForMovieInteractor.Callback,
+        SaveFavoriteMovieInteractor.Callback {
     private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
     private DetailPresenter.View mView;
-    private DetailInfoMoviesRepository mRepository;
+    private DetailInfoMoviesRepository mDetailRepository;
+    private SaveMovieRepository mSaveRepository;
 
     public DetailPresenterImpl(Executor executor,
                                MainThread mainThread,
                                View view,
-                               DetailInfoMoviesRepository repository
+                               DetailInfoMoviesRepository detailRepository,
+                               SaveMovieRepository saveRepository
                                 ) {
         super(executor, mainThread);
         this.mView = view;
-        this.mRepository = repository;
+        this.mDetailRepository = detailRepository;
+        this.mSaveRepository = saveRepository;
 
         getReviews();
         getTrailer();
@@ -48,7 +55,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
                 mExecutor,
                 mMainThread,
                 this,
-                mRepository,
+                mDetailRepository,
                 -1 // TODO: get id
         );
         interactor.execute();
@@ -56,7 +63,16 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 
     @Override
     public void saveAsFavorite() {
-
+        // TODO: make trailer to String (!!!!!!!)
+        SaveFavoriteMovieInteractor interactor = new SaveFavoriteMovieInteractorImpl(
+                mExecutor,
+                mMainThread,
+                this,
+                mSaveRepository,
+                null,
+                null
+        );
+        interactor.execute();
     }
 
     @Override
@@ -86,13 +102,22 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 
     @Override
     public void onDownloadTrailerFinish(PageTrailers page) {
-        Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It");
+        Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It!");
         // TODO: mView.showTrailer()
     }
 
     @Override
     public void onDownloadReviewFinish(PageReviews page) {
-        Log.d(LOG_TAG, "onDownloadReviewFinish: Got it");
+        Log.d(LOG_TAG, "onDownloadReviewFinish: Got It!");
         // TODO: mView.showRevies()
+    }
+
+    @Override
+    public void onSaveFinish(boolean success) {
+        if (success) {
+            Log.d(LOG_TAG, "onSaveFinish: Got It!");
+        } else {
+            Log.d(LOG_TAG, "onSaveFinish: Bad Luck :(");
+        }
     }
 }
