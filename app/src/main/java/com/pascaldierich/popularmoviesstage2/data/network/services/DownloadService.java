@@ -21,6 +21,6 @@ public interface DownloadService {
     Call<Page> getPopular(@Query("api_key") String api_key);
 
     @GET("3/movie/top_rated")
-    Call<ArrayList<Movie>> getTopRated(@Query("api_key") String api_key);
+    Call<Page> getTopRated(@Query("api_key") String api_key);
 
 }

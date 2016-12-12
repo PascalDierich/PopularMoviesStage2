@@ -9,7 +9,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Movie {
-    private static final String LOG_TAG = "Movie";
 
     @SerializedName("id")
     private String mId;
@@ -17,21 +16,20 @@ public class Movie {
     @SerializedName("title")
     private String mTitle;
 
-    @SerializedName("posterPath")
+    @SerializedName("poster_path")
     private String mPosterPath;
 
-    @SerializedName("description")
+    @SerializedName("overview")
     private String mDescription;
 
-    @SerializedName("voteAverage")
+    @SerializedName("vote_average")
     private String mVoteAverage;
 
-    @SerializedName("releaseDate")
+    @SerializedName("release_date")
     private String mReleaseDate;
 
     public Movie(String id, String title, String posterPath,
                  String description, String voteAverage, String releaseData) {
-        Log.d(LOG_TAG, "Movie: got created");
         mId = id;
         mTitle = title;
         mPosterPath = posterPath;

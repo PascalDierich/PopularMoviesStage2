@@ -4,6 +4,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
@@ -27,8 +28,6 @@ public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor impl
                                                Callback callback, MoviesRepository repository) {
         super(threadExecutor, mainThread);
 
-        Log.d(LOG_TAG, "is in constructor");
-
         if (repository == null || callback == null) {
             throw new IllegalArgumentException("Arguments can not be null");
         }
@@ -39,20 +38,11 @@ public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor impl
 
     @Override
     public void run() {
-        Log.d(LOG_TAG, "run: should start now download");
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            Log.d(LOG_TAG, "run: Looper on Main");
-        } else {
-            Log.d(LOG_TAG, "run: Looper NOT on Main");
-        }
-
-        final ArrayList<Movie> movieList = mRepository.downloadPopularMovies();
-        Log.d(LOG_TAG, "movieList got downloaded");
+        final Page movieList = mRepository.downloadPopularMovies();
 
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                Log.d(LOG_TAG, "run: runs");
                 mCallback.onDownloadFinish(movieList);
             }
         });

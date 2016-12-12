@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
@@ -33,7 +34,7 @@ public class DownloadTopRatedMoviesInteractorImpl extends AbstractInteractor imp
 
     @Override
     public void run() {
-        final ArrayList<Movie> movieList = mRepository.downloadTopRatedMovies();
+        final Page movieList = mRepository.downloadTopRatedMovies();
 
         mMainThread.post(new Runnable() {
             @Override

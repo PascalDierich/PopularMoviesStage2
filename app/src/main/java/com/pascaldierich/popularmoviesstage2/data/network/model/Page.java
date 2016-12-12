@@ -1,5 +1,9 @@
 package com.pascaldierich.popularmoviesstage2.data.network.model;
 
+import android.util.Log;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -9,8 +13,10 @@ import java.util.ArrayList;
 public class Page {
     private static final String LOG_TAG = Page.class.getSimpleName();
 
+    @SerializedName("page")
     private int mPage;
 
+    @SerializedName("results")
     private ArrayList<Movie> mResults;
 
     public Page(int page, ArrayList<Movie> results) {
@@ -22,15 +28,7 @@ public class Page {
         return this.mPage;
     }
 
-    public ArrayList<Movie> getmResults() {
+    public ArrayList<Movie> getResults() {
         return this.mResults;
-    }
-
-    public void setPage(int page) {
-        this.mPage = page;
-    }
-
-    public void setResults(ArrayList<Movie> results) {
-        this.mResults = results;
     }
 }

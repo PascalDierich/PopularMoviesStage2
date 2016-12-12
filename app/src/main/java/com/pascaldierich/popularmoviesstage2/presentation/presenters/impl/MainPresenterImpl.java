@@ -3,28 +3,22 @@ package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 import android.os.Looper;
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
-import com.pascaldierich.popularmoviesstage2.domain.interactors.TestInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadPopularMoviesInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadTopRatedMoviesInteractorImpl;
-import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.TestInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by pascaldierich on 08.12.16.
  */
 
 public class MainPresenterImpl extends AbstractPresenter implements MainPresenter,
-        DownloadMoviesInteractor.Callback,
-        TestInteractor.Callback {
+        DownloadMoviesInteractor.Callback {
     private static final String LOG_TAG = MainPresenterImpl.class.getSimpleName();
 
     private MainPresenter.View mView;
@@ -47,7 +41,6 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
             Log.d(LOG_TAG, "constructor: is NOT on Main Thread");
         }
         getPopularMovies();
-        startTest();
     }
 
     @Override
@@ -76,8 +69,8 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     }
 
     @Override
-    public void onDownloadFinish(ArrayList<Movie> movies) {
-        if (movies == null || movies.size() == 0) {
+    public void onDownloadFinish(Page movies) {
+        if (movies == null || movies.getResults().size() == 0) {
             throw new IllegalArgumentException("Arguments can not be null");
         }
         Log.d(LOG_TAG, "onDownloadFinish with movieList != null");
@@ -94,14 +87,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
                 this,
                 mMoviesRepository // --> MoviesRepositoryImplementation
         );
-        Log.d(LOG_TAG, "downloadInteractor is going to execute");
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            Log.d(LOG_TAG, "getPopularMovies: MainThread");
-        } else {
-            Log.d(LOG_TAG, "getPopularMovies: NOT MainThread");
-        }
         downloadInteractor.execute();
-        Log.d(LOG_TAG, "getPopularMovies: ");
     }
 
     @Override
@@ -118,20 +104,5 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
     @Override
     public void getFavoriteMovies() {
 
-    }
-
-    @Override
-    public void startTest() {
-        TestInteractor testInteractor = new TestInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this
-        );
-        testInteractor.execute();
-    }
-
-    @Override
-    public void onTestFinish(int i) {
-        Log.d(LOG_TAG, "onTestFinish: test finished with i = " + i);
     }
 }
