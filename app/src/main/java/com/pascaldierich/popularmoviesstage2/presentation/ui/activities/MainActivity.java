@@ -1,12 +1,12 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.MoviesRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainPresenterImpl;
@@ -23,22 +23,16 @@ public class MainActivity extends AppCompatActivity implements MainPresenter.Vie
         Log.d(LOG_TAG, "onCreate: lakf");
         setContentView(R.layout.activity_main);
 
-        init();
+        initMainPresenter();
     }
 
-    private void init() {
-        Log.d(LOG_TAG, "init()");
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            Log.d(LOG_TAG, "MainAcitivity: is on Main Thread");
-        } else {
-            Log.d(LOG_TAG, "MainAcitivity: is NOT on Main Thread");
-        }
-
+    private void initMainPresenter() {
         mMainPresenter = new MainPresenterImpl(
                 ThreadExecutor.getInstance(), // TODO inject dependencies
                 MainThreadImpl.getInstance(),
                 this,
-                new MoviesRepositoryImpl()
+                new MoviesRepositoryImpl(),
+                new FavoriteRepositoryImpl(this)
         );
     }
 

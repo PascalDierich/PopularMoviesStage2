@@ -7,40 +7,42 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.Page;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.QueryFavoriteMoviesInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadPopularMoviesInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadTopRatedMoviesInteractorImpl;
+import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.QueryFavoriteInteractorImpl;
+import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepository;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
+
+import java.util.ArrayList;
 
 /**
  * Created by pascaldierich on 08.12.16.
  */
 
 public class MainPresenterImpl extends AbstractPresenter implements MainPresenter,
-        DownloadMoviesInteractor.Callback {
+        DownloadMoviesInteractor.Callback,
+        QueryFavoriteMoviesInteractor.Callback {
     private static final String LOG_TAG = MainPresenterImpl.class.getSimpleName();
 
     private MainPresenter.View mView;
     private MoviesRepository mMoviesRepository;
+    private FavoriteRepository mFavoriteRepository;
 
     public MainPresenterImpl(Executor executor,
                              MainThread mainThread,
                              View view,
-                             MoviesRepository moviesRepository) {
+                             MoviesRepository moviesRepository,
+                             FavoriteRepository favoriteRepository) {
         super(executor, mainThread);
         this.mView = view;
         this.mMoviesRepository = moviesRepository;
+        this.mFavoriteRepository = favoriteRepository;
 
-        /*
-        for test reasons
-         */
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            Log.d(LOG_TAG, "constructor: is on Main Thread");
-        } else {
-            Log.d(LOG_TAG, "constructor: is NOT on Main Thread");
-        }
-        getPopularMovies();
+        getPopularMovies(); // TODO: ändern zu get InitialData -> read out preferences
+        getFavoriteMovies();
     }
 
     @Override
@@ -85,7 +87,7 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
                 mExecutor,
                 mMainThread,
                 this,
-                mMoviesRepository // --> MoviesRepositoryImplementation
+                mMoviesRepository
         );
         downloadInteractor.execute();
     }
@@ -103,6 +105,18 @@ public class MainPresenterImpl extends AbstractPresenter implements MainPresente
 
     @Override
     public void getFavoriteMovies() {
+        QueryFavoriteMoviesInteractor queryInteractor = new QueryFavoriteInteractorImpl(
+                mExecutor,
+                mMainThread,
+                this,
+                mFavoriteRepository
+        );
+        Log.d(LOG_TAG, "getFavoriteMovies: going to execute queryInteractor");
+        queryInteractor.execute();
+    }
 
+    @Override
+    public void onQueryFinished(ArrayList<String[]> faveMovies) {
+        Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
     }
 }

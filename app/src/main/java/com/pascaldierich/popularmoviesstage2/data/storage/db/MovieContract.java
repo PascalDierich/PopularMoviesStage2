@@ -1,4 +1,4 @@
-package com.pascaldierich.popularmoviesstage2.data.storage;
+package com.pascaldierich.popularmoviesstage2.data.storage.db;
 
 import android.content.ContentUris;
 import android.net.Uri;
@@ -12,7 +12,7 @@ public abstract class MovieContract {
 
     static final String DB_NAME = "popularMovies.db";
 
-    static final String CONTENT_AUTHORITY = "com.pascaldierich.popularmovies";
+    static final String CONTENT_AUTHORITY = "com.pascaldierich.popularmoviesstage2";
     private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     static final String MOVIE_PATH = "movies";
 

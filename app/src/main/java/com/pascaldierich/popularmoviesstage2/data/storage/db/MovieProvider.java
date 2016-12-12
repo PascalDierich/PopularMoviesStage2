@@ -1,4 +1,4 @@
-package com.pascaldierich.popularmoviesstage2.data.storage;
+package com.pascaldierich.popularmoviesstage2.data.storage.db;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

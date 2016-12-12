@@ -11,7 +11,10 @@
 
     <string name="poster_path" translatable="false">https://image.tmdb.org/t/p/w500</string>
 
-
+    <!-- ################### -->
+    <!-- # ContentProvider # -->
+    <!-- ################### -->
+    <string name="content_authority">com.pascaldierich.popularmoviesstage2</string>
 
 
 
