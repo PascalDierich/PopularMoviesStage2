@@ -4,6 +4,8 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.pascaldierich.popularmoviesstage2.R;
+
 /**
  * Created by pascaldierich on 12.12.16.
  */
