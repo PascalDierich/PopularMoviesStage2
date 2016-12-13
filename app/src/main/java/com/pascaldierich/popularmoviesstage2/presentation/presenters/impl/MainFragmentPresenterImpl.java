@@ -1,8 +1,15 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListView;
 
+import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
@@ -18,6 +25,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.model.Detai
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivityPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment;
 
 import java.util.ArrayList;
@@ -35,6 +43,13 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
     private MoviesRepository mMoviesRepository;
     private FavoriteRepository mFavoriteRepository;
 
+    private boolean mTwoPaneMode;
+
+    private ImageAdapter mImageAdapter;
+
+    private ListView mListView;
+    private GridView mGridView;
+
     public MainFragmentPresenterImpl(Executor executor,
                                      MainThread mainThread,
                                      Bundle savedInstanceState,
@@ -46,9 +61,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
         this.mMoviesRepository = moviesRepository;
         this.mFavoriteRepository = favoriteRepository;
 
+
+
         getPopularMovies(); // TODO: ändern zu get InitialData -> read out preferences
-        getFavoriteMovies();
-        getTopRatedMovies();
+//        getFavoriteMovies();
+//        getTopRatedMovies();
     }
 
     @Override
@@ -78,6 +95,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
     @Override
     public void onDownloadFinish(PageMovies movies) {
+        mView.hideProgress();
         if (movies == null || movies.getResults().size() == 0) {
             throw new IllegalArgumentException("Arguments can not be null");
         }
@@ -86,9 +104,10 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
         if (movieObjectArrayList == null) {
             Log.d(LOG_TAG, "onDownloadFinish: is Null... :(");
         }
-        Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = "  +movieObjectArrayList.size());
+        Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = "  + movieObjectArrayList.size());
         // TODO: mView.showMovies()
 
+        mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
     }
 
     @Override
@@ -121,7 +140,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
                 this,
                 mFavoriteRepository
         );
-        Log.d(LOG_TAG, "getFavoriteMovies: going to execute queryInteractor");
         queryInteractor.execute();
     }
 

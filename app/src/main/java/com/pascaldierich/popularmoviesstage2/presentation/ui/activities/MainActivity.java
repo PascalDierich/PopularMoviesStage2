@@ -2,6 +2,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.MoviesRepositoryImpl;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     @Override
     public void setTwoPaneMode(boolean twoPaneMode) {
         if (twoPaneMode) {
+            Log.d(LOG_TAG, "setTwoPaneMode: true");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.movie_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                     .commit();
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         }
 
         MainFragment mainFragment = ((MainFragment)getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_movies));
+                .findFragmentById(R.id.fragment_main));
         mainFragment.setUseGridLayout(mTwoPaneMode);
     }
 

@@ -1,12 +1,15 @@
 package com.pascaldierich.popularmoviesstage2.presentation.converters;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -48,6 +51,18 @@ public class Converter {
                 object.getmRating(),
                 bitmapToByteArray(object.getmThumbnail())
         );
+    }
+
+    public static ArrayList<GridItem> ArrayListWithDetailMovieObjectToArrayListWithGridItem(ArrayList<DetailMovieObject> pageMovies) {
+        ArrayList<GridItem> result = new ArrayList<>();
+
+        for (DetailMovieObject movie: pageMovies) {
+            result.add(new GridItem(
+                    movie.getmPosterPath()
+            ));
+        }
+
+        return result;
     }
 
     public static byte[] bitmapToByteArray(Bitmap bitmap) {

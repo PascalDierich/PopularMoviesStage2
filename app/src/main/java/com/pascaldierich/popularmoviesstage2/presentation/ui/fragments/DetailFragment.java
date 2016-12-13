@@ -17,7 +17,7 @@ public class DetailFragment extends Fragment implements BaseView {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(false);
 
-        initPresenter();
+        initPresenter(savedInstanceState);
     }
 
 
@@ -37,7 +37,7 @@ public class DetailFragment extends Fragment implements BaseView {
     }
 
     @Override
-    public void initPresenter() {
+    public void initPresenter(Bundle savedInstaceState) {
 
     }
 }
