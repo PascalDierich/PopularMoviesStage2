@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 
 /**
@@ -26,5 +27,7 @@ public interface BaseView {
     void showError(String message);
 
     void initPresenter(Bundle savedInstanceState);
+
+    Context getApplicationContext();
 
 }

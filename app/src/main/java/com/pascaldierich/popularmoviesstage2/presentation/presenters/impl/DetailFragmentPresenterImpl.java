@@ -39,7 +39,7 @@ public class DetailFragmentPresenterImpl extends AbstractPresenter implements De
     }
 
     @Override
-    public void onError(String message) {
+    public void onError(int code) {
 
     }
 }

@@ -42,7 +42,10 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
         this.mDetailRepository = detailRepository;
         this.mSaveRepository = saveRepository;
 
-        getReviews(550);
+        /*
+        only for test reasons
+         */
+        getReviews(550); // TODO: get Id from ImageAdapter -> do this after UI testable
         getTrailer(550);
     }
 
@@ -104,7 +107,7 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
     }
 
     @Override
-    public void onError(String message) {
+    public void onError(int code) {
 
     }
 

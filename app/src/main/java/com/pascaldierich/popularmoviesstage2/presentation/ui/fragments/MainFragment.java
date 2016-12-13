@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -67,7 +68,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
     @Override
     public void hideProgress() {
-        mProgressBar.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -76,9 +77,14 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
     }
 
     @Override
+    public Context getApplicationContext() {
+        return getContext();
+    }
+
+    @Override
     public void initPresenter(Bundle savedInstanceState) {
         mPresenter = new MainFragmentPresenterImpl(
-                ThreadExecutor.getInstance(), // TODO inject dependencies
+                ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 savedInstanceState,
                 this,

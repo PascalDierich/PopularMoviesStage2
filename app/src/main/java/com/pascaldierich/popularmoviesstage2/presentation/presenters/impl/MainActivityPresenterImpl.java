@@ -75,7 +75,7 @@ public class MainActivityPresenterImpl extends AbstractPresenter implements Main
     }
 
     @Override
-    public void onError(String message) {
+    public void onError(int code) {
 
     }
 

@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -34,6 +35,11 @@ public class DetailFragment extends Fragment implements BaseView {
     @Override
     public void showError(String message) {
 
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return getContext();
     }
 
     @Override

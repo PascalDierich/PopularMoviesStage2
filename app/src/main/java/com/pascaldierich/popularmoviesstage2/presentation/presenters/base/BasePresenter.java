@@ -34,5 +34,5 @@ public interface BasePresenter {
     /**
      * Method that should signal the appropriate view to show the appropriate error with the provided message.
      */
-    void onError(String message);
+    void onError(int code);
 }

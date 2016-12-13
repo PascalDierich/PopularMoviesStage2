@@ -6,6 +6,7 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReview
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.network.services.DetailService;
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ public class DetailRepositoryImpl implements DetailInfoMoviesRepository {
         PageTrailers page;
 
         try {
-            page = mClient.getTrailers(id, "5c359398433009bb5d168d4cfb3e5cf3").execute().body(); // TODO: get id
+            page = mClient.getTrailers(id, ConstantsHolder.getApiKey()).execute().body();
 
             return page;
         } catch (IOException e) {
@@ -40,7 +41,7 @@ public class DetailRepositoryImpl implements DetailInfoMoviesRepository {
     public PageReviews downloadReviews(int id) {
         PageReviews page;
         try {
-            page = mClient.getReviews(id, "5c359398433009bb5d168d4cfb3e5cf3").execute().body(); // TODO: get id
+            page = mClient.getReviews(id, ConstantsHolder.getApiKey()).execute().body();
 
             return page;
         } catch (IOException e) {

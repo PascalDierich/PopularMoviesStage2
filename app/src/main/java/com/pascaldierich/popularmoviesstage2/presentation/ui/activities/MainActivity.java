@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,11 +50,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     @Override
     public void initPresenter(Bundle savedInstanceState) {
         mMainPresenter = new MainActivityPresenterImpl(
-                ThreadExecutor.getInstance(), // TODO inject dependencies
+                ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 savedInstanceState,
                 this
         );
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return this;
     }
 
     @Override

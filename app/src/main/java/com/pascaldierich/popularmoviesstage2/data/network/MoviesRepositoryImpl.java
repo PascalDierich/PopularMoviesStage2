@@ -5,6 +5,7 @@ import android.util.Log;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.data.network.services.DownloadService;
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 import java.io.IOException;
 
@@ -27,7 +28,7 @@ public class MoviesRepositoryImpl implements MoviesRepository {
         PageMovies movieList;
 
         try {
-            movieList = mClient.getPopular("5c359398433009bb5d168d4cfb3e5cf3").execute().body();
+            movieList = mClient.getPopular(ConstantsHolder.getApiKey()).execute().body();
 
             return movieList;
         } catch (IOException e) {
@@ -38,15 +39,16 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 
     @Override
     public PageMovies downloadTopRatedMovies() {
-        Call<PageMovies> call = mClient.getTopRated("5c359398433009bb5d168d4cfb3e5cf3"); // TODO: Api_key in strings.xml
+        Call<PageMovies> call = mClient.getTopRated(ConstantsHolder.getApiKey());
         PageMovies movieList = null;
 
         try {
             movieList = call.execute().body();
+            return movieList;
         } catch (IOException e) {
             e.fillInStackTrace();
         }
 
-        return movieList;
+        return null;
     }
 }

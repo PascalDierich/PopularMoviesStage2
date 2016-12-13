@@ -27,6 +27,9 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmen
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
+import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
+import com.pascaldierich.popularmoviesstage2.utils.Utiliy;
 
 import java.util.ArrayList;
 
@@ -89,23 +92,28 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
     }
 
     @Override
-    public void onError(String message) {
-
+    public void onError(int code) {
+        switch (code) {
+            case ErrorCodes.Network.DOWNLOAD_NULL : {
+                // TODO: tell User about Problem
+                // TODO: and check for Connection
+                Utiliy.connectionCheck(); // -> returns boolean
+            }
+        }
     }
 
     @Override
     public void onDownloadFinish(PageMovies movies) {
         mView.hideProgress();
+
         if (movies == null || movies.getResults().size() == 0) {
-            throw new IllegalArgumentException("Arguments can not be null");
+            onError(ErrorCodes.Network.DOWNLOAD_NULL);
+            return;
         }
+
         ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
-        if (movieObjectArrayList == null) {
-            Log.d(LOG_TAG, "onDownloadFinish: is Null... :(");
-        }
         Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = "  + movieObjectArrayList.size());
-        // TODO: mView.showMovies()
 
         mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
     }
