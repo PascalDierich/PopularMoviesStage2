@@ -130,7 +130,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
     @Override
     public void startDetailActivity(int position) {
         Intent intent = new Intent(getActivity(), DetailActivity.class)
-                .putExtra("", position);
+                .putExtra(getString(R.string.intent_string_key), position);
         startActivity(intent);
     }
 

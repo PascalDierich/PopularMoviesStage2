@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 
@@ -11,6 +12,8 @@ public interface DetailActivityPresenter extends BasePresenter {
 
     interface View extends BaseView {
         int getSelectedMovieId();
+
+        void showGivenData(DetailMovieObject movie);
     }
 
     void checkSelectedMovie();

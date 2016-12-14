@@ -14,6 +14,8 @@ public interface BaseView {
      */
     void showProgress();
 
+    // TODO: 14.12.16 initViews
+
     /**
      * This is a general method used for hiding progress information after a background task finishes.
      */

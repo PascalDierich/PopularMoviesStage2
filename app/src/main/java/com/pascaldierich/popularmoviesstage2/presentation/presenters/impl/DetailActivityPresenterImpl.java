@@ -49,17 +49,12 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
         this.mSaveRepository = saveRepository;
 
         checkSelectedMovie();
-        
-        /*
-        only for test reasons
-         */
-//        getReviews(550); // TODO: get Id from ImageAdapter -> do this after UI testable
-//        getTrailer(550);
     }
     
     @Override
     public void checkSelectedMovie() {
         this.mMovieInternId = mView.getSelectedMovieId();
+        Log.d(LOG_TAG, "checkSelectedMovie: intern Movie Id = " + mMovieInternId);
         if (this.mMovieInternId == ErrorCodes.internCommunication.NO_SELECTED_MOVIE) {
             onError(ErrorCodes.internCommunication.NO_SELECTED_MOVIE);
             return;
@@ -86,6 +81,7 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
     
     @Override
     public void showGivenData() {
+        mView.showGivenData(this.mDetailMovieObject);
         // TODO: 14.12.16 mView.mTextViewTitle.setText(this.mDetailMovieObject) ... etc 
     }
 
@@ -153,6 +149,7 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
 
     @Override
     public void onError(int code) {
+        Log.d(LOG_TAG, "onError: Error Code: " + code);
         // TODO: 14.12.16 handle Errors 
     }
 

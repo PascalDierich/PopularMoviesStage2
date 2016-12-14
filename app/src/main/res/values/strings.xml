@@ -20,5 +20,10 @@
     <!-- ################### -->
     <string name="content_authority">com.pascaldierich.popularmoviesstage2</string>
 
+    <!-- ######################## -->
+    <!-- # Intern Communication # -->
+    <!-- ######################## -->
+    <string name="intent_string_key">intern position key</string>
+
 
 </resources>
