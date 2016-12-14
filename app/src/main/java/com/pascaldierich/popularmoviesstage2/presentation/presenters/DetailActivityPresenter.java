@@ -10,9 +10,16 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 public interface DetailActivityPresenter extends BasePresenter {
 
     interface View extends BaseView {
-
+        int getSelectedMovieId();
     }
 
+    void checkSelectedMovie();
+
+    void getDetailMovieObject();
+
+    void showGivenData();
+
+    // Network
     void getTrailer(int id);
 
     void getReviews(int id);

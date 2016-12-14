@@ -15,8 +15,11 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.SaveFavorit
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailActivityPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
+import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 
 /**
  * Created by pascaldierich on 10.12.16.
@@ -30,6 +33,9 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
     private DetailActivityPresenter.View mView;
     private DetailInfoMoviesRepository mDetailRepository;
     private SaveMovieRepository mSaveRepository;
+    
+    private int mMovieInternId;
+    private DetailMovieObject mDetailMovieObject;
 
     public DetailActivityPresenterImpl(Executor executor,
                                        MainThread mainThread,
@@ -42,16 +48,52 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
         this.mDetailRepository = detailRepository;
         this.mSaveRepository = saveRepository;
 
+        checkSelectedMovie();
+        
         /*
         only for test reasons
          */
-        getReviews(550); // TODO: get Id from ImageAdapter -> do this after UI testable
-        getTrailer(550);
+//        getReviews(550); // TODO: get Id from ImageAdapter -> do this after UI testable
+//        getTrailer(550);
+    }
+    
+    @Override
+    public void checkSelectedMovie() {
+        this.mMovieInternId = mView.getSelectedMovieId();
+        if (this.mMovieInternId == ErrorCodes.internCommunication.NO_SELECTED_MOVIE) {
+            onError(ErrorCodes.internCommunication.NO_SELECTED_MOVIE);
+            return;
+        }
+        getDetailMovieObject();
+    }
+    
+    @Override
+    public void getDetailMovieObject() {
+        this.mDetailMovieObject = ConstantsHolder.getDownloadedDataFromPosition(this.mMovieInternId);
+        int _id;
+        showGivenData();
+        try {
+            _id = mDetailMovieObject.getmId();
+        } catch (Exception e) {
+            onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
+            Log.e(LOG_TAG, "getDetailMovieObject: couldnt get MovieID" + "\n" +
+                    " --> " + e.fillInStackTrace());
+            return;
+        }
+        getTrailer(_id);
+        getReviews(_id);
+    }
+    
+    @Override
+    public void showGivenData() {
+        // TODO: 14.12.16 mView.mTextViewTitle.setText(this.mDetailMovieObject) ... etc 
     }
 
     @Override
-
     public void getTrailer(int id) {
+        if (id == ErrorCodes.internCommunication.NOT_ENOUGH_INFO) {
+            onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
+        }
         DownloadInfoForMovieInteractor interactor = new DownloadInfoTrailersInteractorImpl(
                 mExecutor,
                 mMainThread,
@@ -64,6 +106,9 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
 
     @Override
     public void getReviews(int id) {
+        if (id == ErrorCodes.internCommunication.NOT_ENOUGH_INFO) {
+            onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
+        }
         DownloadInfoForMovieInteractor interactor = new DownloadInfoReviewsInteractorImpl(
                 mExecutor,
                 mMainThread,
@@ -108,7 +153,7 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
 
     @Override
     public void onError(int code) {
-
+        // TODO: 14.12.16 handle Errors 
     }
 
     @Override

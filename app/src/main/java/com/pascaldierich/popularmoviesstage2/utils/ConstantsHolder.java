@@ -29,4 +29,8 @@ public class ConstantsHolder {
         return sDownloadedData;
     }
 
+    public static DetailMovieObject getDownloadedDataFromPosition(int position) {
+        return sDownloadedData.get(position);
+    }
+
 }

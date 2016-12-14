@@ -8,12 +8,21 @@ public abstract class ErrorCodes {
 
     /*
     Network Codes
-        -> 1xx
+        -> -1xx
      */
     public static class Network {
-        public static final int NO_INTERNET = 100;
-        public static final int DOWNLOAD_NULL = 101;
+        public static final int NO_INTERNET = -100;
+        public static final int DOWNLOAD_NULL = -101;
     }
 
+    /*
+    Intern Communication
+        -> -2xx
+     */
+    public static class internCommunication {
+        public static final int OBJECT_NULL = -200;
+        public static final int NO_SELECTED_MOVIE = -201;
+        public static final int NOT_ENOUGH_INFO = -202;
+    }
 
 }
