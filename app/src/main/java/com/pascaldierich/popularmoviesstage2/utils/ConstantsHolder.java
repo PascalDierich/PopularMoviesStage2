@@ -1,5 +1,9 @@
 package com.pascaldierich.popularmoviesstage2.utils;
 
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by pascaldierich on 13.12.16.
  */
@@ -15,23 +19,14 @@ public class ConstantsHolder {
         return sApiKey;
     }
 
+    private static ArrayList<DetailMovieObject> sDownloadedData;
 
-    /*
-     *****************
-     * Error Messages
-     *****************
-     */
-
-    private static String sErrorMessageInterDownloadNull;
-
-    public static void setErrorMessageInterDownloadNull(String a) {
-        sErrorMessageInterDownloadNull = a;
+    public static void setDownloadedData(ArrayList<DetailMovieObject> list) {
+        sDownloadedData = list;
     }
 
-    public static String getErrorMessageInterDownloadNull() {
-        return sErrorMessageInterDownloadNull;
+    public static ArrayList<DetailMovieObject> getDownloadedData() {
+        return sDownloadedData;
     }
-
-
 
 }

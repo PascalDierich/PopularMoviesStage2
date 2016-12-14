@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
@@ -14,11 +15,13 @@ import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.MoviesRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainFragmentPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 import java.util.ArrayList;
 
@@ -107,14 +110,25 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
             Log.d(LOG_TAG, "showMovies: selected grid_view_layout");
         }
 
-
         mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
         mGridView.setAdapter(mImageAdapter);
 
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // position in GridView = position in ArrayList in ConstantsHolder
+                DetailMovieObject clickedMovie = ConstantsHolder.getDownloadedData().get((int) id);
+    
+                // TODO: 14.12.16 give clickedMovie to Presenter and let him do the rest (start Activity/fragment etc) 
+                // TODO: 14.12.16 get Data from specific view ?!?! 
+            }
+        });
     }
 
     @Override
     public boolean getTwoPaneMode() {
         return mTwoPaneMode;
     }
+    
 }

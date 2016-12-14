@@ -22,6 +22,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.model.Detai
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 import com.pascaldierich.popularmoviesstage2.utils.Utility;
 
@@ -123,9 +124,16 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
         ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
+        ConstantsHolder.setDownloadedData(movieObjectArrayList);
+
         Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = "  + movieObjectArrayList.size());
 
         mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
+    }
+
+    @Override
+    public void onItemClick() {
+
     }
 
     @Override
