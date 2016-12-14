@@ -43,5 +43,4 @@ public class DownloadInfoTrailersInteractorImpl extends AbstractInteractor imple
             }
         });
     }
-
 }

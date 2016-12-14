@@ -2,6 +2,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
     }
 
     @Override
+    @NonNull
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
@@ -56,11 +58,12 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
                 + "?api_key="
                 + context.getString(R.string.api_key);
 
-        Log.d(LOG_TAG, "getView: imURL = " + imageURL);
-
-        Picasso.with(context).load(imageURL)
+        Picasso.with(context)
+                .load(imageURL)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(holder.imageView);
+
+        Log.d(LOG_TAG, "getView: image loaded into image_for_adapter with URL = " + imageURL);
 
         return convertView;
     }

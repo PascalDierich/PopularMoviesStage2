@@ -6,14 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
-import com.pascaldierich.popularmoviesstage2.data.network.MoviesRepositoryImpl;
-import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivityPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainActivityPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.DetailFragment;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -27,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ConstantsHolder.setApiKey(getString(R.string.api_key));
+        Log.d(LOG_TAG, "onCreate: api_key = " + getString(R.string.api_key));
 
         initPresenter(savedInstanceState);
     }

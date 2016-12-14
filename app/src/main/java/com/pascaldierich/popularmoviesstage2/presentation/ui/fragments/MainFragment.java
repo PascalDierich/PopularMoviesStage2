@@ -3,7 +3,6 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +98,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
     @Override
     public void showMovies(ArrayList<GridItem> movies) {
-        Log.d(LOG_TAG, "showMovies: downloadFinished -> show movies :" + movies.size());
         mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies); // TODO (!!!)
 
         mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);

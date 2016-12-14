@@ -49,8 +49,8 @@ public class DetailActivityPresenterImpl extends AbstractPresenter implements De
         getTrailer(550);
     }
 
-
     @Override
+
     public void getTrailer(int id) {
         DownloadInfoForMovieInteractor interactor = new DownloadInfoTrailersInteractorImpl(
                 mExecutor,

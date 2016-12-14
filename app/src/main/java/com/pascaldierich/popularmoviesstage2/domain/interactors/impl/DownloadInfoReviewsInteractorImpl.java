@@ -30,6 +30,7 @@ public class DownloadInfoReviewsInteractorImpl extends AbstractInteractor implem
         this.mId = id;
         this.mCallback = callback;
         this.mRepository = repository;
+
     }
 
     @Override

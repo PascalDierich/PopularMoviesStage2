@@ -30,12 +30,12 @@ public class DownloadPopularMoviesInteractorImpl extends AbstractInteractor impl
 
     @Override
     public void run() {
-        final PageMovies movieList = mRepository.downloadPopularMovies();
+        final PageMovies MOVIE_LIST = mRepository.downloadPopularMovies();
 
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                mCallback.onDownloadFinish(movieList);
+                mCallback.onDownloadFinish(MOVIE_LIST);
             }
         });
     }

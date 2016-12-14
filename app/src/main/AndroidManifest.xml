@@ -2,10 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pascaldierich.popularmoviesstage2">
 
+    <!-- STORAGE-PERMISSION-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- INTERNET-PERMISSION -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- NETWORK-STATE-PERMISSION-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +33,9 @@
             android:authorities="@string/content_authority"
             android:exported="false" />
 
-        <activity android:name=".presentation.ui.activities.DetailActivity"></activity>
+        <activity android:name=".presentation.ui.activities.DetailActivity">
+
+        </activity>
     </application>
 
 </manifest>

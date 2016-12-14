@@ -1,15 +1,12 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
 
-import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
@@ -22,14 +19,11 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepositor
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivityPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
-import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment;
-import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
-import com.pascaldierich.popularmoviesstage2.utils.Utiliy;
+import com.pascaldierich.popularmoviesstage2.utils.Utility;
 
 import java.util.ArrayList;
 
@@ -65,10 +59,23 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
         this.mFavoriteRepository = favoriteRepository;
 
 
-
-        getPopularMovies(); // TODO: ändern zu get InitialData -> read out preferences
+        getInitialData();
 //        getFavoriteMovies();
 //        getTopRatedMovies();
+    }
+
+    private void getInitialData() {
+        if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            onError(ErrorCodes.Network.NO_INTERNET);
+            return;
+        }
+
+        // TODO: 14.12.16 get SharedPrefences
+        getPopularMovies();
+        /*
+        or getTopRatedMovies()
+        or getFavoriteMovies
+         */
     }
 
     @Override
@@ -94,12 +101,16 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
     @Override
     public void onError(int code) {
         switch (code) {
-            case ErrorCodes.Network.DOWNLOAD_NULL : {
+            case ErrorCodes.Network.DOWNLOAD_NULL: {
+                Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
                 // TODO: tell User about Problem
                 // TODO: and check for Connection
-                Utiliy.connectionCheck(); // -> returns boolean
+            }
+            case ErrorCodes.Network.NO_INTERNET: {
+                Log.d(LOG_TAG, "onError: NO_INTERNET");
             }
         }
+        // TODO: 14.12.16 checkConnection at the end
     }
 
     @Override
