@@ -120,7 +120,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
                 // position in GridView = position in ArrayList in ConstantsHolder
 //                DetailMovieObject clickedMovie = ConstantsHolder.getDownloadedData().get((int) id);
 
-                mPresenter.movieSelected(position);
+                mPresenter.movieSelected(position); // TODO: 14.12.16 verify position +1 (thought: because of ArrayList.get(0) -> error)
                 // TODO: 14.12.16 give clickedMovie to Presenter and let him do the rest (start Activity/fragment etc) 
                 // TODO: 14.12.16 get Data from specific view ?!?! 
             }

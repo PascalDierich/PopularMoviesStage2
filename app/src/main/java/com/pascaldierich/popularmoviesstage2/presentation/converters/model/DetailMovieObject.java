@@ -3,6 +3,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.converters.model;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.model.MovieObject;
 
@@ -14,6 +15,7 @@ import com.pascaldierich.popularmoviesstage2.data.storage.model.MovieObject;
  * Movie Object for View
  */
 public class DetailMovieObject extends MovieObject {
+    private static final String LOG_TAG = DetailMovieObject.class.getSimpleName();
 
     private String[] mTrailers; // optional
     private String mPosterPath; // optional
@@ -72,6 +74,7 @@ public class DetailMovieObject extends MovieObject {
     }
 
     public String getmTitle() {
+        Log.d(LOG_TAG, "getmTitle: " + mTitle);
         return mTitle;
     }
 

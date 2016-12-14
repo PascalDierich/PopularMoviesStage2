@@ -40,10 +40,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Log.d(LOG_TAG, "onCreate: Im here bitches");
-
-        initPresenter(savedInstanceState);
         initViews();
+        initPresenter(savedInstanceState);
+
     }
 
     public void initViews() {
@@ -58,11 +57,28 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
     @Override
     public void showGivenData(DetailMovieObject movie) {
-        this.mTextViewTitle.setText(movie.getmTitle());
-        this.mTextViewRelease.setText(movie.getmRelease());
+        this.mTextViewLength.setText("hallo");
+        try {
+            this.mTextViewTitle.setText(movie.getmTitle());
+        } catch (NullPointerException npe) {
+            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out title");
+        }
+        try {
+            this.mTextViewRelease.setText(movie.getmRelease());
+        } catch (NullPointerException npe) {
+            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out release");
+        }
+        try {
+            this.mTextViewRating.setText(movie.getmRating() + "/10"); // TODO: 14.12.16 save in strings.xml
+        } catch (NullPointerException npe) {
+            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out rating");
+        }
+        try {
+            this.mTextViewDescription.setText(movie.getmDescription());
+        } catch (NullPointerException npe) {
+            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
+        }
 //        this.mTextViewLength.setText(movie.getmLength);
-        this.mTextViewRating.setText(movie.getmRating() + "/10"); // TODO: 14.12.16 save in strings.xml 
-        this.mTextViewDescription.setText(movie.getmDescription());
 //        this.mImageViewThumbnail.setImageBitmap(null); // TODO: 14.12.16 get Bitmap -> get Bitmap from Picasso and save it somewhere (?) 
         
     }
