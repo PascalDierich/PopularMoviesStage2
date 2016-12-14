@@ -3,6 +3,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
     @Override
     public void hideProgress() {
-        mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -98,7 +99,14 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
     @Override
     public void showMovies(ArrayList<GridItem> movies) {
-        mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies); // TODO (!!!)
+        if (this.mTwoPaneMode) {
+            mImageAdapter = new ImageAdapter(getActivity(), R.layout.list_view_layout, movies);
+            Log.d(LOG_TAG, "showMovies: selected list_view_layout");
+        } else {
+            mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
+            Log.d(LOG_TAG, "showMovies: selected grid_view_layout");
+        }
+
 
         mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
         mGridView.setAdapter(mImageAdapter);

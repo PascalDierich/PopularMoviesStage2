@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     @Override
     public void setTwoPaneMode(boolean twoPaneMode) {
+        this.mTwoPaneMode = twoPaneMode;
         if (twoPaneMode) {
             Log.d(LOG_TAG, "setTwoPaneMode: true");
             getSupportFragmentManager().beginTransaction()
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         MainFragment mainFragment = ((MainFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_main));
-        mainFragment.setUseGridLayout(mTwoPaneMode);
+
+        mainFragment.setUseGridLayout(this.mTwoPaneMode);
     }
 
     @Override

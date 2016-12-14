@@ -104,7 +104,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
             case ErrorCodes.Network.DOWNLOAD_NULL: {
                 Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
                 // TODO: tell User about Problem
-                // TODO: and check for Connection
             }
             case ErrorCodes.Network.NO_INTERNET: {
                 Log.d(LOG_TAG, "onError: NO_INTERNET");

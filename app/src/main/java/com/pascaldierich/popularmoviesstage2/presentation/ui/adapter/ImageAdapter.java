@@ -12,7 +12,6 @@ import android.widget.ImageView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,8 +50,6 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 
         GridItem imgURL = gridData.get(position);
 
-
-
         String imageURL = context.getString(R.string.image_base_url)
                 + imgURL.getImage()
                 + "?api_key="
@@ -60,7 +57,8 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 
         Picasso.with(context)
                 .load(imageURL)
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .placeholder(R.mipmap.ic_launcher)
+                .fit()
                 .into(holder.imageView);
 
         Log.d(LOG_TAG, "getView: image loaded into image_for_adapter with URL = " + imageURL);
