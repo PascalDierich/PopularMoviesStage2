@@ -17,10 +17,11 @@ public interface MainFragmentPresenter extends BasePresenter {
 
         boolean getTwoPaneMode();
 
+        void startDetailActivity(int position);
         // TODO: Add your view methods
     }
 
-    void onItemClick();
+    void movieSelected(int position);
 
     // Data
     void getPopularMovies();

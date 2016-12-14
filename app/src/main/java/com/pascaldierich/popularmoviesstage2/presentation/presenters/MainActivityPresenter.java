@@ -12,6 +12,7 @@ public interface MainActivityPresenter extends BasePresenter {
     interface View extends BaseView {
         boolean getUiMode();
         void setTwoPaneMode(boolean twoPaneMode);
+
     }
 
     void setUiMode();
