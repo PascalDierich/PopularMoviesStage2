@@ -9,7 +9,7 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTraile
 
 public interface DetailInfoMoviesRepository {
 
-    PageTrailers downloadTrailer(int id);
+	PageTrailers downloadTrailer(int id);
 
-    PageReviews downloadReviews(int id);
+	PageReviews downloadReviews(int id);
 }

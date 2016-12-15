@@ -21,52 +21,52 @@ import java.util.ArrayList;
  */
 
 public class ImageAdapter extends ArrayAdapter<GridItem> {
-    private static final String LOG_TAG = ImageAdapter.class.getSimpleName();
+	private static final String LOG_TAG = ImageAdapter.class.getSimpleName();
 
-    private Context context;
-    private int layoutResourceId;
-    private ArrayList<GridItem> gridData = new ArrayList<GridItem>();
+	private Context context;
+	private int layoutResourceId;
+	private ArrayList<GridItem> gridData = new ArrayList<GridItem>();
 
-    public ImageAdapter(Context c, int layoutResourceId, ArrayList<GridItem> gridData) {
-        super(c, layoutResourceId, gridData);
-        this.context = c;
-        this.layoutResourceId = layoutResourceId;
-        this.gridData = gridData;
-    }
+	public ImageAdapter(Context c, int layoutResourceId, ArrayList<GridItem> gridData) {
+		super(c, layoutResourceId, gridData);
+		this.context = c;
+		this.layoutResourceId = layoutResourceId;
+		this.gridData = gridData;
+	}
 
-    @Override
-    @NonNull
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-            convertView = inflater.inflate(layoutResourceId, parent, false);
-            holder = new ViewHolder();
-            holder.imageView = (ImageView) convertView.findViewById(R.id.image_for_adapter);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+	@Override
+	@NonNull
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder;
+		if (convertView == null) {
+			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+			convertView = inflater.inflate(layoutResourceId, parent, false);
+			holder = new ViewHolder();
+			holder.imageView = (ImageView) convertView.findViewById(R.id.image_for_adapter);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
 
-        GridItem imgURL = gridData.get(position);
+		GridItem imgURL = gridData.get(position);
 
-        String imageURL = context.getString(R.string.image_base_url)
-                + imgURL.getImage()
-                + "?api_key="
-                + context.getString(R.string.api_key);
+		String imageURL = context.getString(R.string.image_base_url)
+				+ imgURL.getImage()
+				+ "?api_key="
+				+ context.getString(R.string.api_key);
 
-        Picasso.with(context)
-                .load(imageURL)
-                .placeholder(R.mipmap.ic_launcher)
-                .fit()
-                .into(holder.imageView);
+		Picasso.with(context)
+				.load(imageURL)
+				.placeholder(R.mipmap.ic_launcher)
+				.fit()
+				.into(holder.imageView);
 
-        Log.d(LOG_TAG, "getView: image loaded into image_for_adapter with URL = " + imageURL);
+		Log.d(LOG_TAG, "getView: image loaded into image_for_adapter with URL = " + imageURL);
 
-        return convertView;
-    }
+		return convertView;
+	}
 
-    private static class ViewHolder {
-        ImageView imageView;
-    }
+	private static class ViewHolder {
+		ImageView imageView;
+	}
 }

@@ -21,7 +21,7 @@
             android:background="@android:color/holo_blue_dark"
             android:theme="?attr/actionBarTheme"
             android:minHeight="?attr/actionBarSize"
-            android:id="@+id/toolbar" >
+            android:id="@+id/toolbar">
 
             <TextView
                 android:text="Title"

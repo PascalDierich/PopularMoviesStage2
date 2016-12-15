@@ -9,8 +9,8 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 
 public interface DownloadMoviesInteractor extends Interactor {
 
-    interface Callback {
-        void onDownloadFinish(PageMovies movies);
-    }
+	interface Callback {
+		void onDownloadFinish(PageMovies movies);
+	}
 
 }

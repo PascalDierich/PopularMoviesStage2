@@ -1,7 +1,5 @@
 package com.pascaldierich.popularmoviesstage2.domain.repository;
 
-import android.graphics.Bitmap;
-
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 
 /**
@@ -10,6 +8,6 @@ import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 
 public interface SaveMovieRepository {
 
-    boolean saveAsFavorite(DataMovieObject movieObject);
+	boolean saveAsFavorite(DataMovieObject movieObject);
 
 }

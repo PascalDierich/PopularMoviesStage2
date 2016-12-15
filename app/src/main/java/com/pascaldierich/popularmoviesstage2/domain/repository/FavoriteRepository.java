@@ -11,8 +11,8 @@ import java.util.ArrayList;
  */
 public interface FavoriteRepository {
 
-    ArrayList<String[]> getFavoriteMovies();
-    /*
+	ArrayList<String[]> getFavoriteMovies();
+	/*
     TODO: insert DB methods like insert, read etc
      */
 

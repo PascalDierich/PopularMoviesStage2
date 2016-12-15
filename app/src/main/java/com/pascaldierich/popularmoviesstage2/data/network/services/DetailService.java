@@ -14,10 +14,10 @@ import retrofit2.http.Query;
 
 public interface DetailService {
 
-    @GET("3/movie/{id}/reviews")
-    Call<PageReviews> getReviews(@Path("id") int id, @Query("api_key") String api_key);
+	@GET("3/movie/{id}/reviews")
+	Call<PageReviews> getReviews(@Path("id") int id, @Query("api_key") String api_key);
 
-    @GET("3/movie/{id}/videos")
-    Call<PageTrailers> getTrailers(@Path("id") int id, @Query("api_key") String api_key);
+	@GET("3/movie/{id}/videos")
+	Call<PageTrailers> getTrailers(@Path("id") int id, @Query("api_key") String api_key);
 
 }

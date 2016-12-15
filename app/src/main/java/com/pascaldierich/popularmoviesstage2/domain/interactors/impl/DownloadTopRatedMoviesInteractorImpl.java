@@ -13,30 +13,30 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 
 public class DownloadTopRatedMoviesInteractorImpl extends AbstractInteractor implements DownloadMoviesInteractor {
 
-    private DownloadMoviesInteractor.Callback mCallback;
-    private MoviesRepository mRepository;
+	private DownloadMoviesInteractor.Callback mCallback;
+	private MoviesRepository mRepository;
 
-    public DownloadTopRatedMoviesInteractorImpl(Executor threadExecutor, MainThread mainThread,
-                                                Callback callback, MoviesRepository repository) {
-        super(threadExecutor, mainThread);
+	public DownloadTopRatedMoviesInteractorImpl(Executor threadExecutor, MainThread mainThread,
+												Callback callback, MoviesRepository repository) {
+		super(threadExecutor, mainThread);
 
-        if (repository == null || callback == null) {
-            throw new IllegalArgumentException("Arguments can not be null");
-        }
+		if (repository == null || callback == null) {
+			throw new IllegalArgumentException("Arguments can not be null");
+		}
 
-        this.mCallback = callback;
-        this.mRepository = repository;
-    }
+		this.mCallback = callback;
+		this.mRepository = repository;
+	}
 
-    @Override
-    public void run() {
-        final PageMovies movieList = mRepository.downloadTopRatedMovies();
+	@Override
+	public void run() {
+		final PageMovies movieList = mRepository.downloadTopRatedMovies();
 
-        mMainThread.post(new Runnable() {
-            @Override
-            public void run() {
-                mCallback.onDownloadFinish(movieList);
-            }
-        });
-    }
+		mMainThread.post(new Runnable() {
+			@Override
+			public void run() {
+				mCallback.onDownloadFinish(movieList);
+			}
+		});
+	}
 }

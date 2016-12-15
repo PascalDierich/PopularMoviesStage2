@@ -11,22 +11,22 @@ import java.util.ArrayList;
 
 public class PageMovies {
 
-    @SerializedName("page")
-    private int mPage;
+	@SerializedName("page")
+	private int mPage;
 
-    @SerializedName("results")
-    private ArrayList<Movie> mResults;
+	@SerializedName("results")
+	private ArrayList<Movie> mResults;
 
-    public PageMovies(int page, ArrayList<Movie> results) {
-        this.mPage = page;
-        this.mResults = results;
-    }
+	public PageMovies(int page, ArrayList<Movie> results) {
+		this.mPage = page;
+		this.mResults = results;
+	}
 
-    public int getPage() {
-        return this.mPage;
-    }
+	public int getPage() {
+		return this.mPage;
+	}
 
-    public ArrayList<Movie> getResults() {
-        return this.mResults;
-    }
+	public ArrayList<Movie> getResults() {
+		return this.mResults;
+	}
 }

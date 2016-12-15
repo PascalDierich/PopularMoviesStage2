@@ -12,10 +12,10 @@ import retrofit2.http.Query;
 
 public interface DownloadService {
 
-    @GET("3/movie/popular")
-    Call<PageMovies> getPopular(@Query("api_key") String api_key);
+	@GET("3/movie/popular")
+	Call<PageMovies> getPopular(@Query("api_key") String api_key);
 
-    @GET("3/movie/top_rated")
-    Call<PageMovies> getTopRated(@Query("api_key") String api_key);
+	@GET("3/movie/top_rated")
+	Call<PageMovies> getTopRated(@Query("api_key") String api_key);
 
 }

@@ -10,27 +10,27 @@ import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
  */
 
 public class MainThreadImpl implements MainThread {
-    private static final String LOG_TAG = "MainThreadImpl";
+	private static final String LOG_TAG = "MainThreadImpl";
 
-    private static MainThread sMainThread;
+	private static MainThread sMainThread;
 
-    private Handler mHandler;
+	private Handler mHandler;
 
-    public MainThreadImpl() {
-        mHandler = new Handler(Looper.getMainLooper());
-    }
+	public MainThreadImpl() {
+		mHandler = new Handler(Looper.getMainLooper());
+	}
 
-    @Override
-    public void post(Runnable runnable) {
+	@Override
+	public void post(Runnable runnable) {
 
-        mHandler.post(runnable);
-    }
+		mHandler.post(runnable);
+	}
 
-    public static MainThread getInstance() {
-        if (sMainThread == null) {
-            sMainThread = new MainThreadImpl();
-        }
+	public static MainThread getInstance() {
+		if (sMainThread == null) {
+			sMainThread = new MainThreadImpl();
+		}
 
-        return sMainThread;
-    }
+		return sMainThread;
+	}
 }

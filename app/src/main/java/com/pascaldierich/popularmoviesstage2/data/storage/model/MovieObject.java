@@ -6,17 +6,17 @@ package com.pascaldierich.popularmoviesstage2.data.storage.model;
 
 public abstract class MovieObject {
 
-    protected int mId;
-    protected String mTitle;
-    protected String mDescription;
-    protected String mRelease;
-    protected float mRating;
+	protected int mId;
+	protected String mTitle;
+	protected String mDescription;
+	protected String mRelease;
+	protected float mRating;
 
-    public MovieObject(int id, String title, String description, String release, float rating) {
-        mId = id;
-        mTitle = title;
-        mDescription = description;
-        mRelease = release;
-        mRating = rating;
-    }
+	public MovieObject(int id, String title, String description, String release, float rating) {
+		mId = id;
+		mTitle = title;
+		mDescription = description;
+		mRelease = release;
+		mRating = rating;
+	}
 }

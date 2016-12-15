@@ -1,12 +1,14 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
@@ -33,161 +35,194 @@ import java.util.ArrayList;
  */
 
 public class MainFragmentPresenterImpl extends AbstractPresenter implements MainFragmentPresenter,
-        DownloadMoviesInteractor.Callback,
-        QueryFavoriteMoviesInteractor.Callback {
-    private static final String LOG_TAG = MainFragmentPresenterImpl.class.getSimpleName();
+		DownloadMoviesInteractor.Callback,
+		QueryFavoriteMoviesInteractor.Callback {
+	private static final String LOG_TAG = MainFragmentPresenterImpl.class.getSimpleName();
 
-    private MainFragmentPresenter.View mView;
-    private MoviesRepository mMoviesRepository;
-    private FavoriteRepository mFavoriteRepository;
+	private MainFragmentPresenter.View mView;
+	private MoviesRepository mMoviesRepository;
+	private FavoriteRepository mFavoriteRepository;
 
-    private boolean mTwoPaneMode;
+	private boolean mTwoPaneMode;
 
-    private ImageAdapter mImageAdapter;
+	private ImageAdapter mImageAdapter;
 
-    private ListView mListView;
-    private GridView mGridView;
+	private ListView mListView;
+	private GridView mGridView;
 
-    private DetailFragmentCallback mDetailFragmentCallback;
+	private DetailFragmentCallback mDetailFragmentCallback;
 
-    public interface DetailFragmentCallback {
-        void onItemSelected(int id);
-    }
+	private SharedPreferences mSharedPreferences;
 
-    public MainFragmentPresenterImpl(Executor executor,
-                                     MainThread mainThread,
-                                     Bundle savedInstanceState,
-                                     MainFragmentPresenter.View view,
-                                     MoviesRepository moviesRepository,
-                                     FavoriteRepository favoriteRepository) {
-        super(executor, mainThread, savedInstanceState);
-        this.mView = view;
-        this.mMoviesRepository = moviesRepository;
-        this.mFavoriteRepository = favoriteRepository;
+	public interface DetailFragmentCallback {
+		void onItemSelected(int id);
+	}
+	
+	@Override
+	public void preferencesChanged() {
+		Log.d(LOG_TAG, "preferencesChanged: called");
+		getInitialData();
+	}
+	
+	public MainFragmentPresenterImpl(Executor executor,
+									 MainThread mainThread,
+									 Bundle savedInstanceState,
+									 MainFragmentPresenter.View view,
+									 MoviesRepository moviesRepository,
+									 FavoriteRepository favoriteRepository) {
+		super(executor, mainThread, savedInstanceState);
+		this.mView = view;
+		this.mMoviesRepository = moviesRepository;
+		this.mFavoriteRepository = favoriteRepository;
 
-
-        getInitialData();
+		ConstantsHolder.setMainFragmentPresenterImpl(this);
+		getInitialData();
 //        getFavoriteMovies();
 //        getTopRatedMovies();
-    }
+	}
 
-    private void getInitialData() {
-        if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
-            onError(ErrorCodes.Network.NO_INTERNET);
-            return;
-        }
+	private void getInitialData() {
+		if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+			onError(ErrorCodes.Network.NO_INTERNET);
+			return;
+		}
+		
+		int initialPreferences = mView.getInitialPreferences();
+		
+		switch (initialPreferences) {
+			case R.integer.preferences_initial_sort_popularity: {
+				Log.d(LOG_TAG, "getInitialData: getPopular");
+				getPopularMovies();
+				break;
+			}
+			case R.integer.preferences_initial_sort_rating: {
+				Log.d(LOG_TAG, "getInitialData: getRating");
+				getTopRatedMovies();
+				break;
+			}
+			case R.integer.preferences_initial_sort_favorites: {
+				Log.d(LOG_TAG, "getInitialData: getFavorites");
+				getFavoriteMovies();
+				break;
+			}
+			default: {
+				getPopularMovies();
+			}
+		}
 
-        // TODO: 14.12.16 get SharedPrefences
-        getPopularMovies();
-        /*
+		// TODO: 14.12.16 get SharedPrefences
+		getPopularMovies();
+		/*
         or getTopRatedMovies()
         or getFavoriteMovies
          */
-    }
+	}
 
-    @Override
-    public void resume() {
+	@Override
+	public void resume() {
 
-    }
+	}
 
-    @Override
-    public void pause() {
+	@Override
+	public void pause() {
 
-    }
+	}
 
-    @Override
-    public void stop() {
+	@Override
+	public void stop() {
 
-    }
+	}
 
-    @Override
-    public void destroy() {
+	@Override
+	public void destroy() {
 
-    }
+	}
 
-    @Override
-    public void onError(int code) {
-        switch (code) {
-            case ErrorCodes.Network.DOWNLOAD_NULL: {
-                Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
-                // TODO: tell User about Problem
-            }
-            case ErrorCodes.Network.NO_INTERNET: {
-                Log.d(LOG_TAG, "onError: NO_INTERNET");
-            }
-        }
-        // TODO: 14.12.16 checkConnection at the end
-    }
+	@Override
+	public void onError(int code) {
+		switch (code) {
+			case ErrorCodes.Network.DOWNLOAD_NULL: {
+				Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
+				// TODO: tell User about Problem
+			}
+			case ErrorCodes.Network.NO_INTERNET: {
+				Log.d(LOG_TAG, "onError: NO_INTERNET");
+			}
+		}
+		// TODO: 14.12.16 checkConnection at the end
+	}
 
-    @Override
-    public void onDownloadFinish(PageMovies movies) {
-        mView.hideProgress();
+	@Override
+	public void onDownloadFinish(PageMovies movies) {
+		mView.hideProgress();
 
-        if (movies == null || movies.getResults().size() == 0) {
-            onError(ErrorCodes.Network.DOWNLOAD_NULL);
-            return;
-        }
+		if (movies == null || movies.getResults().size() == 0) {
+			onError(ErrorCodes.Network.DOWNLOAD_NULL);
+			return;
+		}
 
-        ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
+		ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
-        ConstantsHolder.setDownloadedData(movieObjectArrayList);
+		ConstantsHolder.setDownloadedData(movieObjectArrayList);
 
-        Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = "  + movieObjectArrayList.size());
+		Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = " + movieObjectArrayList.size());
 
-        mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
-    }
+		mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
+	}
 
-    @Override
-    public void movieSelected(int position) {
-        // TODO: 14.12.16 start new Activity || update fragment with DetailMovieObject
-        if (ConstantsHolder.getTwoPaneMode()) { // inflate Fragment
-            // TODO: 15.12.16 update DetailFragment
-            Log.d(LOG_TAG, "movieSelected: going to call onItemSelected with position = " + position);
+	@Override
+	public void movieSelected(int position) {
+		// TODO: 14.12.16 start new Activity || update fragment with DetailMovieObject
+		if (ConstantsHolder.getTwoPaneMode()) { // inflate Fragment
+			// TODO: 15.12.16 update DetailFragment
+			Log.d(LOG_TAG, "movieSelected: going to call onItemSelected with position = " + position);
 
-            mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl();
-            mDetailFragmentCallback.onItemSelected(position);
+			mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl();
+			mDetailFragmentCallback.onItemSelected(position);
 //            ((DetailFragmentCallback) )
 
-        } else { // start new Activity
-            mView.startDetailActivity(position);
-        }
-    }
+		} else { // start new Activity
+			mView.startDetailActivity(position);
+		}
+	}
 
-    @Override
-    public void getPopularMovies() {
-        DownloadMoviesInteractor downloadInteractor = new DownloadPopularMoviesInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this,
-                mMoviesRepository
-        );
-        downloadInteractor.execute();
-    }
+	@Override
+	public void getPopularMovies() {
+		DownloadMoviesInteractor downloadInteractor = new DownloadPopularMoviesInteractorImpl(
+				mExecutor,
+				mMainThread,
+				this,
+				mMoviesRepository
+		);
+		downloadInteractor.execute();
+	}
 
-    @Override
-    public void getTopRatedMovies() {
-        DownloadMoviesInteractor downloadInteractor = new DownloadTopRatedMoviesInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this,
-                mMoviesRepository
-        );
-        downloadInteractor.execute();
-    }
+	@Override
+	public void getTopRatedMovies() {
+		DownloadMoviesInteractor downloadInteractor = new DownloadTopRatedMoviesInteractorImpl(
+				mExecutor,
+				mMainThread,
+				this,
+				mMoviesRepository
+		);
+		downloadInteractor.execute();
+	}
 
-    @Override
-    public void getFavoriteMovies() {
-        QueryFavoriteMoviesInteractor queryInteractor = new QueryFavoriteInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this,
-                mFavoriteRepository
-        );
-        queryInteractor.execute();
-    }
+	@Override
+	public void getFavoriteMovies() {
+		QueryFavoriteMoviesInteractor queryInteractor = new QueryFavoriteInteractorImpl(
+				mExecutor,
+				mMainThread,
+				this,
+				mFavoriteRepository
+		);
+		queryInteractor.execute();
+	}
 
-    @Override
-    public void onQueryFinished(ArrayList<String[]> faveMovies) { // TODO: convert
-        Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
-    }
+	@Override
+	public void onQueryFinished(ArrayList<String[]> faveMovies) { // TODO: convert
+		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
+	}
+
+
 }

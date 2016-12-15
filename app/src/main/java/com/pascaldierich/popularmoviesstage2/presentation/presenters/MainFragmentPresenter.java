@@ -12,22 +12,26 @@ import java.util.ArrayList;
 
 public interface MainFragmentPresenter extends BasePresenter {
 
-    interface View extends BaseView {
-        void showMovies(ArrayList<GridItem> movies);
+	interface View extends BaseView {
+		void showMovies(ArrayList<GridItem> movies);
 
-        boolean getTwoPaneMode();
+		boolean getTwoPaneMode();
 
-        void startDetailActivity(int position);
-        // TODO: Add your view methods
-    }
+		int getInitialPreferences();
 
-    void movieSelected(int position);
+		void startDetailActivity(int position);
+		// TODO: Add your view methods
+	}
 
-    // Data
-    void getPopularMovies();
+	void movieSelected(int position);
 
-    void getTopRatedMovies();
+	void preferencesChanged();
 
-    void getFavoriteMovies();
+	// Data
+	void getPopularMovies();
+
+	void getTopRatedMovies();
+
+	void getFavoriteMovies();
 
 }

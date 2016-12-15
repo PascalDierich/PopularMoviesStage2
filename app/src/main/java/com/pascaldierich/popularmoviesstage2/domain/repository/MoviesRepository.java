@@ -8,8 +8,8 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies
 
 public interface MoviesRepository {
 
-    PageMovies downloadPopularMovies();
+	PageMovies downloadPopularMovies();
 
-    PageMovies downloadTopRatedMovies();
+	PageMovies downloadTopRatedMovies();
 
 }

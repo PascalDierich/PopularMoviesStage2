@@ -26,167 +26,167 @@ import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
  */
 
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
-        DownloadInfoForMovieInteractor.Callback,
-        SaveFavoriteMovieInteractor.Callback,
-        MainFragmentPresenterImpl.DetailFragmentCallback {
-    private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
+		DownloadInfoForMovieInteractor.Callback,
+		SaveFavoriteMovieInteractor.Callback,
+		MainFragmentPresenterImpl.DetailFragmentCallback {
+	private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
-    private DetailPresenter.View mView;
-    private DetailInfoMoviesRepository mDetailRepository;
-    private SaveMovieRepository mSaveRepository;
-    
-    private int mMovieInternId;
-    private DetailMovieObject mDetailMovieObject;
+	private DetailPresenter.View mView;
+	private DetailInfoMoviesRepository mDetailRepository;
+	private SaveMovieRepository mSaveRepository;
 
-    public DetailPresenterImpl(Executor executor,
-                               MainThread mainThread,
-                               Bundle savedInstanceState,
-                               DetailPresenter.View view,
-                               DetailInfoMoviesRepository detailRepository,
-                               SaveMovieRepository saveRepository) {
-        super(executor, mainThread, savedInstanceState);
-        this.mView = view;
-        this.mDetailRepository = detailRepository;
-        this.mSaveRepository = saveRepository;
+	private int mMovieInternId;
+	private DetailMovieObject mDetailMovieObject;
 
-        // if twoPaneMode == false -> movie got selected in 1. Activity
-        // otherwise wait for Callback ( onItemSelected(int id) )
-        if (!ConstantsHolder.getTwoPaneMode()) {
-            Log.d(LOG_TAG, "DetailPresenterImpl: twoPaneMode = false");
-            checkSelectedMovie();
-        }
+	public DetailPresenterImpl(Executor executor,
+							   MainThread mainThread,
+							   Bundle savedInstanceState,
+							   DetailPresenter.View view,
+							   DetailInfoMoviesRepository detailRepository,
+							   SaveMovieRepository saveRepository) {
+		super(executor, mainThread, savedInstanceState);
+		this.mView = view;
+		this.mDetailRepository = detailRepository;
+		this.mSaveRepository = saveRepository;
 
-        ConstantsHolder.setDetailPresenterImpl(this);
-    }
-    
-    @Override
-    public void checkSelectedMovie() {
-        this.mMovieInternId = mView.getSelectedMovieId();
-        Log.d(LOG_TAG, "checkSelectedMovie: intern Movie Id = " + mMovieInternId);
-        if (this.mMovieInternId == ErrorCodes.internCommunication.NO_SELECTED_MOVIE) {
-            onError(ErrorCodes.internCommunication.NO_SELECTED_MOVIE);
-            return;
-        }
-        getDetailMovieObject();
-    }
-    
-    @Override
-    public void getDetailMovieObject() {
-        this.mDetailMovieObject = ConstantsHolder.getDownloadedDataFromPosition(this.mMovieInternId);
-        int _id;
-        showGivenData();
-        try {
-            _id = mDetailMovieObject.getmId();
-        } catch (Exception e) {
-            onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
-            Log.e(LOG_TAG, "getDetailMovieObject: couldnt get MovieID" + "\n" +
-                    " --> " + e.fillInStackTrace());
-            return;
-        }
-        getTrailer(_id);
-        getReviews(_id);
-    }
-    
-    @Override
-    public void showGivenData() {
-        mView.showGivenData(this.mDetailMovieObject);
-        // TODO: 14.12.16 mView.mTextViewTitle.setText(this.mDetailMovieObject) ... etc 
-    }
+		// if twoPaneMode == false -> movie got selected in 1. Activity
+		// otherwise wait for Callback ( onItemSelected(int id) )
+		if (!ConstantsHolder.getTwoPaneMode()) {
+			Log.d(LOG_TAG, "DetailPresenterImpl: twoPaneMode = false");
+			checkSelectedMovie();
+		}
 
-    @Override
-    public void getTrailer(int id) {
-        if (id == ErrorCodes.internCommunication.NOT_ENOUGH_INFO) {
-            onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
-        }
-        DownloadInfoForMovieInteractor interactor = new DownloadInfoTrailersInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this,
-                mDetailRepository,
-                id
-        );
-        interactor.execute();
-    }
+		ConstantsHolder.setDetailPresenterImpl(this);
+	}
 
-    @Override
-    public void getReviews(int id) {
-        if (id == ErrorCodes.internCommunication.NOT_ENOUGH_INFO) {
-            onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
-        }
-        DownloadInfoForMovieInteractor interactor = new DownloadInfoReviewsInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this,
-                mDetailRepository,
-                id // TODO: get id
-        );
-        interactor.execute();
-    }
+	@Override
+	public void checkSelectedMovie() {
+		this.mMovieInternId = mView.getSelectedMovieId();
+		Log.d(LOG_TAG, "checkSelectedMovie: intern Movie Id = " + mMovieInternId);
+		if (this.mMovieInternId == ErrorCodes.internCommunication.NO_SELECTED_MOVIE) {
+			onError(ErrorCodes.internCommunication.NO_SELECTED_MOVIE);
+			return;
+		}
+		getDetailMovieObject();
+	}
 
-    @Override
-    public void saveAsFavorite() {
-        SaveFavoriteMovieInteractor interactor = new SaveFavoriteMovieInteractorImpl(
-                mExecutor,
-                mMainThread,
-                this,
-                mSaveRepository,
-                Converter.DetailMovieObjectToDataMovieObject(null)   // --> TODO: null = DetailMovieObject
-        );
-        interactor.execute();
-    }
+	@Override
+	public void getDetailMovieObject() {
+		this.mDetailMovieObject = ConstantsHolder.getDownloadedDataFromPosition(this.mMovieInternId);
+		int _id;
+		showGivenData();
+		try {
+			_id = mDetailMovieObject.getmId();
+		} catch (Exception e) {
+			onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
+			Log.e(LOG_TAG, "getDetailMovieObject: couldnt get MovieID" + "\n" +
+					" --> " + e.fillInStackTrace());
+			return;
+		}
+		getTrailer(_id);
+		getReviews(_id);
+	}
 
-    @Override
-    public void resume() {
+	@Override
+	public void showGivenData() {
+		mView.showGivenData(this.mDetailMovieObject);
+		// TODO: 14.12.16 mView.mTextViewTitle.setText(this.mDetailMovieObject) ... etc
+	}
 
-    }
+	@Override
+	public void getTrailer(int id) {
+		if (id == ErrorCodes.internCommunication.NOT_ENOUGH_INFO) {
+			onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
+		}
+		DownloadInfoForMovieInteractor interactor = new DownloadInfoTrailersInteractorImpl(
+				mExecutor,
+				mMainThread,
+				this,
+				mDetailRepository,
+				id
+		);
+		interactor.execute();
+	}
 
-    @Override
-    public void pause() {
+	@Override
+	public void getReviews(int id) {
+		if (id == ErrorCodes.internCommunication.NOT_ENOUGH_INFO) {
+			onError(ErrorCodes.internCommunication.NOT_ENOUGH_INFO);
+		}
+		DownloadInfoForMovieInteractor interactor = new DownloadInfoReviewsInteractorImpl(
+				mExecutor,
+				mMainThread,
+				this,
+				mDetailRepository,
+				id // TODO: get id
+		);
+		interactor.execute();
+	}
 
-    }
+	@Override
+	public void saveAsFavorite() {
+		SaveFavoriteMovieInteractor interactor = new SaveFavoriteMovieInteractorImpl(
+				mExecutor,
+				mMainThread,
+				this,
+				mSaveRepository,
+				Converter.DetailMovieObjectToDataMovieObject(null)   // --> TODO: null = DetailMovieObject
+		);
+		interactor.execute();
+	}
 
-    @Override
-    public void stop() {
+	@Override
+	public void resume() {
 
-    }
+	}
 
-    @Override
-    public void destroy() {
+	@Override
+	public void pause() {
 
-    }
+	}
 
-    @Override
-    public void onError(int code) {
-        Log.d(LOG_TAG, "onError: Error Code: " + code);
-        // TODO: 14.12.16 handle Errors 
-    }
+	@Override
+	public void stop() {
 
-    @Override
-    public void onDownloadTrailerFinish(PageTrailers page) {
-        Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It!");
-        // TODO: mView.showTrailer()
-    }
+	}
 
-    @Override
-    public void onDownloadReviewFinish(PageReviews page) {
-        Log.d(LOG_TAG, "onDownloadReviewFinish: Got It!");
-        // TODO: mView.showRevies()
-    }
+	@Override
+	public void destroy() {
 
-    @Override
-    public void onSaveFinish(boolean success) {
-        if (success) {
-            Log.d(LOG_TAG, "onSaveFinish: Got It!");
-        } else {
-            Log.d(LOG_TAG, "onSaveFinish: Bad Luck :(");
-        }
-    }
+	}
 
-    // gets oly called when twoPaneMode == true
-    @Override
-    public void onItemSelected(int id) {
-        Log.d(LOG_TAG, "onItemSelected: Callback called by MainFragment with id: " + id);
-        this.mMovieInternId = id;
-        getDetailMovieObject();
-    }
+	@Override
+	public void onError(int code) {
+		Log.d(LOG_TAG, "onError: Error Code: " + code);
+		// TODO: 14.12.16 handle Errors
+	}
+
+	@Override
+	public void onDownloadTrailerFinish(PageTrailers page) {
+		Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It!");
+		// TODO: mView.showTrailer()
+	}
+
+	@Override
+	public void onDownloadReviewFinish(PageReviews page) {
+		Log.d(LOG_TAG, "onDownloadReviewFinish: Got It!");
+		// TODO: mView.showRevies()
+	}
+
+	@Override
+	public void onSaveFinish(boolean success) {
+		if (success) {
+			Log.d(LOG_TAG, "onSaveFinish: Got It!");
+		} else {
+			Log.d(LOG_TAG, "onSaveFinish: Bad Luck :(");
+		}
+	}
+
+	// gets oly called when twoPaneMode == true
+	@Override
+	public void onItemSelected(int id) {
+		Log.d(LOG_TAG, "onItemSelected: Callback called by MainFragment with id: " + id);
+		this.mMovieInternId = id;
+		getDetailMovieObject();
+	}
 }

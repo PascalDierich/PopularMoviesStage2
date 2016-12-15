@@ -8,8 +8,8 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 
 public interface SaveFavoriteMovieInteractor extends Interactor {
 
-    interface Callback {
-        void onSaveFinish(boolean success);
-    }
+	interface Callback {
+		void onSaveFinish(boolean success);
+	}
 
 }

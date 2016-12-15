@@ -9,39 +9,39 @@ package com.pascaldierich.popularmoviesstage2.data.storage.model;
  */
 public class DataMovieObject extends MovieObject {
 
-    private byte[] mThumbnail;
+	private byte[] mThumbnail;
 
-    public DataMovieObject(int id,
-                           String title,
-                           String description,
-                           String release,
-                           float rating,
-                           byte[] thumbnail) {
-        super(id, title, description, release, rating);
-        mThumbnail = thumbnail;
-    }
+	public DataMovieObject(int id,
+						   String title,
+						   String description,
+						   String release,
+						   float rating,
+						   byte[] thumbnail) {
+		super(id, title, description, release, rating);
+		mThumbnail = thumbnail;
+	}
 
-    public int getmId() {
-        return mId;
-    }
+	public int getmId() {
+		return mId;
+	}
 
-    public String getmTitle() {
-        return mTitle;
-    }
+	public String getmTitle() {
+		return mTitle;
+	}
 
-    public String getmDescription() {
-        return mDescription;
-    }
+	public String getmDescription() {
+		return mDescription;
+	}
 
-    public String getmRelease() {
-        return mRelease;
-    }
+	public String getmRelease() {
+		return mRelease;
+	}
 
-    public float getmRating() {
-        return super.mRating;
-    }
+	public float getmRating() {
+		return super.mRating;
+	}
 
-    public byte[] getmThumbnail() {
-        return mThumbnail;
-    }
+	public byte[] getmThumbnail() {
+		return mThumbnail;
+	}
 }

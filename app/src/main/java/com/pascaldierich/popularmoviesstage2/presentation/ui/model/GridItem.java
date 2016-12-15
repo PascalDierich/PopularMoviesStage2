@@ -5,18 +5,18 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.model;
  */
 
 public class GridItem {
-    private String image;
+	private String image;
 
-    public GridItem(String image) {
-        super();
-        this.image = image;
-    }
+	public GridItem(String image) {
+		super();
+		this.image = image;
+	}
 
-    public String getImage() {
-        return image;
-    }
+	public String getImage() {
+		return image;
+	}
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+	public void setImage(String image) {
+		this.image = image;
+	}
 }

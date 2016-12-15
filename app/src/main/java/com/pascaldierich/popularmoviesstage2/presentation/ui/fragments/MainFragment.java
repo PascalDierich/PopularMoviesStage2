@@ -31,110 +31,123 @@ import java.util.ArrayList;
  */
 
 public class MainFragment extends Fragment implements MainFragmentPresenter.View {
-    private static final String LOG_TAG = MainFragment.class.getSimpleName();
+	private static final String LOG_TAG = MainFragment.class.getSimpleName();
 
-    private boolean mTwoPaneMode;
+	private boolean mTwoPaneMode;
 
-    private MainFragmentPresenter mPresenter;
+	private MainFragmentPresenter mPresenter;
 
-    private ProgressBar mProgressBar;
+	private ProgressBar mProgressBar;
 
-    private ImageAdapter mImageAdapter;
+	private ImageAdapter mImageAdapter;
 
-    private GridView mGridView;
+	private GridView mGridView;
 
-    private View mRootView;
+	private View mRootView;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        setHasOptionsMenu(false);
+		setHasOptionsMenu(false);
 
-        initPresenter(savedInstanceState);
-    }
+		initPresenter(savedInstanceState);
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
 
-        mRootView = inflater.inflate(R.layout.fragment_main, container, false);
-        mProgressBar = (ProgressBar) mRootView.findViewById(R.id.progress_bar);
+		mRootView = inflater.inflate(R.layout.fragment_main, container, false);
+		mProgressBar = (ProgressBar) mRootView.findViewById(R.id.progress_bar);
 
-        return mRootView;
-    }
+		return mRootView;
+	}
 
-    @Override
-    public void showProgress() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
+	@Override
+	public void showProgress() {
+		mProgressBar.setVisibility(View.VISIBLE);
+	}
 
-    @Override
-    public void hideProgress() {
-        mProgressBar.setVisibility(View.INVISIBLE);
-    }
+	@Override
+	public void hideProgress() {
+		mProgressBar.setVisibility(View.INVISIBLE);
+	}
 
-    @Override
-    public void showError(String message) {
+	@Override
+	public void showError(String message) {
 
-    }
+	}
 
-    @Override
-    public Context getApplicationContext() {
-        return getContext();
-    }
+	@Override
+	public Context getApplicationContext() {
+		return getContext();
+	}
 
-    @Override
-    public void initPresenter(Bundle savedInstanceState) {
-        mPresenter = new MainFragmentPresenterImpl(
-                ThreadExecutor.getInstance(),
-                MainThreadImpl.getInstance(),
-                savedInstanceState,
-                this,
-                new MoviesRepositoryImpl(),
-                new FavoriteRepositoryImpl(getContext())
-        );
-    }
+	@Override
+	public void initPresenter(Bundle savedInstanceState) {
+		mPresenter = new MainFragmentPresenterImpl(
+				ThreadExecutor.getInstance(),
+				MainThreadImpl.getInstance(),
+				savedInstanceState,
+				this,
+				new MoviesRepositoryImpl(),
+				new FavoriteRepositoryImpl(getContext())
+		);
+	}
 
-    public void setUseGridLayout(boolean twoPaneMode) {
-        this.mTwoPaneMode = twoPaneMode;
-    }
+	public void setUseGridLayout(boolean twoPaneMode) {
+		this.mTwoPaneMode = twoPaneMode;
+	}
 
-    @Override
-    public void showMovies(ArrayList<GridItem> movies) {
-        if (this.mTwoPaneMode) {
-            mImageAdapter = new ImageAdapter(getActivity(), R.layout.list_view_layout, movies);
-            Log.d(LOG_TAG, "showMovies: selected list_view_layout");
-        } else {
-            mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
-            Log.d(LOG_TAG, "showMovies: selected grid_view_layout");
-        }
+	@Override
+	public void showMovies(ArrayList<GridItem> movies) {
+		if (this.mTwoPaneMode) {
+			mImageAdapter = new ImageAdapter(getActivity(), R.layout.list_view_layout, movies);
+			Log.d(LOG_TAG, "showMovies: selected list_view_layout");
+		} else {
+			mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
+			Log.d(LOG_TAG, "showMovies: selected grid_view_layout");
+		}
 
-        mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
-        mGridView.setAdapter(mImageAdapter);
+		mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
+		mGridView.setAdapter(mImageAdapter);
 
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                // position in GridView = position in ArrayList in ConstantsHolder
+		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+				// position in GridView = position in ArrayList in ConstantsHolder
 //                DetailMovieObject clickedMovie = ConstantsHolder.getDownloadedData().get((int) id);
 
-                mPresenter.movieSelected(position);
-            }
-        });
-    }
+				mPresenter.movieSelected(position);
+			}
+		});
+	}
 
-    @Override
-    public void startDetailActivity(int position) {
-        Intent intent = new Intent(getActivity(), DetailActivity.class)
-                .putExtra(getString(R.string.intent_string_key), position);
-        startActivity(intent);
-    }
+	@Override
+	public void startDetailActivity(int position) {
+		Intent intent = new Intent(getActivity(), DetailActivity.class)
+				.putExtra(getString(R.string.intent_string_key), position);
+		startActivity(intent);
+	}
 
-    @Override
-    public boolean getTwoPaneMode() {
-        return mTwoPaneMode;
-    }
-    
+	@Override
+	public boolean getTwoPaneMode() {
+		return mTwoPaneMode;
+	}
+
+	@Override
+	public int getInitialPreferences() {
+		return getActivity()
+				.getSharedPreferences(getString(R.string.preferences_initial_sort), Context.MODE_PRIVATE) // TODO: 15.12.16 ???
+				.getInt(getString(R.string.preferences_initial_sort), R.integer.preferences_initial_sort_popularity);
+	}
+
+	@Override
+	public void onStart() {
+		Log.d(LOG_TAG, "onStart: called");
+		mPresenter.preferencesChanged();
+		super.onStart();
+	}
 }

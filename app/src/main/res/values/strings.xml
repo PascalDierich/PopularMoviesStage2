@@ -9,7 +9,7 @@
     <string name="api_version" translatable="false">/3</string>
     <string name="image_base_url" translatable="false">https://image.tmdb.org/t/p/w500</string>
 
-
+    <!-- TODO: dont need this ones anymore? -->
     <string name="sort_by_pop" translatable="false">&amp;sort_by=popularity.desc</string>
     <string name="sort_by_rat" translatable="false">&amp;sort_by=vote_average.desc</string>
 
@@ -18,12 +18,12 @@
     <!-- ################### -->
     <!-- # ContentProvider # -->
     <!-- ################### -->
-    <string name="content_authority">com.pascaldierich.popularmoviesstage2</string>
+    <string name="content_authority" translatable="false">com.pascaldierich.popularmoviesstage2</string>
 
     <!-- ######################## -->
     <!-- # Intern Communication # -->
     <!-- ######################## -->
-    <string name="intent_string_key">intern position key</string>
+    <string name="intent_string_key" translatable="false">intern position key</string>
 
     <!-- ######## -->
     <!-- # Menu # -->
@@ -32,5 +32,12 @@
     <string name="menu_rating">sort by rating</string>
     <string name="menu_favorites">show favorites</string>
 
+    <!-- ############### -->
+    <!-- # Preferences # -->
+    <!-- ############### -->
+    <string name="preferences_initial_sort" translatable="false">initial sort</string>
+    <integer name="preferences_initial_sort_popularity" translatable="false">1</integer>
+    <integer name="preferences_initial_sort_rating" translatable="false">2</integer>
+    <integer name="preferences_initial_sort_favorites" translatable="false">3</integer>
 
 </resources>

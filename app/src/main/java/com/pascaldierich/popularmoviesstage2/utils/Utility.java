@@ -9,8 +9,8 @@ import android.net.NetworkInfo;
 
 public class Utility {
 
-    public static boolean checkConnection(ConnectivityManager cm) {
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
-    }
+	public static boolean checkConnection(ConnectivityManager cm) {
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		return netInfo != null && netInfo.isConnectedOrConnecting();
+	}
 }

@@ -13,37 +13,37 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesR
 
 public class DownloadInfoReviewsInteractorImpl extends AbstractInteractor implements DownloadInfoForMovieInteractor {
 
-    private DownloadInfoForMovieInteractor.Callback mCallback;
-    private DetailInfoMoviesRepository mRepository;
-    private int mId;
+	private DownloadInfoForMovieInteractor.Callback mCallback;
+	private DetailInfoMoviesRepository mRepository;
+	private int mId;
 
-    public DownloadInfoReviewsInteractorImpl(Executor threadExecutor, MainThread mainThread,
-                                             DownloadInfoForMovieInteractor.Callback callback,
-                                             DetailInfoMoviesRepository repository,
-                                             int id) {
-        super(threadExecutor, mainThread);
+	public DownloadInfoReviewsInteractorImpl(Executor threadExecutor, MainThread mainThread,
+											 DownloadInfoForMovieInteractor.Callback callback,
+											 DetailInfoMoviesRepository repository,
+											 int id) {
+		super(threadExecutor, mainThread);
 
-        if (repository == null || callback == null) {
-            throw new IllegalArgumentException("Arguments can not be null");
-        }
+		if (repository == null || callback == null) {
+			throw new IllegalArgumentException("Arguments can not be null");
+		}
 
-        this.mId = id;
-        this.mCallback = callback;
-        this.mRepository = repository;
+		this.mId = id;
+		this.mCallback = callback;
+		this.mRepository = repository;
 
-    }
+	}
 
-    @Override
-    public void run() {
-        final PageReviews page = mRepository.downloadReviews(mId);
+	@Override
+	public void run() {
+		final PageReviews page = mRepository.downloadReviews(mId);
 
-        mMainThread.post(new Runnable() {
-            @Override
-            public void run() {
-                mCallback.onDownloadReviewFinish(page);
-            }
-        });
-    }
+		mMainThread.post(new Runnable() {
+			@Override
+			public void run() {
+				mCallback.onDownloadReviewFinish(page);
+			}
+		});
+	}
 
 
 }

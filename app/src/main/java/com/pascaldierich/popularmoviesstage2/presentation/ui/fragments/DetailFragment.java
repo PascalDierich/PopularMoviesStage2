@@ -26,115 +26,115 @@ import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
  */
 
 public class DetailFragment extends Fragment implements BaseView,
-        DetailPresenter.View {
-    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
-    
-    private DetailPresenter mPresenter;
+		DetailPresenter.View {
+	private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
-    // View Components
-    private TextView mTextViewTitle;
-    private TextView mTextViewRelease;
-    private TextView mTextViewLength;
-    private TextView mTextViewRating;
-    private TextView mTextViewDescription;
+	private DetailPresenter mPresenter;
 
-    private View mRootView;
+	// View Components
+	private TextView mTextViewTitle;
+	private TextView mTextViewRelease;
+	private TextView mTextViewLength;
+	private TextView mTextViewRating;
+	private TextView mTextViewDescription;
 
-    private ImageButton mImageButtonFavorite;
+	private View mRootView;
 
-    private ImageView mImageViewThumbnail;
+	private ImageButton mImageButtonFavorite;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(false);
+	private ImageView mImageViewThumbnail;
 
-        initPresenter(savedInstanceState); 
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceBundle) {
-        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-        rootView = initViews(rootView);
-        return rootView;
-    }
+		initPresenter(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceBundle) {
+		View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+		rootView = initViews(rootView);
+		return rootView;
+	}
 
 
-    @Override
-    public void showProgress() {
+	@Override
+	public void showProgress() {
 
-    }
+	}
 
-    @Override
-    public void hideProgress() {
+	@Override
+	public void hideProgress() {
 
-    }
+	}
 
-    @Override
-    public void showError(String code) {
-        Log.d(LOG_TAG, "showError: ERROR Code: " + code);
-    }
+	@Override
+	public void showError(String code) {
+		Log.d(LOG_TAG, "showError: ERROR Code: " + code);
+	}
 
-    @Override
-    public Context getApplicationContext() {
-        return getContext();
-    }
+	@Override
+	public Context getApplicationContext() {
+		return getContext();
+	}
 
-    @Override
-    public void initPresenter(Bundle savedInstanceState) {
-        mPresenter = new DetailPresenterImpl(
-                ThreadExecutor.getInstance(),
-                MainThreadImpl.getInstance(),
-                savedInstanceState,
-                this,
-                new DetailRepositoryImpl(),
-                new SaveMovieRepositoryImpl(getApplicationContext())
-        );
-    }
+	@Override
+	public void initPresenter(Bundle savedInstanceState) {
+		mPresenter = new DetailPresenterImpl(
+				ThreadExecutor.getInstance(),
+				MainThreadImpl.getInstance(),
+				savedInstanceState,
+				this,
+				new DetailRepositoryImpl(),
+				new SaveMovieRepositoryImpl(getApplicationContext())
+		);
+	}
 
-    public View initViews(View rootView) {
-        Log.d(LOG_TAG, "initViews: YEAH!");
-        this.mTextViewTitle = (TextView) rootView.findViewById(R.id.textView_title);
-        this.mTextViewRelease = (TextView) rootView.findViewById(R.id.textView_release);
-        this.mTextViewLength = (TextView) rootView.findViewById(R.id.textView_length);
-        this.mTextViewRating = (TextView) rootView.findViewById(R.id.textView_rating);
-        this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
-        this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
-        this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
+	public View initViews(View rootView) {
+		Log.d(LOG_TAG, "initViews: YEAH!");
+		this.mTextViewTitle = (TextView) rootView.findViewById(R.id.textView_title);
+		this.mTextViewRelease = (TextView) rootView.findViewById(R.id.textView_release);
+		this.mTextViewLength = (TextView) rootView.findViewById(R.id.textView_length);
+		this.mTextViewRating = (TextView) rootView.findViewById(R.id.textView_rating);
+		this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
+		this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
+		this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
 
-        this.mRootView = rootView;
-        return rootView;
-    }
+		this.mRootView = rootView;
+		return rootView;
+	}
 
-    @Override
-    public int getSelectedMovieId() {
-        return 3; // TODO: 15.12.16 get Movie Id
-    }
+	@Override
+	public int getSelectedMovieId() {
+		return 3; // TODO: 15.12.16 get Movie Id
+	}
 
-    @Override
-    public void showGivenData(DetailMovieObject movie) {
-        Log.d(LOG_TAG, "showGivenData: called with movie != null -> " + (movie!= null));
-        this.mTextViewLength.setText("hallo");
-        try {
-            this.mTextViewTitle.setText(movie.getmTitle());
-        } catch (NullPointerException npe) {
-            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out title");
-        }
-        try {
-            this.mTextViewRelease.setText(movie.getmRelease());
-        } catch (NullPointerException npe) {
-            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out release");
-        }
-        try {
-            this.mTextViewRating.setText(movie.getmRating() + "/10"); // TODO: 14.12.16 save in strings.xml
-        } catch (NullPointerException npe) {
-            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out rating");
-        }
-        try {
-            this.mTextViewDescription.setText(movie.getmDescription());
-        } catch (NullPointerException npe) {
-            Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
-        }
-    }
+	@Override
+	public void showGivenData(DetailMovieObject movie) {
+		Log.d(LOG_TAG, "showGivenData: called with movie != null -> " + (movie != null));
+		this.mTextViewLength.setText("hallo");
+		try {
+			this.mTextViewTitle.setText(movie.getmTitle());
+		} catch (NullPointerException npe) {
+			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out title");
+		}
+		try {
+			this.mTextViewRelease.setText(movie.getmRelease());
+		} catch (NullPointerException npe) {
+			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out release");
+		}
+		try {
+			this.mTextViewRating.setText(movie.getmRating() + "/10"); // TODO: 14.12.16 save in strings.xml
+		} catch (NullPointerException npe) {
+			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out rating");
+		}
+		try {
+			this.mTextViewDescription.setText(movie.getmDescription());
+		} catch (NullPointerException npe) {
+			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
+		}
+	}
 }

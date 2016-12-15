@@ -1,7 +1,5 @@
 package com.pascaldierich.popularmoviesstage2.data.network.model;
 
-import android.util.Log;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -10,57 +8,57 @@ import com.google.gson.annotations.SerializedName;
 
 public class Movie {
 
-    @SerializedName("id")
-    private String mId;
+	@SerializedName("id")
+	private String mId;
 
-    @SerializedName("title")
-    private String mTitle;
+	@SerializedName("title")
+	private String mTitle;
 
-    @SerializedName("poster_path")
-    private String mPosterPath;
+	@SerializedName("poster_path")
+	private String mPosterPath;
 
-    @SerializedName("overview")
-    private String mDescription;
+	@SerializedName("overview")
+	private String mDescription;
 
-    @SerializedName("vote_average")
-    private String mVoteAverage;
+	@SerializedName("vote_average")
+	private String mVoteAverage;
 
-    @SerializedName("release_date")
-    private String mReleaseDate;
+	@SerializedName("release_date")
+	private String mReleaseDate;
 
-    public Movie(String id, String title, String posterPath,
-                 String description, String voteAverage, String releaseData) {
-        mId = id;
-        mTitle = title;
-        mPosterPath = posterPath;
-        mDescription = description;
-        mVoteAverage = voteAverage;
-        mReleaseDate = releaseData;
-    }
+	public Movie(String id, String title, String posterPath,
+				 String description, String voteAverage, String releaseData) {
+		mId = id;
+		mTitle = title;
+		mPosterPath = posterPath;
+		mDescription = description;
+		mVoteAverage = voteAverage;
+		mReleaseDate = releaseData;
+	}
 
-    public String getId() {
-        return mId;
-    }
+	public String getId() {
+		return mId;
+	}
 
-    public String getTitle() {
-        return mTitle;
-    }
+	public String getTitle() {
+		return mTitle;
+	}
 
-    public String getPosterPath() {
-        return mPosterPath;
-    }
+	public String getPosterPath() {
+		return mPosterPath;
+	}
 
-    public String getDescription() {
-        return mDescription;
-    }
+	public String getDescription() {
+		return mDescription;
+	}
 
-    public String getVoteAverage() {
-        return mVoteAverage;
-    }
+	public String getVoteAverage() {
+		return mVoteAverage;
+	}
 
-    public String getReleaseDate() {
-        return mReleaseDate;
-    }
+	public String getReleaseDate() {
+		return mReleaseDate;
+	}
 
 
 }

@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
+import android.content.SharedPreferences;
+
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 
@@ -9,13 +11,20 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 
 public interface MainActivityPresenter extends BasePresenter {
 
-    interface View extends BaseView {
-        boolean getUiMode();
-        void setTwoPaneMode(boolean twoPaneMode);
+	interface View extends BaseView {
+		boolean getUiMode();
 
-    }
+		void setTwoPaneMode(boolean twoPaneMode);
 
-    void setUiMode();
+		SharedPreferences getPreferences();
+
+		void restart();
+
+	}
+
+	boolean onMenuItemSelected(int id);
+
+	void setUiMode();
 
 
 }

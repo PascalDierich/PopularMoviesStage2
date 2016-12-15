@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public interface QueryFavoriteMoviesInteractor extends Interactor {
 
-    interface Callback {
-        void onQueryFinished(ArrayList<String[]> faveMovies);
-    }
+	interface Callback {
+		void onQueryFinished(ArrayList<String[]> faveMovies);
+	}
 
 }
