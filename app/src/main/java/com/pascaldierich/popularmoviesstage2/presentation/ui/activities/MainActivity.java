@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     @Override
     public void setTwoPaneMode(boolean twoPaneMode) {
         this.mTwoPaneMode = twoPaneMode;
+        ConstantsHolder.setTwoPaneMode(twoPaneMode);
         if (twoPaneMode) {
             Log.d(LOG_TAG, "setTwoPaneMode: true");
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.movie_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                     .commit();
+            Log.d(LOG_TAG, "setTwoPaneMode: DetailFragment set on movie_detail_container");
         } else {
             getSupportActionBar().setElevation(0f);
         }

@@ -48,6 +48,12 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
     private ListView mListView;
     private GridView mGridView;
 
+    private DetailFragmentCallback mDetailFragmentCallback;
+
+    public interface DetailFragmentCallback {
+        void onItemSelected(int id);
+    }
+
     public MainFragmentPresenterImpl(Executor executor,
                                      MainThread mainThread,
                                      Bundle savedInstanceState,
@@ -134,10 +140,13 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
     @Override
     public void movieSelected(int position) {
         // TODO: 14.12.16 start new Activity || update fragment with DetailMovieObject
-        if (mTwoPaneMode) { // inflate Fragment
+        if (ConstantsHolder.getTwoPaneMode()) { // inflate Fragment
             // TODO: 15.12.16 update DetailFragment
+            Log.d(LOG_TAG, "movieSelected: going to call onItemSelected with position = " + position);
 
-
+            mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl();
+            mDetailFragmentCallback.onItemSelected(position);
+//            ((DetailFragmentCallback) )
 
         } else { // start new Activity
             mView.startDetailActivity(position);

@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.utils;
 
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class ConstantsHolder {
         return sApiKey;
     }
 
+
     private static ArrayList<DetailMovieObject> sDownloadedData;
 
     public static void setDownloadedData(ArrayList<DetailMovieObject> list) {
@@ -33,4 +35,25 @@ public class ConstantsHolder {
         return sDownloadedData.get(position);
     }
 
+
+    private static boolean sTwoPaneMode;
+
+    public static void setTwoPaneMode(boolean mode) {
+        sTwoPaneMode = mode;
+    }
+
+    public static boolean getTwoPaneMode() {
+        return sTwoPaneMode;
+    }
+
+
+    private static DetailPresenterImpl sDetailPresenter;
+
+    public static void setDetailPresenterImpl(DetailPresenterImpl presenter) {
+        sDetailPresenter = presenter;
+    }
+
+    public static DetailPresenterImpl getDetailPresenterImpl() {
+        return sDetailPresenter;
+    }
 }

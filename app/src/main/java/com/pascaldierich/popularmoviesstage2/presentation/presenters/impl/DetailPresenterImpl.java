@@ -27,7 +27,8 @@ import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
         DownloadInfoForMovieInteractor.Callback,
-        SaveFavoriteMovieInteractor.Callback {
+        SaveFavoriteMovieInteractor.Callback,
+        MainFragmentPresenterImpl.DetailFragmentCallback {
     private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
     private DetailPresenter.View mView;
@@ -48,7 +49,14 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
         this.mDetailRepository = detailRepository;
         this.mSaveRepository = saveRepository;
 
-        checkSelectedMovie();
+        // if twoPaneMode == false -> movie got selected in 1. Activity
+        // otherwise wait for Callback ( onItemSelected(int id) )
+        if (!ConstantsHolder.getTwoPaneMode()) {
+            Log.d(LOG_TAG, "DetailPresenterImpl: twoPaneMode = false");
+            checkSelectedMovie();
+        }
+
+        ConstantsHolder.setDetailPresenterImpl(this);
     }
     
     @Override
@@ -172,5 +180,13 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
         } else {
             Log.d(LOG_TAG, "onSaveFinish: Bad Luck :(");
         }
+    }
+
+    // gets oly called when twoPaneMode == true
+    @Override
+    public void onItemSelected(int id) {
+        Log.d(LOG_TAG, "onItemSelected: Callback called by MainFragment with id: " + id);
+        this.mMovieInternId = id;
+        getDetailMovieObject();
     }
 }
