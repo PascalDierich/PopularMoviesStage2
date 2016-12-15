@@ -24,6 +24,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.model.Detai
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.MovieSelectedCallback;
 import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 import com.pascaldierich.popularmoviesstage2.utils.Utility;
@@ -165,14 +166,17 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void movieSelected(int position) {
-		// TODO: 14.12.16 start new Activity || update fragment with DetailMovieObject
 		if (ConstantsHolder.getTwoPaneMode()) { // inflate Fragment
-			// TODO: 15.12.16 update DetailFragment
-			Log.d(LOG_TAG, "movieSelected: going to call onItemSelected with position = " + position);
+			
+			((MovieSelectedCallback) mView.getApplicationContext())
+					.onMovieSelected(null); // TODO: 15.12.16 get Uri
 
-			mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl();
+			/*
+			TODO: save MovieObject as Uri
+			 */
+			
+			mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl(); // TODO: 15.12.16 fuck static Objects !!! 
 			mDetailFragmentCallback.onItemSelected(position);
-//            ((DetailFragmentCallback) )
 
 		} else { // start new Activity
 			mView.startDetailActivity(position);

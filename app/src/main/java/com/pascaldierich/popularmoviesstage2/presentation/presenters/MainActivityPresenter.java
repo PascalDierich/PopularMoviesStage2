@@ -18,5 +18,4 @@ public interface MainActivityPresenter extends BasePresenter {
 
 	void setUiMode();
 
-
 }

@@ -53,7 +53,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setHasOptionsMenu(true);
 
 		initPresenter(savedInstanceState);
@@ -122,9 +121,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-				// position in GridView = position in ArrayList in ConstantsHolder
-//                DetailMovieObject clickedMovie = ConstantsHolder.getDownloadedData().get((int) id);
-
 				mPresenter.movieSelected(position);
 			}
 		});
@@ -153,9 +149,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
 		mPresenter.onMenuItemSelected(id);
-//		if (!mPresenter.onMenuItemSelected(id)) { // TODO: 15.12.16 sure?!?!?!
-//			super.onOptionsItemSelected(item);
-//		}
 
 		return true;
 	}

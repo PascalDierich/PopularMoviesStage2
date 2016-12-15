@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,12 +10,14 @@ import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivityPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainActivityPresenterImpl;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.MovieSelectedCallback;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.DetailFragment;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
-public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
+public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View,
+		MovieSelectedCallback {
 	private static final String LOG_TAG = MainActivity.class.getSimpleName();
 	private static final String DETAILFRAGMENT_TAG = "DetailFragmentTag";
 
@@ -86,5 +89,22 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 	@Override
 	public boolean getUiMode() {
 		return findViewById(R.id.movie_detail_container) != null;
+	}
+
+	@Override
+	public void onMovieSelected(Uri contentUri) {
+		if (getUiMode()) { // TwoPaneMode
+			Bundle args = new Bundle();
+			args.putParcelable("", contentUri);
+
+			DetailFragment fragment = new DetailFragment();
+			fragment.setArguments(args);
+
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG)
+					.commit();
+		} else {
+			// TODO: 15.12.16
+		}
 	}
 }

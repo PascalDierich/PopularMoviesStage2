@@ -2,7 +2,7 @@
     <string name="app_name">Popular Movies Stage 2</string>
 
     <!-- ##################### -->
-    <!-- # NETWORK-CONSTANTS # -->
+    <!-- # Network-Constants # -->
     <!-- ##################### -->
     <string name="api_key" translatable="false">5c359398433009bb5d168d4cfb3e5cf3</string>
     <string name="base_url" translatable="false">"https://api.themoviedb.org"</string>
