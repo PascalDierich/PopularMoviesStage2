@@ -2,15 +2,20 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.MoviesRepositoryImpl;
@@ -49,7 +54,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setHasOptionsMenu(false);
+		setHasOptionsMenu(true);
 
 		initPresenter(savedInstanceState);
 	}
@@ -76,7 +81,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	@Override
 	public void showError(String message) {
-
+		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -145,9 +150,24 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	}
 
 	@Override
-	public void onStart() {
-		Log.d(LOG_TAG, "onStart: called");
-		mPresenter.preferencesChanged();
-		super.onStart();
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		mPresenter.onMenuItemSelected(id);
+//		if (!mPresenter.onMenuItemSelected(id)) { // TODO: 15.12.16 sure?!?!?!
+//			super.onOptionsItemSelected(item);
+//		}
+
+		return true;
+	}
+
+	@Override
+	public SharedPreferences getPreferences() {
+		return getApplicationContext().getSharedPreferences("", 1); // TODO: 15.12.16 String s &6 int i??
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.main, menu);
 	}
 }

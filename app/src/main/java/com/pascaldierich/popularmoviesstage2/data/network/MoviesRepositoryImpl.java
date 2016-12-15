@@ -44,7 +44,7 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 		PageMovies movieList;
 
 		try {
-			movieList = mClient.getPopular(ConstantsHolder.getApiKey()).execute().body();
+			movieList = mClient.getTopRated(ConstantsHolder.getApiKey()).execute().body();
 			return movieList;
 		} catch (IOException e) {
 			e.fillInStackTrace();

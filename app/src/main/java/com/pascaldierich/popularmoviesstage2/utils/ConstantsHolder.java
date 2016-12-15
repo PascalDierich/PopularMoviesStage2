@@ -2,7 +2,6 @@ package com.pascaldierich.popularmoviesstage2.utils;
 
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainFragmentPresenterImpl;
 
 import java.util.ArrayList;
 
@@ -58,14 +57,4 @@ public class ConstantsHolder {
 		return sDetailPresenter;
 	}
 
-
-	private static MainFragmentPresenterImpl sMainFragmentPresenter;
-
-	public static void setMainFragmentPresenterImpl(MainFragmentPresenterImpl presenter) {
-		sMainFragmentPresenter = presenter;
-	}
-
-	public static MainFragmentPresenterImpl getMainFragmentPresenterImpl() {
-		return sMainFragmentPresenter;
-	}
 }

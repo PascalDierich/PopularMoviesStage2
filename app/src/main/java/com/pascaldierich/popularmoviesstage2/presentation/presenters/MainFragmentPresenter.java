@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
+import android.content.SharedPreferences;
+
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
@@ -20,12 +22,13 @@ public interface MainFragmentPresenter extends BasePresenter {
 		int getInitialPreferences();
 
 		void startDetailActivity(int position);
-		// TODO: Add your view methods
+
+		SharedPreferences getPreferences();
 	}
 
-	void movieSelected(int position);
+	boolean onMenuItemSelected(int id);
 
-	void preferencesChanged();
+	void movieSelected(int position);
 
 	// Data
 	void getPopularMovies();

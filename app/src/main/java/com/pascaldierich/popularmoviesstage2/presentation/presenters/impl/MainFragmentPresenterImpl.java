@@ -58,12 +58,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		void onItemSelected(int id);
 	}
 	
-	@Override
-	public void preferencesChanged() {
-		Log.d(LOG_TAG, "preferencesChanged: called");
-		getInitialData();
-	}
-	
 	public MainFragmentPresenterImpl(Executor executor,
 									 MainThread mainThread,
 									 Bundle savedInstanceState,
@@ -75,10 +69,13 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		this.mMoviesRepository = moviesRepository;
 		this.mFavoriteRepository = favoriteRepository;
 
-		ConstantsHolder.setMainFragmentPresenterImpl(this);
+		this.mSharedPreferences = mView.getPreferences();
+
 		getInitialData();
-//        getFavoriteMovies();
-//        getTopRatedMovies();
+	}
+
+	public void setView(MainFragmentPresenter.View view) {
+		this.mView = view;
 	}
 
 	private void getInitialData() {
@@ -86,10 +83,10 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			onError(ErrorCodes.Network.NO_INTERNET);
 			return;
 		}
+
+		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), -1);
 		
-		int initialPreferences = mView.getInitialPreferences();
-		
-		switch (initialPreferences) {
+		switch (initialPreference) {
 			case R.integer.preferences_initial_sort_popularity: {
 				Log.d(LOG_TAG, "getInitialData: getPopular");
 				getPopularMovies();
@@ -106,16 +103,10 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 				break;
 			}
 			default: {
+				Log.d(LOG_TAG, "getInitialData: initialPreference = " + initialPreference);
 				getPopularMovies();
 			}
 		}
-
-		// TODO: 14.12.16 get SharedPrefences
-		getPopularMovies();
-		/*
-        or getTopRatedMovies()
-        or getFavoriteMovies
-         */
 	}
 
 	@Override
@@ -144,9 +135,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			case ErrorCodes.Network.DOWNLOAD_NULL: {
 				Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
 				// TODO: tell User about Problem
+				mView.showError("Download failed");
 			}
 			case ErrorCodes.Network.NO_INTERNET: {
 				Log.d(LOG_TAG, "onError: NO_INTERNET");
+				mView.showError("No Internet Connection");
 			}
 		}
 		// TODO: 14.12.16 checkConnection at the end
@@ -224,5 +217,43 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
 	}
 
+	@Override
+	public boolean onMenuItemSelected(int id) {
+		Log.d(LOG_TAG, "onMenuItemSelected: with id = " + id);
+		switch (id) {
+			case R.id.menu_popularity: {
+				this.mSharedPreferences
+						.edit()
+						.putInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort),
+								R.integer.preferences_initial_sort_popularity)
+						.apply();
+				// TODO: 15.12.16
+				break;
+			}
+			case R.id.menu_rating: {
+				this.mSharedPreferences
+						.edit()
+						.putInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort),
+								R.integer.preferences_initial_sort_rating)
+						.apply();
+				break;
+			}
+			case R.id.menu_favorites: {
+				this.mSharedPreferences
+						.edit()
+						.putInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort),
+								R.integer.preferences_initial_sort_favorites)
+						.apply();
+				break;
+			}
+			default: {
+				return false;
+			}
+		}
+
+		getInitialData();
+
+		return true;
+	}
 
 }
