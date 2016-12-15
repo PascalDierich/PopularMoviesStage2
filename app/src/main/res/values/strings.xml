@@ -25,5 +25,12 @@
     <!-- ######################## -->
     <string name="intent_string_key">intern position key</string>
 
+    <!-- ######## -->
+    <!-- # Menu # -->
+    <!-- ######## -->
+    <string name="menu_popularity">sort by popularity</string>
+    <string name="menu_rating">sort by rating</string>
+    <string name="menu_favorites">show favorites</string>
+
 
 </resources>

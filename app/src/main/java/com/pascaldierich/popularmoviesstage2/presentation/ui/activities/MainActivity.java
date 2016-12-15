@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
@@ -31,6 +33,37 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         Log.d(LOG_TAG, "onCreate: api_key = " + getString(R.string.api_key));
 
         initPresenter(savedInstanceState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.menu_popularity: {
+
+
+                break;
+            }
+            case R.id.menu_rating: {
+
+                break;
+            }
+            case R.id.menu_favorites: {
+
+                break;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+        return true;
     }
 
     @Override
