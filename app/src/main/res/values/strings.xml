@@ -40,4 +40,19 @@
     <integer name="preferences_initial_sort_rating" translatable="false">2</integer>
     <integer name="preferences_initial_sort_favorites" translatable="false">3</integer>
 
+    <!-- ############### -->
+    <!-- # Error-Codes # -->
+    <!-- ############### -->
+        <!-- Network -->
+        <integer name="error_network_noInternet">-100</integer>
+        <integer name="error_network_failedDownload">-101</integer>
+
+        <!-- intern Communication -->
+        <integer name="error_internCommunication_isNull">-200</integer>
+        <integer name="error_internCommunication_noSelectedMovie">-201</integer>
+        <integer name="error_internCommunication_missingInfo">-202</integer>
+
+        <!-- date Storage -->
+        <integer name="error_dataStorage_failedSave">-301</integer>
+
 </resources>

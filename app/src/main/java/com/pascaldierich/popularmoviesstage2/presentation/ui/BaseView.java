@@ -28,7 +28,7 @@ public interface BaseView {
 	 */
 	void showError(String message);
 
-	void initPresenter(Bundle savedInstanceState);
+	void initPresenter(Bundle savedInstanceState, Bundle arguments);
 
 	Context getApplicationContext();
 

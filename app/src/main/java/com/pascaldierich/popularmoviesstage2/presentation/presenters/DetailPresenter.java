@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
+import android.support.annotation.Nullable;
+
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 
@@ -19,7 +21,7 @@ public interface DetailPresenter extends BasePresenter {
 
 	void getDetailMovieObject();
 
-	void showGivenData();
+	void showGivenData(@Nullable DetailMovieObject movie);
 
 	// Network
 	void getTrailer(int id);

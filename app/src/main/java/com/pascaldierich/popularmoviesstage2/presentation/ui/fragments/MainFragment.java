@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,7 +56,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 
-		initPresenter(savedInstanceState);
+		initPresenter(savedInstanceState, null);
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState) {
+	public void initPresenter(Bundle savedInstanceState, @Nullable Bundle arguments) {
 		mPresenter = new MainFragmentPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),

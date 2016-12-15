@@ -1,6 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.presentation.converters.model;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,7 +16,7 @@ import com.pascaldierich.popularmoviesstage2.data.storage.model.MovieObject;
 /**
  * Movie Object for View
  */
-public class DetailMovieObject extends MovieObject {
+public class DetailMovieObject extends MovieObject implements Parcelable {
 	private static final String LOG_TAG = DetailMovieObject.class.getSimpleName();
 
 	private String[] mTrailers; // optional
@@ -107,4 +109,13 @@ public class DetailMovieObject extends MovieObject {
 	}
 
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO: 16.12.16 write to Parcel??
+	}
 }

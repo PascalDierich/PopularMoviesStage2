@@ -17,7 +17,8 @@ public class QueryFavoriteInteractorImpl extends AbstractInteractor implements Q
 	private QueryFavoriteMoviesInteractor.Callback mCallback;
 	private FavoriteRepository mRepository;
 
-	public QueryFavoriteInteractorImpl(Executor threadExecutor, MainThread mainThread,
+	public QueryFavoriteInteractorImpl(Executor threadExecutor,
+									   MainThread mainThread,
 									   QueryFavoriteMoviesInteractor.Callback callback,
 									   FavoriteRepository repository) {
 		super(threadExecutor, mainThread);

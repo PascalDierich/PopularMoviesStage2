@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.SaveMovieRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
@@ -44,12 +45,13 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	private ImageView mImageViewThumbnail;
 
+	private Bundle mSavedInstanceState;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(false);
-
-		initPresenter(savedInstanceState);
+		this.mSavedInstanceState = savedInstanceState;
 	}
 
 	@Override
@@ -57,6 +59,9 @@ public class DetailFragment extends Fragment implements BaseView,
 							 Bundle savedInstanceBundle) {
 		View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 		rootView = initViews(rootView);
+
+		initPresenter(mSavedInstanceState, getArguments());
+
 		return rootView;
 	}
 
@@ -82,14 +87,16 @@ public class DetailFragment extends Fragment implements BaseView,
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState) {
+	public void initPresenter(Bundle savedInstanceState, Bundle arguments) {
 		mPresenter = new DetailPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),
 				savedInstanceState,
 				this,
 				new DetailRepositoryImpl(),
-				new SaveMovieRepositoryImpl(getApplicationContext())
+				new SaveMovieRepositoryImpl(getApplicationContext()),
+				new FavoriteRepositoryImpl(getApplicationContext()),
+				arguments
 		);
 	}
 
@@ -114,7 +121,7 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	@Override
 	public void showGivenData(DetailMovieObject movie) {
-		Log.d(LOG_TAG, "showGivenData: called with movie != null -> " + (movie != null));
+		Log.d(LOG_TAG, "showGivenData: called with movie == null -> " + (movie == null));
 		this.mTextViewLength.setText("hallo");
 		try {
 			this.mTextViewTitle.setText(movie.getmTitle());

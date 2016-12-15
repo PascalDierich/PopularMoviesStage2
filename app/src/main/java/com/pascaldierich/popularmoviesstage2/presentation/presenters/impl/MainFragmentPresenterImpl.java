@@ -26,7 +26,6 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.Abstra
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.MovieSelectedCallback;
 import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
-import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 import com.pascaldierich.popularmoviesstage2.utils.Utility;
 
 import java.util.ArrayList;
@@ -55,6 +54,8 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	private SharedPreferences mSharedPreferences;
 
+	private ArrayList<DetailMovieObject> mDetailMovieObjectArrayList;
+
 	public interface DetailFragmentCallback {
 		void onItemSelected(int id);
 	}
@@ -81,7 +82,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	private void getInitialData() {
 		if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
-			onError(ErrorCodes.Network.NO_INTERNET);
+			onError(R.integer.error_network_noInternet);
 			return;
 		}
 
@@ -133,12 +134,12 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	@Override
 	public void onError(int code) {
 		switch (code) {
-			case ErrorCodes.Network.DOWNLOAD_NULL: {
+			case R.integer.error_network_failedDownload: {
 				Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
 				// TODO: tell User about Problem
 				mView.showError("Download failed");
 			}
-			case ErrorCodes.Network.NO_INTERNET: {
+			case R.integer.error_network_noInternet: {
 				Log.d(LOG_TAG, "onError: NO_INTERNET");
 				mView.showError("No Internet Connection");
 			}
@@ -151,13 +152,15 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		mView.hideProgress();
 
 		if (movies == null || movies.getResults().size() == 0) {
-			onError(ErrorCodes.Network.DOWNLOAD_NULL);
+			onError(R.integer.error_network_failedDownload);
 			return;
 		}
 
 		ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
-		ConstantsHolder.setDownloadedData(movieObjectArrayList);
+//		ConstantsHolder.setDownloadedData(movieObjectArrayList); // TODO: 15.12.16 FUCK ME !!
+
+		this.mDetailMovieObjectArrayList = movieObjectArrayList;
 
 		Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = " + movieObjectArrayList.size());
 
@@ -166,20 +169,25 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void movieSelected(int position) {
+		// TODO: 15.12.16 or mabe give whole DetailMovieObject through Bundle with Arguments -> I think this is better XD
 		if (ConstantsHolder.getTwoPaneMode()) { // inflate Fragment
-			
-			((MovieSelectedCallback) mView.getApplicationContext())
-					.onMovieSelected(null); // TODO: 15.12.16 get Uri
 
-			/*
-			TODO: save MovieObject as Uri
-			 */
+			Bundle selectedMovie = new Bundle();
+			selectedMovie.putParcelable("", this.mDetailMovieObjectArrayList.get(position));
+
+			// Calls MainActivity with Callback and DetailMovieObject as Argument
+			((MovieSelectedCallback) mView.getApplicationContext())
+					.onMovieSelected(selectedMovie);
+
+//			((MovieSelectedCallback) mView.getApplicationContext())
+//					.onMovieSelected(MovieContract.MovieEntry.buildMovieUriWithId(position));
+
 			
-			mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl(); // TODO: 15.12.16 fuck static Objects !!! 
-			mDetailFragmentCallback.onItemSelected(position);
+//			mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl(); // TODO: 15.12.16 fuck static Objects !!!!!!
+//			mDetailFragmentCallback.onItemSelected(position);
 
 		} else { // start new Activity
-			mView.startDetailActivity(position);
+			mView.startDetailActivity(position); // TODO: 15.12.16 give DetailMovieObject through Bundle
 		}
 	}
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.SaveMovieRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
@@ -16,7 +17,6 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPrese
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
-import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 
 public class DetailActivity extends AppCompatActivity implements BaseView, DetailPresenter.View {
 	private static final String LOG_TAG = DetailActivity.class.getSimpleName();
@@ -41,7 +41,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		setContentView(R.layout.activity_detail);
 
 		initViews();
-		initPresenter(savedInstanceState);
+		initPresenter(savedInstanceState, null);
 
 	}
 
@@ -99,20 +99,22 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState) {
+	public void initPresenter(Bundle savedInstanceState, Bundle arguments) {
 		this.mPresenter = new DetailPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),
 				savedInstanceState,
 				this,
 				new DetailRepositoryImpl(),
-				new SaveMovieRepositoryImpl(getApplicationContext())
+				new SaveMovieRepositoryImpl(getApplicationContext()),
+				new FavoriteRepositoryImpl(getApplicationContext()),
+				arguments
 		);
 	}
 
 	@Override
 	public int getSelectedMovieId() {
-		return getIntent().getIntExtra(getString(R.string.intent_string_key), ErrorCodes.internCommunication.NO_SELECTED_MOVIE);
+		return getIntent().getIntExtra(getString(R.string.intent_string_key), R.integer.error_internCommunication_noSelectedMovie);
 		// TODO: 14.12.16 save String key in strings.xml;
 	}
 }

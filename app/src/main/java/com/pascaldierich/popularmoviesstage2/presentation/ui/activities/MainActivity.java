@@ -1,8 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 		ConstantsHolder.setApiKey(getString(R.string.api_key));
 		Log.d(LOG_TAG, "onCreate: api_key = " + getString(R.string.api_key));
 
-		initPresenter(savedInstanceState);
+		initPresenter(savedInstanceState, null);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState) {
+	public void initPresenter(Bundle savedInstanceState, @Nullable Bundle bundle) {
 		mMainPresenter = new MainActivityPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),
@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 	}
 
 	@Override
-	public void onMovieSelected(Uri contentUri) {
+	public void onMovieSelected(Bundle selectedMovie) {
 		if (getUiMode()) { // TwoPaneMode
 			Bundle args = new Bundle();
-			args.putParcelable("", contentUri);
+			args.putParcelable("", selectedMovie); // TODO: 16.12.16 define Key in string.xml 
 
 			DetailFragment fragment = new DetailFragment();
 			fragment.setArguments(args);
@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 					.replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG)
 					.commit();
 		} else {
-			// TODO: 15.12.16
+			Log.d(LOG_TAG, "onMovieSelected: am I here??");
+			// TODO: 15.12.16 start new DetailActivity
 		}
 	}
 }
