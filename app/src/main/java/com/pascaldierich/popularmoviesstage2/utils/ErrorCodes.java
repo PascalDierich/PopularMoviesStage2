@@ -25,4 +25,13 @@ public abstract class ErrorCodes {
         public static final int NOT_ENOUGH_INFO = -202;
     }
 
+    /*
+    Data Storage
+        -> -3xx
+     */
+    public static class dataStorage {
+
+        public static final int SAVE_FAILED = -301;
+    }
+
 }

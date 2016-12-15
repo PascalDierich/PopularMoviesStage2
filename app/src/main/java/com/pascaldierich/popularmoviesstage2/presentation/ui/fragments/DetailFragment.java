@@ -4,21 +4,33 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.pascaldierich.popularmoviesstage2.R;
+import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.storage.SaveMovieRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailFragmentPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailFragmentPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
+import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 
 /**
  * Created by pascaldierich on 12.12.16.
  */
 
-public class DetailFragment extends Fragment implements BaseView {
+public class DetailFragment extends Fragment implements BaseView,
+        DetailFragmentPresenter.View {
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+    
+    private DetailFragmentPresenter mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(false);
 
-        initPresenter(savedInstanceState);
+        initPresenter(savedInstanceState); 
     }
 
 
@@ -43,7 +55,29 @@ public class DetailFragment extends Fragment implements BaseView {
     }
 
     @Override
-    public void initPresenter(Bundle savedInstaceState) {
+    public void initPresenter(Bundle savedInstanceState) {
+        mPresenter = new DetailFragmentPresenterImpl(
+                ThreadExecutor.getInstance(),
+                MainThreadImpl.getInstance(),
+                savedInstanceState,
+                this,
+                new DetailRepositoryImpl(),
+                new SaveMovieRepositoryImpl(getApplicationContext())
+        );
+    }
 
+    public void initView() {
+
+    }
+
+    @Override
+    public int getSelectedMovieId() {
+        return 0;
+    }
+
+    @Override
+    public void showGivenData(DetailMovieObject movie) {
+        // TODO: 15.12.16 get Key 
+        return getIntent().getIntExtra(getString(R.string.intent_string_key), ErrorCodes.internCommunication.NO_SELECTED_MOVIE);
     }
 }

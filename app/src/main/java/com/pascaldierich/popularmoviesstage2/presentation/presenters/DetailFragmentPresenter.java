@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 
 /**
@@ -7,4 +8,23 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePr
  */
 
 public interface DetailFragmentPresenter extends BasePresenter {
+
+	interface View {
+		int getSelectedMovieId();
+
+		void showGivenData(DetailMovieObject movie);
+	}
+
+	void checkSelectedMovie();
+
+	void getDetailMovieObject();
+
+	void showGivenData();
+
+	// Network
+	void getTrailer(int id);
+
+	void getReviews(int id);
+
+	void saveAsFavorite();
 }

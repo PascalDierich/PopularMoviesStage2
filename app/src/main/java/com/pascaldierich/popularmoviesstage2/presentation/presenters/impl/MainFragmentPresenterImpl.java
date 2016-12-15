@@ -133,9 +133,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
     @Override
     public void movieSelected(int position) {
-        // TODO: 14.12.16 start new Activity || fragment with DetailMovieObject
-
+        // TODO: 14.12.16 start new Activity || update fragment with DetailMovieObject
         if (mTwoPaneMode) { // inflate Fragment
+            // TODO: 15.12.16 update DetailFragment
+
+
 
         } else { // start new Activity
             mView.startDetailActivity(position);
