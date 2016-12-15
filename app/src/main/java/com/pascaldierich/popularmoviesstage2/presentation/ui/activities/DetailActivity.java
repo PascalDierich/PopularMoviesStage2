@@ -12,17 +12,17 @@ import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.SaveMovieRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailActivityPresenter;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailActivityPresenterImpl;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
 
-public class DetailActivity extends AppCompatActivity implements BaseView, DetailActivityPresenter.View {
+public class DetailActivity extends AppCompatActivity implements BaseView, DetailPresenter.View {
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
 
     // Presenter
-    private DetailActivityPresenter mPresenter;
+    private DetailPresenter mPresenter;
 
     // View Components
     private TextView mTextViewTitle;
@@ -100,7 +100,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
     @Override
     public void initPresenter(Bundle savedInstanceState) {
-         this.mPresenter = new DetailActivityPresenterImpl(
+         this.mPresenter = new DetailPresenterImpl(
                  ThreadExecutor.getInstance(),
                  MainThreadImpl.getInstance(),
                  savedInstanceState,

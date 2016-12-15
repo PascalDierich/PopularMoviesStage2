@@ -16,7 +16,7 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesR
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailActivityPresenter;
+import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
@@ -25,24 +25,24 @@ import com.pascaldierich.popularmoviesstage2.utils.ErrorCodes;
  * Created by pascaldierich on 10.12.16.
  */
 
-public class DetailActivityPresenterImpl extends AbstractPresenter implements DetailActivityPresenter,
+public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
         DownloadInfoForMovieInteractor.Callback,
         SaveFavoriteMovieInteractor.Callback {
-    private static final String LOG_TAG = DetailActivityPresenterImpl.class.getSimpleName();
+    private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
-    private DetailActivityPresenter.View mView;
+    private DetailPresenter.View mView;
     private DetailInfoMoviesRepository mDetailRepository;
     private SaveMovieRepository mSaveRepository;
     
     private int mMovieInternId;
     private DetailMovieObject mDetailMovieObject;
 
-    public DetailActivityPresenterImpl(Executor executor,
-                                       MainThread mainThread,
-                                       Bundle savedInstanceState,
-                                       View view,
-                                       DetailInfoMoviesRepository detailRepository,
-                                       SaveMovieRepository saveRepository) {
+    public DetailPresenterImpl(Executor executor,
+                               MainThread mainThread,
+                               Bundle savedInstanceState,
+                               DetailPresenter.View view,
+                               DetailInfoMoviesRepository detailRepository,
+                               SaveMovieRepository saveRepository) {
         super(executor, mainThread, savedInstanceState);
         this.mView = view;
         this.mDetailRepository = detailRepository;

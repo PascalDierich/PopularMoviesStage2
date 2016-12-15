@@ -7,7 +7,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePr
  * Created by pascaldierich on 12.12.16.
  */
 
-public interface DetailFragmentPresenter extends BasePresenter {
+public interface DetailPresenter extends BasePresenter {
 
 	interface View {
 		int getSelectedMovieId();
