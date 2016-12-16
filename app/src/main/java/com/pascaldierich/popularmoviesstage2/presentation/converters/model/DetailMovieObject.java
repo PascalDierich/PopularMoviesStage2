@@ -107,7 +107,8 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 	public String[] getmReview() {
 		return mReview;
 	}
-
+	
+	// TODO: 16.12.16 make Parcel works.... :D 
 
 	@Override
 	public int describeContents() {
@@ -116,6 +117,7 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		
 		// TODO: 16.12.16 write to Parcel??
 	}
 }

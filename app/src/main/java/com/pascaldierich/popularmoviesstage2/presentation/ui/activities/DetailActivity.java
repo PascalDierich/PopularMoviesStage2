@@ -41,8 +41,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		setContentView(R.layout.activity_detail);
 
 		initViews();
-		initPresenter(savedInstanceState, null);
-
+		initPresenter(savedInstanceState, getIntent().getBundleExtra(""));
 	}
 
 	public void initViews() {

@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -104,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 					.replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG)
 					.commit();
 		} else {
+			Intent intent = new Intent(this, DetailActivity.class);
+			intent.putExtra("", selectedMovie);
+
+			startActivity(intent);
 			Log.d(LOG_TAG, "onMovieSelected: am I here??");
 			// TODO: 15.12.16 start new DetailActivity
 		}

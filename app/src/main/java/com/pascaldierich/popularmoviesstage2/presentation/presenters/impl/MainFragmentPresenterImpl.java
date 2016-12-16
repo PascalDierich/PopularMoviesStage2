@@ -25,7 +25,6 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmen
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.MovieSelectedCallback;
-import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import com.pascaldierich.popularmoviesstage2.utils.Utility;
 
 import java.util.ArrayList;
@@ -169,26 +168,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void movieSelected(int position) {
-		// TODO: 15.12.16 or mabe give whole DetailMovieObject through Bundle with Arguments -> I think this is better XD
-		if (ConstantsHolder.getTwoPaneMode()) { // inflate Fragment
+		Bundle selectedMovie = new Bundle();
+		selectedMovie.putParcelable("", this.mDetailMovieObjectArrayList.get(position));
 
-			Bundle selectedMovie = new Bundle();
-			selectedMovie.putParcelable("", this.mDetailMovieObjectArrayList.get(position));
-
-			// Calls MainActivity with Callback and DetailMovieObject as Argument
-			((MovieSelectedCallback) mView.getApplicationContext())
-					.onMovieSelected(selectedMovie);
-
-//			((MovieSelectedCallback) mView.getApplicationContext())
-//					.onMovieSelected(MovieContract.MovieEntry.buildMovieUriWithId(position));
-
-			
-//			mDetailFragmentCallback = ConstantsHolder.getDetailPresenterImpl(); // TODO: 15.12.16 fuck static Objects !!!!!!
-//			mDetailFragmentCallback.onItemSelected(position);
-
-		} else { // start new Activity
-			mView.startDetailActivity(position); // TODO: 15.12.16 give DetailMovieObject through Bundle
-		}
+		((MovieSelectedCallback) mView.getApplicationContext())
+				.onMovieSelected(selectedMovie);
 	}
 
 	@Override

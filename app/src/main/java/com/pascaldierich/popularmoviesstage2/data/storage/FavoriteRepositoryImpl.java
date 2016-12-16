@@ -51,13 +51,6 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 
 		Cursor cursor = mContext.getContentResolver().query(contentUri, null, null, null, null); // TODO: 15.12.16 cursor == null
 
-		/*
-		TODO: 15.12.16
-			1. Read out Bitmap with Picasso
-			2. Save every Bitmap temporally
-			3. Than get Movie by Uri
-		 */
-
 		Log.d(LOG_TAG, "getMovie: contentUri = " + contentUri);
 
 		return cursorToStringArray(cursor);
