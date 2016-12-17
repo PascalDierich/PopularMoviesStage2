@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.converters;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
@@ -66,5 +67,11 @@ public class Converter {
 		bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
 
 		return outputStream.toByteArray();
+	}
+
+	public static Bitmap byteArrayToBitmao(byte[] array) {
+		Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
+
+		return bitmap;
 	}
 }

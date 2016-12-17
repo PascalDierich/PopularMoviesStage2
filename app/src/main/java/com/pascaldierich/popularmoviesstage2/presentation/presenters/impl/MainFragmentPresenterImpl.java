@@ -157,7 +157,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 		ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 
-//		ConstantsHolder.setDownloadedData(movieObjectArrayList); // TODO: 15.12.16 FUCK ME !!
+//		ConstantsHolder.setDownloadedData(movieObjectArrayList);
 
 		this.mDetailMovieObjectArrayList = movieObjectArrayList;
 

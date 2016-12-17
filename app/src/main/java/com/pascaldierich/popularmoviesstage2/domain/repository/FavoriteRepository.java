@@ -15,7 +15,7 @@ public interface FavoriteRepository {
 
 	ArrayList<String[]> getFavoriteMovies();
 
-	String[] getMovie(Uri contentUri);
+	String[] getMovie(Uri contentUri); // TODO: 17.12.16 deprecated -> used Parcelable Object
 	/*
     TODO: insert DB methods like insert, read etc
      */

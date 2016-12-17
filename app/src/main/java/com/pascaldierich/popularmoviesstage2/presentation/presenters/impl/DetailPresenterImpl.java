@@ -158,6 +158,10 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 			return;
 		}
 		Log.d(LOG_TAG, "showGivenData: movie should NOT be null -> " + (movie == null));
+
+		Log.d(LOG_TAG, "showGivenData: " + movie.getmTitle());
+		Log.d(LOG_TAG, "showGivenData: " + movie.getmDescription());
+
 		mView.showGivenData(movie);
 		// TODO: 14.12.16 mView.mTextViewTitle.setText(this.mDetailMovieObject) ... etc
 	}
