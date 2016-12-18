@@ -3,6 +3,8 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
+
 /**
  * Created by pascaldierich on 08.12.16.
  */
@@ -28,7 +30,7 @@ public interface BaseView {
 	 */
 	void showError(String message);
 
-	void initPresenter(Bundle savedInstanceState, Bundle arguments);
+	void initPresenter(Bundle savedInstanceState, DetailMovieObject movie);
 
 	Context getApplicationContext();
 

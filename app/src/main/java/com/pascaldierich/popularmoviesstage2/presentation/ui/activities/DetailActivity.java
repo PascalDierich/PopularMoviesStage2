@@ -42,7 +42,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		setContentView(R.layout.activity_detail);
 
 		initViews();
-		initPresenter(savedInstanceState, getIntent().getBundleExtra(""));
+		initPresenter(savedInstanceState, (DetailMovieObject) getIntent().getBundleExtra("").get(getString(R.string.parcelable_detail_movie_object_key)));
 	}
 
 	public void initViews() {
@@ -106,7 +106,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState, Bundle arguments) {
+	public void initPresenter(Bundle savedInstanceState, DetailMovieObject arguments) {
 		this.mPresenter = new DetailPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),

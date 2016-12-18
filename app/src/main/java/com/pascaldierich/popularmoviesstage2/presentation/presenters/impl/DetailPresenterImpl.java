@@ -54,15 +54,16 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 							   DetailInfoMoviesRepository detailRepository,
 							   SaveMovieRepository saveRepository,
 							   FavoriteRepository faveRepository,
-							   Bundle arguments) {
+							   DetailMovieObject movie) {
 		super(executor, mainThread, savedInstanceState);
 		this.mView = view;
 		this.mDetailRepository = detailRepository;
 		this.mSaveRepository = saveRepository;
 		this.mFavoriteRepository = faveRepository;
 
+		// TODO: 18.12.16 if app starts and no movie selected -> get 1 movie -> do in MainActivity / MainPresenter
 		try {
-			showGivenData((DetailMovieObject) arguments.get(""));
+			showGivenData(movie);
 		} catch (NullPointerException npe) {
 			Log.e(LOG_TAG, "DetailPresenterImpl: NullPointerException: " + npe.fillInStackTrace());
 			// TODO: 18.12.16 call mainActivity to try download again -> checkForConnection 

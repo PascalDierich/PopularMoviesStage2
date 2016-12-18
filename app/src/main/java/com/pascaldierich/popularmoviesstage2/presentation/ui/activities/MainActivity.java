@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivityPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainActivityPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.MovieSelectedCallback;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState, @Nullable Bundle bundle) {
+	public void initPresenter(Bundle savedInstanceState, @Nullable DetailMovieObject movieObject) {
 		mMainPresenter = new MainActivityPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),
@@ -95,9 +96,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 	@Override
 	public void onMovieSelected(Bundle selectedMovie) {
 		if (getUiMode()) { // TwoPaneMode
-			Bundle args = new Bundle();
-			args.putParcelable(getString(R.string.parcelable_detail_movie_object_key), selectedMovie); // TODO: 16.12.16 define Key in string.xml
-
 			DetailFragment fragment = new DetailFragment();
 			fragment.setArguments(selectedMovie);
 

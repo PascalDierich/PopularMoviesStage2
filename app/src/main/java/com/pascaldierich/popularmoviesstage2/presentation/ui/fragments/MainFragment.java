@@ -22,6 +22,7 @@ import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.MoviesRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.MainFragmentPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.activities.DetailActivity;
@@ -90,7 +91,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState, @Nullable Bundle arguments) {
+	public void initPresenter(Bundle savedInstanceState, @Nullable DetailMovieObject movieObject) {
 		mPresenter = new MainFragmentPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),

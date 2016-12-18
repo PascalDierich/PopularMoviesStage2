@@ -59,8 +59,15 @@ public class DetailFragment extends Fragment implements BaseView,
 							 Bundle savedInstanceBundle) {
 		View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 		rootView = initViews(rootView);
-		
-		initPresenter(mSavedInstanceState, getArguments());
+
+		try {
+			initPresenter(mSavedInstanceState, (DetailMovieObject) getArguments().get(getString(R.string.parcelable_detail_movie_object_key)));
+		} catch (NullPointerException e) {
+			Log.e(LOG_TAG, "onCreateView: NullPointerException" + "\n" +
+					" --> " + e.fillInStackTrace());
+			initPresenter(mSavedInstanceState, null);
+		}
+
 
 		return rootView;
 	}
@@ -87,7 +94,7 @@ public class DetailFragment extends Fragment implements BaseView,
 	}
 
 	@Override
-	public void initPresenter(Bundle savedInstanceState, Bundle arguments) {
+	public void initPresenter(Bundle savedInstanceState, DetailMovieObject arguments) {
 		mPresenter = new DetailPresenterImpl(
 				ThreadExecutor.getInstance(),
 				MainThreadImpl.getInstance(),

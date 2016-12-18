@@ -186,7 +186,8 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	@Override
 	public void movieSelected(int position) {
 		Bundle selectedMovie = new Bundle();
-		selectedMovie.putParcelable("", this.mDetailMovieObjectArrayList.get(position));
+		selectedMovie.putParcelable(mView.getApplicationContext().getString(R.string.parcelable_detail_movie_object_key),
+				this.mDetailMovieObjectArrayList.get(position));
 
 		((MovieSelectedCallback) mView.getApplicationContext())
 				.onMovieSelected(selectedMovie);
