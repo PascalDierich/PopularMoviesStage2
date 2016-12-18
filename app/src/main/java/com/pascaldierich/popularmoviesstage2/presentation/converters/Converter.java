@@ -2,6 +2,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.converters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.Movie;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
@@ -64,6 +65,7 @@ public class Converter {
 
 	public static byte[] bitmapToByteArray(Bitmap bitmap) {
 		if (bitmap == null) {
+			Log.d(LOG_TAG, "bitmapToByteArray: bitmap == null");
 			return null;
 		}
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

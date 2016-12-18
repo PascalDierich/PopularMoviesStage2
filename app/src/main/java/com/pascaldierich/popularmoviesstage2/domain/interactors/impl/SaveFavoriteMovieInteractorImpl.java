@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
+import android.util.Log;
+
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
@@ -12,6 +14,7 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieReposito
  */
 
 public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implements SaveFavoriteMovieInteractor {
+	private static final String LOG_TAG = SaveFavoriteMovieInteractorImpl.class.getSimpleName();
 
 	SaveFavoriteMovieInteractor.Callback mCallback;
 	SaveMovieRepository mRepository;
@@ -36,6 +39,8 @@ public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implemen
 	@Override
 	public void run() {
 		final boolean success = mRepository.saveAsFavorite(mMovieObject);
+		
+		Log.d(LOG_TAG, "run: success?? -> " + success);
 		
 		// TODO: 17.12.16 save does not work 
 		

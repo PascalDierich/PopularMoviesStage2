@@ -164,6 +164,7 @@ public class DetailFragment extends Fragment implements BaseView,
 			@Override
 			public void onClick(View v) {
 				movie.setThumbnail(mBitmap);
+				Log.d(LOG_TAG, "onClick: bitmap == null -> " + (mBitmap == null));
 				mPresenter.saveAsFavorite(movie);
 			}
 		});

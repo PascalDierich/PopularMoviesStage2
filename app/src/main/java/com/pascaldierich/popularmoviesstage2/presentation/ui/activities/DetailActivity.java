@@ -94,10 +94,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 			public void onClick(View v) {
 				movie.setThumbnail(mBitmap);
 				mPresenter.saveAsFavorite(movie);
+
 			}
 		});
-//        this.mTextViewLength.setText(movie.getmLength);
-//        this.mImageViewThumbnail.setImageBitmap(null); // TODO: 14.12.16 get Bitmap -> get Bitmap from Picasso and save it somewhere (?) 
 
 	}
 

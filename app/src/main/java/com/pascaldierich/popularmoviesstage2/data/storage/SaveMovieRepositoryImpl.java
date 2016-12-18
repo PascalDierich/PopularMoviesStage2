@@ -3,6 +3,7 @@ package com.pascaldierich.popularmoviesstage2.data.storage;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
@@ -13,6 +14,7 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieReposito
  */
 
 public class SaveMovieRepositoryImpl implements SaveMovieRepository {
+	private static final String LOG_TAG = SaveMovieRepositoryImpl.class.getSimpleName();
 
 	private Context mContext;
 
@@ -22,10 +24,15 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 
 	@Override
 	public boolean saveAsFavorite(DataMovieObject movieObject) {
+		Log.d(LOG_TAG, "saveAsFavorite: going to save");
 
 		ContentValues values = detailInfoToContentValues(movieObject);
 
+		if (values == null) Log.d(LOG_TAG, "saveAsFavorite: values == NULL");
+
 		Uri uri = mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, values);
+
+		if (uri != null) Log.d(LOG_TAG, "saveAsFavorite: uri = " + uri);
 
 		return uri != null; // check if success
 	}
@@ -33,12 +40,14 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 	private ContentValues detailInfoToContentValues(DataMovieObject movieObject) {
 		ContentValues values = new ContentValues();
 
-		values.put(MovieContract.MovieEntry.COLUMN_ID, movieObject.getmId());
+//		values.put(MovieContract.MovieEntry.COLUMN_ID, movieObject.getmId());
 		values.put(MovieContract.MovieEntry.COLUMN_TITLE, movieObject.getmTitle());
 		values.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, movieObject.getmThumbnail());
 		values.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, movieObject.getmDescription());
 		values.put(MovieContract.MovieEntry.COLUMN_RATING, movieObject.getmRating());
 		values.put(MovieContract.MovieEntry.COLUMN_RELEASE, movieObject.getmRelease());
+
+		Log.d(LOG_TAG, "detailInfoToContentValues: going to return values with size == " + values.size());
 
 		return values;
 	}

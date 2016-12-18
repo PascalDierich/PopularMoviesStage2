@@ -54,7 +54,8 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 	}
 
 	public boolean setThumbnail(Bitmap bitmap) {
-		if (this.mThumbnail == null) {
+		if (bitmap == null) {
+			Log.d(LOG_TAG, "setThumbnail: bitmap == null");
 			return false;
 		}
 		this.mThumbnail = bitmap;

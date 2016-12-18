@@ -1,5 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
+import android.util.Log;
+
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.QueryFavoriteMoviesInteractor;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
  */
 
 public class QueryFavoriteInteractorImpl extends AbstractInteractor implements QueryFavoriteMoviesInteractor {
+	private static final String LOG_TAG = QueryFavoriteInteractorImpl.class.getSimpleName();
 
 	private QueryFavoriteMoviesInteractor.Callback mCallback;
 	private FavoriteRepository mRepository;

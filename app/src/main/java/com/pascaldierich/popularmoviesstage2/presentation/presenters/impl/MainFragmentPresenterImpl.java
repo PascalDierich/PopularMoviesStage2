@@ -194,6 +194,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void onQueryFinished(ArrayList<String[]> faveMovies) { // TODO: convert
+		Log.d(LOG_TAG, "onQueryFinished: faveMovies.size() = " + faveMovies.size());
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
 	}
 

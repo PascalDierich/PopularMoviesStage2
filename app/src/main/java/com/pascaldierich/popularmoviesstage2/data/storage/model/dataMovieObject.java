@@ -8,6 +8,7 @@ package com.pascaldierich.popularmoviesstage2.data.storage.model;
  * Movie Object for DB
  */
 public class DataMovieObject extends MovieObject {
+	private static final String LOG_TAG = DataMovieObject.class.getSimpleName();
 
 	private byte[] mThumbnail;
 

@@ -31,7 +31,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.Abstra
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
 		DownloadInfoForMovieInteractor.Callback,
 		SaveFavoriteMovieInteractor.Callback,
-	QuerySelectedMovieInteractor.Callback {
+		QuerySelectedMovieInteractor.Callback {
 	private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
 	private DetailPresenter.View mView;
