@@ -96,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 	public void onMovieSelected(Bundle selectedMovie) {
 		if (getUiMode()) { // TwoPaneMode
 			Bundle args = new Bundle();
-			args.putParcelable("", selectedMovie); // TODO: 16.12.16 define Key in string.xml 
+			args.putParcelable(getString(R.string.parcelable_detail_movie_object_key), selectedMovie); // TODO: 16.12.16 define Key in string.xml
 
 			DetailFragment fragment = new DetailFragment();
-			fragment.setArguments(args);
+			fragment.setArguments(selectedMovie);
 
 			getSupportFragmentManager().beginTransaction()
 					.replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG)

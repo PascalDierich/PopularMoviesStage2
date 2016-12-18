@@ -75,6 +75,8 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		getInitialData();
 	}
 
+	// TODO: 18.12.16 add Refresh Button in menu -> if downloadFailed
+
 	public void setView(MainFragmentPresenter.View view) {
 		this.mView = view;
 	}
@@ -90,16 +92,31 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		switch (initialPreference) {
 			case R.integer.preferences_initial_sort_popularity: {
 				Log.d(LOG_TAG, "getInitialData: getPopular");
+				/*
+				only for production
+				 */
+				mView.showError("getPopular");
+
 				getPopularMovies();
 				break;
 			}
 			case R.integer.preferences_initial_sort_rating: {
 				Log.d(LOG_TAG, "getInitialData: getRating");
+				/*
+				only for production
+				 */
+				mView.showError("getRated");
+
 				getTopRatedMovies();
 				break;
 			}
 			case R.integer.preferences_initial_sort_favorites: {
 				Log.d(LOG_TAG, "getInitialData: getFavorites");
+				/*
+				only for production
+				 */
+				mView.showError("getFavorites");
+
 				getFavoriteMovies();
 				break;
 			}

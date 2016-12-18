@@ -61,15 +61,11 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		this.mSaveRepository = saveRepository;
 		this.mFavoriteRepository = faveRepository;
 
-		Log.d(LOG_TAG, "DetailPresenterImpl: arguments == null -> " + (arguments == null));
-
 		try {
-			Log.d(LOG_TAG, "DetailPresenterImpl: arguments.getBundle == null -> " + (arguments.getBundle("") == null));
-			Log.d(LOG_TAG, "DetailPresenterImpl: arguments.getBundle.get == null -> " + (arguments.getBundle("").get("") == null));
-
-			showGivenData((DetailMovieObject) arguments.getBundle("").get(""));
+			showGivenData((DetailMovieObject) arguments.get(""));
 		} catch (NullPointerException npe) {
 			Log.e(LOG_TAG, "DetailPresenterImpl: NullPointerException: " + npe.fillInStackTrace());
+			// TODO: 18.12.16 call mainActivity to try download again -> checkForConnection 
 		} catch (ClassCastException cce) {
 			Log.d(LOG_TAG, "DetailPresenterImpl: ClassCastException");
 		}
@@ -197,13 +193,13 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 	}
 
 	@Override
-	public void saveAsFavorite() {
+	public void saveAsFavorite(DetailMovieObject object) {
 		SaveFavoriteMovieInteractor interactor = new SaveFavoriteMovieInteractorImpl(
 				mExecutor,
 				mMainThread,
 				this,
 				mSaveRepository,
-				Converter.DetailMovieObjectToDataMovieObject(null)   // --> TODO: null = DetailMovieObject
+				Converter.DetailMovieObjectToDataMovieObject(object)   // --> TODO: null = DetailMovieObject
 		);
 		interactor.execute();
 	}

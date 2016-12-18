@@ -3,6 +3,7 @@ package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	}
 
 	@Override
-	public void showGivenData(DetailMovieObject movie) {
+	public void showGivenData(final DetailMovieObject movie) {
 		this.mTextViewLength.setText("hallo");
 		try {
 			this.mTextViewTitle.setText(movie.getmTitle());
@@ -77,6 +78,13 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		} catch (NullPointerException npe) {
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
 		}
+
+		this.mImageButtonFavorite.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.saveAsFavorite(movie);
+			}
+		});
 //        this.mTextViewLength.setText(movie.getmLength);
 //        this.mImageViewThumbnail.setImageBitmap(null); // TODO: 14.12.16 get Bitmap -> get Bitmap from Picasso and save it somewhere (?) 
 

@@ -1,7 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.converters.model;
 
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -22,7 +21,7 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 	private static final String LOG_TAG = DetailMovieObject.class.getSimpleName();
 
 	private String[] mTrailers; // optional
-	private String mPosterPath; // optional
+	private String mPosterPath;
 	private Bitmap mThumbnail;  // optinal
 	private String[] mReview; // optional
 
@@ -117,28 +116,18 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(super.mId);
 		dest.writeString(super.mTitle);
 		dest.writeString(super.mDescription);
 		dest.writeString(super.mRelease);
-		dest.writeInt(super.mId);
 		dest.writeFloat(super.mRating);
-
-		if (this.mTrailers != null) dest.writeStringArray(this.mTrailers);
-		if (this.mReview != null) dest.writeStringArray(this.mReview);
-
+		dest.writeStringArray(this.mTrailers);
 		dest.writeString(this.mPosterPath);
-
-		if (this.mThumbnail != null) {
-			Bundle thumbnail = new Bundle();
-			thumbnail.putByteArray("", Converter.bitmapToByteArray(this.mThumbnail)); // TODO: 17.12.16 Key
-
-			dest.writeBundle(thumbnail);
-		}
-
+		dest.writeByteArray(Converter.bitmapToByteArray(this.mThumbnail));
+		dest.writeStringArray(this.mReview);
 	}
 
-	public static final Parcelable.Creator CREATOR
-			= new Parcelable.Creator() {
+	public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
 		@Override
 		public Object createFromParcel(Parcel source) {
 			return new DetailMovieObject(source);
@@ -153,30 +142,30 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 	public DetailMovieObject(Parcel in) {
 		super(in.readInt(), in.readString(), in.readString(), in.readString(), in.readFloat());
 
+		try {
+			this.mTrailers = in.createStringArray();
+		} catch (NullPointerException e) {
+			Log.e(LOG_TAG, "DetailMovieObject: Trailers == null" + "\n" +
+					" --> " + e.fillInStackTrace());
+			this.mTrailers = null;
+		}
+
 		this.mPosterPath = in.readString();
 
 		try {
-			this.mTrailers = in.createStringArray();
-		} catch (NullPointerException npe) {
-			Log.e(LOG_TAG, "DetailMovieObject: Trailer" + "\n" +
-					" --> " + npe.fillInStackTrace());
+			this.mThumbnail = Converter.byteArrayToBitmao(in.createByteArray());
+		} catch (NullPointerException e) {
+			Log.e(LOG_TAG, "DetailMovieObject: Thumbnail == null" + "\n" +
+					" --> " + e.fillInStackTrace());
+			this.mThumbnail = null;
 		}
 
 		try {
 			this.mReview = in.createStringArray();
-		} catch (NullPointerException npe) {
-			Log.e(LOG_TAG, "DetailMovieObject: Review" + "\n" +
-					" --> " + npe.fillInStackTrace());
+		} catch (NullPointerException e) {
+			Log.e(LOG_TAG, "DetailMovieObject: Review == null" + "\n" +
+					" --> " + e.fillInStackTrace());
+			this.mReview = null;
 		}
-
-		try {
-			this.mThumbnail = Converter.byteArrayToBitmao(in.createByteArray());
-		} catch (NullPointerException npe) {
-			Log.e(LOG_TAG, "DetailMovieObject: Thumbnail" + "\n" +
-					" --> " + npe.fillInStackTrace());
-		}
-
-		Log.d(LOG_TAG, "DetailMovieObject: mPosterPath = " + mPosterPath);
-
 	}
 }

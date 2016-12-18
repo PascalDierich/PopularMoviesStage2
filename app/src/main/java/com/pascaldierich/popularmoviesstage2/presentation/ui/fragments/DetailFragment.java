@@ -59,7 +59,7 @@ public class DetailFragment extends Fragment implements BaseView,
 							 Bundle savedInstanceBundle) {
 		View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 		rootView = initViews(rootView);
-
+		
 		initPresenter(mSavedInstanceState, getArguments());
 
 		return rootView;
@@ -120,7 +120,7 @@ public class DetailFragment extends Fragment implements BaseView,
 	}
 
 	@Override
-	public void showGivenData(DetailMovieObject movie) {
+	public void showGivenData(final DetailMovieObject movie) {
 		Log.d(LOG_TAG, "showGivenData: called with movie == null -> " + (movie == null));
 		this.mTextViewLength.setText("hallo");
 		try {
@@ -143,5 +143,12 @@ public class DetailFragment extends Fragment implements BaseView,
 		} catch (NullPointerException npe) {
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
 		}
+
+		this.mImageButtonFavorite.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.saveAsFavorite(movie);
+			}
+		});
 	}
 }

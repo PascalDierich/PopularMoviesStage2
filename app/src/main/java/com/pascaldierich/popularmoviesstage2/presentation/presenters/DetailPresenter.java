@@ -28,5 +28,5 @@ public interface DetailPresenter extends BasePresenter {
 
 	void getReviews(int id);
 
-	void saveAsFavorite();
+	void saveAsFavorite(DetailMovieObject object);
 }

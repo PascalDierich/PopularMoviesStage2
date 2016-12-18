@@ -46,7 +46,8 @@ public class Converter {
 				object.getmDescription(),
 				object.getmRelease(),
 				object.getmRating(),
-				bitmapToByteArray(object.getmThumbnail())
+//				bitmapToByteArray(object.getmThumbnail())
+				null
 		);
 	}
 
@@ -63,6 +64,9 @@ public class Converter {
 	}
 
 	public static byte[] bitmapToByteArray(Bitmap bitmap) {
+		if (bitmap == null) {
+			return null;
+		}
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
 

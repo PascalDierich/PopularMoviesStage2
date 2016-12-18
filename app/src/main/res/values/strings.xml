@@ -52,7 +52,12 @@
         <integer name="error_internCommunication_noSelectedMovie">-201</integer>
         <integer name="error_internCommunication_missingInfo">-202</integer>
 
-        <!-- date Storage -->
+        <!-- data Storage -->
         <integer name="error_dataStorage_failedSave">-301</integer>
+    
+    <!-- ############### -->
+    <!-- # intern Keys # -->
+    <!-- ############### -->
+    <string name="parcelable_detail_movie_object_key">selectedMovie</string>
 
 </resources>

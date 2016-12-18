@@ -36,7 +36,9 @@ public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implemen
 	@Override
 	public void run() {
 		final boolean success = mRepository.saveAsFavorite(mMovieObject);
-
+		
+		// TODO: 17.12.16 save does not work 
+		
 		mMainThread.post(new Runnable() {
 			@Override
 			public void run() {
