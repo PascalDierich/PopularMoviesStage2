@@ -15,7 +15,6 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.QuerySelectedMov
 import com.pascaldierich.popularmoviesstage2.domain.interactors.SaveFavoriteMovieInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoReviewsInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoTrailersInteractorImpl;
-import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.QuerySelectedMovieInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.SaveFavoriteMovieInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.repository.DetailInfoMoviesRepository;
 import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepository;
@@ -24,7 +23,6 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
-import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 /**
  * Created by pascaldierich on 10.12.16.
@@ -33,7 +31,6 @@ import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
 		DownloadInfoForMovieInteractor.Callback,
 		SaveFavoriteMovieInteractor.Callback,
-		MainFragmentPresenterImpl.DetailFragmentCallback,
 	QuerySelectedMovieInteractor.Callback {
 	private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
@@ -67,85 +64,12 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		} catch (NullPointerException npe) {
 			Log.e(LOG_TAG, "DetailPresenterImpl: NullPointerException: " + npe.fillInStackTrace());
 			// TODO: 18.12.16 call mainActivity to try download again -> checkForConnection 
-		} catch (ClassCastException cce) {
-			Log.d(LOG_TAG, "DetailPresenterImpl: ClassCastException");
 		}
-
-
-//		checkUri(arguments);
-
-		// if twoPaneMode == false -> movie got selected in 1. Activity
-		// otherwise wait for Callback ( onItemSelected(int id) )
-//		if (!ConstantsHolder.getTwoPaneMode()) {
-//			Log.d(LOG_TAG, "DetailPresenterImpl: twoPaneMode = false");
-//			checkSelectedMovie();
-//		}
-//
-//		ConstantsHolder.setDetailPresenterImpl(this);
-	}
-
-	/*
-	Deprecated
-	 */
-	public void checkUri(Bundle selectedMovie) {
-		if (selectedMovie != null) {
-			this.mMovieUri = selectedMovie.getParcelable("");
-		} else {
-			onError(-5); // TODO: 15.12.16 define Code
-			return;
-		}
-		getDetailMovieObject2();
-	}
-
-	public void getDetailMovieObject2() {
-		Log.d(LOG_TAG, "getDetailMovieObject2: going to execute interactor");
-		QuerySelectedMovieInteractor interactor = new QuerySelectedMovieInteractorImpl(
-				mExecutor,
-				mMainThread,
-				this,
-				mFavoriteRepository,
-				this.mMovieUri
-		);
-		interactor.execute();
 	}
 
 	@Override
 	public void onLoadFinished(String[] movie) {
 		Log.d(LOG_TAG, "onLoadFinished: REALLY? GOT IT :D " + (movie != null));
-	}
-
-	/*
-		Deprecated
-		 */
-	@Override
-	public void checkSelectedMovie() {
-		this.mMovieInternId = mView.getSelectedMovieId();
-		Log.d(LOG_TAG, "checkSelectedMovie: intern Movie Id = " + mMovieInternId);
-		if (this.mMovieInternId == R.integer.error_internCommunication_noSelectedMovie) {
-			onError(R.integer.error_internCommunication_noSelectedMovie);
-			return;
-		}
-		getDetailMovieObject();
-	}
-
-	/*
-	Deprecated
-	 */
-	@Override
-	public void getDetailMovieObject() {
-		this.mDetailMovieObject = ConstantsHolder.getDownloadedDataFromPosition(this.mMovieInternId);
-		int _id;
-		showGivenData(this.mDetailMovieObject);
-		try {
-			_id = mDetailMovieObject.getmId();
-		} catch (Exception e) {
-			onError(R.integer.error_internCommunication_missingInfo);
-			Log.e(LOG_TAG, "getDetailMovieObject: couldnt get MovieID" + "\n" +
-					" --> " + e.fillInStackTrace());
-			return;
-		}
-		getTrailer(_id);
-		getReviews(_id);
 	}
 
 	@Override
@@ -250,16 +174,5 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		} else {
 			Log.d(LOG_TAG, "onSaveFinish: Bad Luck :(");
 		}
-	}
-
-	/*
-	Deprecated
-	 */
-	// gets oly called when twoPaneMode == true
-	@Override
-	public void onItemSelected(int id) {
-		Log.d(LOG_TAG, "onItemSelected: Callback called by MainFragment with id: " + id);
-		this.mMovieInternId = id;
-		getDetailMovieObject();
 	}
 }

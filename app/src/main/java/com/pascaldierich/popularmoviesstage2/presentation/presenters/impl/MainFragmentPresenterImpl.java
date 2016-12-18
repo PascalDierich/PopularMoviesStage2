@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.GridView;
-import android.widget.ListView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
@@ -23,7 +21,6 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainFragmentPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
-import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.MovieSelectedCallback;
 import com.pascaldierich.popularmoviesstage2.utils.Utility;
 
@@ -42,22 +39,9 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	private MoviesRepository mMoviesRepository;
 	private FavoriteRepository mFavoriteRepository;
 
-	private boolean mTwoPaneMode;
-
-	private ImageAdapter mImageAdapter;
-
-	private ListView mListView;
-	private GridView mGridView;
-
-	private DetailFragmentCallback mDetailFragmentCallback;
-
 	private SharedPreferences mSharedPreferences;
 
 	private ArrayList<DetailMovieObject> mDetailMovieObjectArrayList;
-
-	public interface DetailFragmentCallback {
-		void onItemSelected(int id);
-	}
 	
 	public MainFragmentPresenterImpl(Executor executor,
 									 MainThread mainThread,

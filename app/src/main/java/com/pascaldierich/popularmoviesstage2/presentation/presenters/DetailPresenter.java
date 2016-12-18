@@ -17,10 +17,6 @@ public interface DetailPresenter extends BasePresenter {
 		void showGivenData(DetailMovieObject movie);
 	}
 
-	void checkSelectedMovie();
-
-	void getDetailMovieObject();
-
 	void showGivenData(@Nullable DetailMovieObject movie);
 
 	// Network
