@@ -1,6 +1,8 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,6 +23,8 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPrese
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 /**
  * Created by pascaldierich on 12.12.16.
@@ -46,6 +50,9 @@ public class DetailFragment extends Fragment implements BaseView,
 	private ImageView mImageViewThumbnail;
 
 	private Bundle mSavedInstanceState;
+
+	// Thumbnail Bitmap
+	private Bitmap mBitmap;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -151,11 +158,48 @@ public class DetailFragment extends Fragment implements BaseView,
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
 		}
 
+		getBitmap(movie.getmPosterPath());
+
 		this.mImageButtonFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				movie.setThumbnail(mBitmap);
 				mPresenter.saveAsFavorite(movie);
 			}
 		});
+	}
+
+	private Target loadTarget;
+
+	private void getBitmap(String url) {
+		url = getString(R.string.image_base_url)
+				+ url
+				+ "?api_key="
+				+ getString(R.string.api_key);
+		loadTarget = new Target() {
+			@Override
+			public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+				showBitmap(bitmap);
+			}
+
+			@Override
+			public void onBitmapFailed(Drawable errorDrawable) {
+				Log.e(LOG_TAG, "onBitmapFailed: couldnt download Bitmap");
+			}
+
+			@Override
+			public void onPrepareLoad(Drawable placeHolderDrawable) {
+				// not used
+			}
+		};
+
+		Picasso.with(getApplicationContext()).load(url).into(loadTarget);
+	}
+
+	private void showBitmap(Bitmap bitmap) {
+		this.mBitmap = bitmap;
+		this.mImageViewThumbnail.setImageBitmap(this.mBitmap);
+
+
 	}
 }

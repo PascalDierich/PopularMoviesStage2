@@ -77,7 +77,6 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 	}
 
 	public String getmTitle() {
-		Log.d(LOG_TAG, "getmTitle: " + mTitle);
 		return mTitle;
 	}
 

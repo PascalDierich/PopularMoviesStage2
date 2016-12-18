@@ -124,7 +124,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 				mMainThread,
 				this,
 				mSaveRepository,
-				Converter.DetailMovieObjectToDataMovieObject(object)   // --> TODO: null = DetailMovieObject
+				Converter.DetailMovieObjectToDataMovieObject(object)
 		);
 		interactor.execute();
 	}

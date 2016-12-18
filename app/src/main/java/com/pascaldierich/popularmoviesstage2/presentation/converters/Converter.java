@@ -46,8 +46,7 @@ public class Converter {
 				object.getmDescription(),
 				object.getmRelease(),
 				object.getmRating(),
-//				bitmapToByteArray(object.getmThumbnail())
-				null
+				bitmapToByteArray(object.getmThumbnail())
 		);
 	}
 
