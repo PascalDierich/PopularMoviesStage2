@@ -102,11 +102,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 					.commit();
 		} else {
 			Intent intent = new Intent(this, DetailActivity.class);
-			intent.putExtra("", selectedMovie);
+			intent.putExtra(getString(R.string.extra_intent_key), selectedMovie);
 
 			startActivity(intent);
-			Log.d(LOG_TAG, "onMovieSelected: am I here??");
-			// TODO: 15.12.16 start new DetailActivity
 		}
 	}
 }

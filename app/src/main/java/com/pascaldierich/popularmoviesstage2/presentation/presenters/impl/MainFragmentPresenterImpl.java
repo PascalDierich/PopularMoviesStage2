@@ -76,30 +76,18 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		switch (initialPreference) {
 			case R.integer.preferences_initial_sort_popularity: {
 				Log.d(LOG_TAG, "getInitialData: getPopular");
-				/*
-				only for production
-				 */
-				mView.showError("getPopular");
 
 				getPopularMovies();
 				break;
 			}
 			case R.integer.preferences_initial_sort_rating: {
 				Log.d(LOG_TAG, "getInitialData: getRating");
-				/*
-				only for production
-				 */
-				mView.showError("getRated");
 
 				getTopRatedMovies();
 				break;
 			}
 			case R.integer.preferences_initial_sort_favorites: {
 				Log.d(LOG_TAG, "getInitialData: getFavorites");
-				/*
-				only for production
-				 */
-				mView.showError("getFavorites");
 
 				getFavoriteMovies();
 				break;
@@ -157,13 +145,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		}
 
 		ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
-
-//		ConstantsHolder.setDownloadedData(movieObjectArrayList);
-
 		this.mDetailMovieObjectArrayList = movieObjectArrayList;
-
-		Log.d(LOG_TAG, "onDownloadFinish: DetailMovieObject.size() = " + movieObjectArrayList.size());
-
 		mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
 	}
 
@@ -217,7 +199,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public boolean onMenuItemSelected(int id) {
-		Log.d(LOG_TAG, "onMenuItemSelected: with id = " + id);
 		switch (id) {
 			case R.id.menu_popularity: {
 				this.mSharedPreferences
@@ -248,7 +229,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 				return false;
 			}
 		}
-
 		getInitialData();
 
 		return true;

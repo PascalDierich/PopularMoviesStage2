@@ -9,10 +9,6 @@
     <string name="api_version" translatable="false">/3</string>
     <string name="image_base_url" translatable="false">https://image.tmdb.org/t/p/w500</string>
 
-    <!-- TODO: dont need this ones anymore? -->
-    <string name="sort_by_pop" translatable="false">&amp;sort_by=popularity.desc</string>
-    <string name="sort_by_rat" translatable="false">&amp;sort_by=vote_average.desc</string>
-
     <string name="poster_path" translatable="false">https://image.tmdb.org/t/p/w500</string>
 
     <!-- ################### -->
@@ -24,6 +20,8 @@
     <!-- # Intern Communication # -->
     <!-- ######################## -->
     <string name="intent_string_key" translatable="false">intern position key</string>
+    <string name="parcelable_detail_movie_object_key">selectedMovie</string>
+    <string name="extra_intent_key">intentKey</string>
 
     <!-- ######## -->
     <!-- # Menu # -->
@@ -54,10 +52,5 @@
 
         <!-- data Storage -->
         <integer name="error_dataStorage_failedSave">-301</integer>
-    
-    <!-- ############### -->
-    <!-- # intern Keys # -->
-    <!-- ############### -->
-    <string name="parcelable_detail_movie_object_key">selectedMovie</string>
 
 </resources>
