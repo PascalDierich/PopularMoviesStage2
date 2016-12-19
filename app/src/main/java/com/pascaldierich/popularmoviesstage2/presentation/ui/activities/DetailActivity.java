@@ -4,11 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
@@ -22,6 +22,8 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.model.Detai
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -38,8 +40,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	private TextView mTextViewLength;
 	private TextView mTextViewRating;
 	private TextView mTextViewDescription;
-	private ProgressBar mProgressBarTrailer;
-	private ProgressBar mProgressBarReview;
+
+	private RecyclerView mRecyclerViewTrailers;
+	private RecyclerView mRecyclerViewReviews;
 
 	private ImageButton mImageButtonFavorite;
 
@@ -47,6 +50,10 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	// Bitmap of Thumbnail
 	private Bitmap mBitmap;
+
+	// Adapter
+	private TrailerAdapter mTrailerAdapter;
+	private ReviewAdapter mReviewAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +74,8 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mTextViewDescription = (TextView) findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) findViewById(R.id.imageButton_favorite);
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
-		this.mProgressBarReview = (ProgressBar) findViewById(R.id.progress_bar_review);
-		this.mProgressBarTrailer = (ProgressBar) findViewById(R.id.progress_bar_trailer);
+		this.mRecyclerViewTrailers = (RecyclerView) findViewById(R.id.recycler_view_trailer);
+		this.mRecyclerViewReviews = (RecyclerView) findViewById(R.id.recycler_view_review);
 	}
 
 	@Override
@@ -136,17 +143,19 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showTrailerProgress() {
-		this.mProgressBarTrailer.setVisibility(View.VISIBLE);
+
 	}
 
 	@Override
 	public void showReviewProgress() {
-		this.mProgressBarReview.setVisibility(View.VISIBLE);
+
 	}
 
 	@Override
 	public void showTrailer(PageTrailers results) {
-		this.mProgressBarTrailer.setVisibility(View.GONE);
+		this.mTrailerAdapter = new TrailerAdapter(this, R.layout.trailer_layout, results.getResults());
+		mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
+
 
 		Log.d(LOG_TAG, "showTrailer: Got It! " + results.getResults().size());
 		// TODO: 19.12.16 set Adapter to RecyclerView and show Trailer
@@ -154,10 +163,10 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showReview(PageReviews results) {
-		this.mProgressBarReview.setVisibility(View.GONE);
 
 		Log.d(LOG_TAG, "showReview: Got It! " + results.getResults().size());
 		// TODO: 19.12.16 set Adapter to Recycler View and show Reviews....
+
 	}
 
 	private void showBitmap(Bitmap bitmap) {

@@ -23,15 +23,15 @@ import java.util.ArrayList;
 public class ImageAdapter extends ArrayAdapter<GridItem> {
 	private static final String LOG_TAG = ImageAdapter.class.getSimpleName();
 
-	private Context context;
-	private int layoutResourceId;
-	private ArrayList<GridItem> gridData = new ArrayList<GridItem>();
+	private Context mContext;
+	private int mLayoutResourceId;
+	private ArrayList<GridItem> mGridData = new ArrayList<GridItem>();
 
 	public ImageAdapter(Context c, int layoutResourceId, ArrayList<GridItem> gridData) {
 		super(c, layoutResourceId, gridData);
-		this.context = c;
-		this.layoutResourceId = layoutResourceId;
-		this.gridData = gridData;
+		this.mContext = c;
+		this.mLayoutResourceId = layoutResourceId;
+		this.mGridData = gridData;
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if (convertView == null) {
-			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-			convertView = inflater.inflate(layoutResourceId, parent, false);
+			LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+			convertView = inflater.inflate(mLayoutResourceId, parent, false);
 			holder = new ViewHolder();
 			holder.imageView = (ImageView) convertView.findViewById(R.id.image_for_adapter);
 			convertView.setTag(holder);
@@ -48,14 +48,14 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		GridItem imgURL = gridData.get(position);
+		GridItem imgURL = mGridData.get(position);
 
-		String imageURL = context.getString(R.string.image_base_url)
+		String imageURL = mContext.getString(R.string.image_base_url)
 				+ imgURL.getImage()
 				+ "?api_key="
-				+ context.getString(R.string.api_key);
+				+ mContext.getString(R.string.api_key);
 
-		Picasso.with(context)
+		Picasso.with(mContext)
 				.load(imageURL)
 				.placeholder(R.mipmap.ic_launcher)
 				.fit()
