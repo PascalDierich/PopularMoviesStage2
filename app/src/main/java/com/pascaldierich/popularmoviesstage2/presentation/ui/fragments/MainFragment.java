@@ -108,15 +108,16 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	@Override
 	public void showMovies(ArrayList<GridItem> movies) {
+		mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
 		if (this.mTwoPaneMode) {
 			mImageAdapter = new ImageAdapter(getActivity(), R.layout.list_view_layout, movies);
 			Log.d(LOG_TAG, "showMovies: selected list_view_layout");
 		} else {
+			mGridView.setNumColumns(GridView.AUTO_FIT);
 			mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
 			Log.d(LOG_TAG, "showMovies: selected grid_view_layout");
 		}
 
-		mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
 		mGridView.setAdapter(mImageAdapter);
 
 		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
