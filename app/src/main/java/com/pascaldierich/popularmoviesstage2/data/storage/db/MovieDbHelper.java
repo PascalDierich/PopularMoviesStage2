@@ -24,8 +24,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 				+ MovieContract.MovieEntry.COLUMN_RATING + " REAL NOT NULL,"
 				+ MovieContract.MovieEntry.COLUMN_THUMBNAIL + " BLOB" // save image as Blob
 				+ ");";
-		// TODO: 18.12.16 add Trailer Column 
-
+		// TODO: 18.12.16 add Trailer Column
 		sqLiteDatabase.execSQL(SQL_CREATE_MOVIE_TABLE);
 	}
 

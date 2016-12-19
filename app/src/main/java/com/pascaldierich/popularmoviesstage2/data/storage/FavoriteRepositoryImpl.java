@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.data.storage;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +26,24 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 
 	@Override
 	public ArrayList<String[]> getFavoriteMovies() {
+
+		/*
+		for production test
+		 */
+		for (int i = 0; i < 5; i++) {
+			ContentValues testValues = new ContentValues();
+			testValues.put(MovieContract.MovieEntry.COLUMN_TITLE, "test Title");
+			testValues.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, new byte[0]);
+			testValues.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, "test Description");
+			testValues.put(MovieContract.MovieEntry.COLUMN_RATING, 0.1);
+			testValues.put(MovieContract.MovieEntry.COLUMN_RELEASE, "NOW");
+
+			Log.d(LOG_TAG, "getFavoriteMovies: uri = "
+					+ mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, testValues));
+		}
+
+
+
 		Cursor cursor = mContext.getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
 
 		Log.d(LOG_TAG, "getFavoriteMovies: Content Uri = " + MovieContract.MovieEntry.CONTENT_URI);
@@ -73,6 +92,9 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 		return cursorToStringArray(cursor);
 	}
 
+	/**
+	 * Deprecated
+	 */
 	private String[] cursorToStringArray(Cursor cursor) {
 		cursor.moveToFirst();
 

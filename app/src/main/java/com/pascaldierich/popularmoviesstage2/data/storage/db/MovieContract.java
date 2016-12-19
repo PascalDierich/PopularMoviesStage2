@@ -3,7 +3,6 @@ package com.pascaldierich.popularmoviesstage2.data.storage.db;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.util.Log;
 
 /**
  * Created by pascaldierich on 12.12.16.
@@ -44,7 +43,6 @@ public abstract class MovieContract {
 		public static final int COLUMN_THUMBNAIL_ID = 6;
 
 		public static Uri buildMovieUriWithId(long id) {
-			Log.d(LOG_TAG, "buildMovieUriWithId: id = " + id);
 			return ContentUris.withAppendedId(CONTENT_URI, id);
 		}
 	}

@@ -6,6 +6,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -36,7 +37,7 @@ public class MovieProvider extends ContentProvider {
 	}
 
 	@Override
-	public int bulkInsert(Uri uri, ContentValues[] values) {
+	public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
 		final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		int returnCount = 0;
 		switch (sUriMatcher.match(uri)) {
@@ -64,7 +65,7 @@ public class MovieProvider extends ContentProvider {
 
 	@Nullable
 	@Override
-	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+	public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		switch (sUriMatcher.match(uri)) {
 			case MOVIE: {
 				return mDbHelper.getReadableDatabase().query(
@@ -82,35 +83,25 @@ public class MovieProvider extends ContentProvider {
 		}
 	}
 
-	@Nullable
 	@Override
-	public String getType(Uri uri) {
+	public String getType(@NonNull Uri uri) {
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public Uri insert(Uri uri, ContentValues contentValues) {
-		Log.d(LOG_TAG, "insert: provider going to insert data");
+	public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
 		final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-		
-		Log.d(LOG_TAG, "insert: provider get writableDatabase");
 		
 		switch (sUriMatcher.match(uri)) {
 			case MOVIE: {
-				Log.d(LOG_TAG, "insert: going to insert into table MOVIE");
 				db.beginTransaction();
 				try {
-					// TODO: 18.12.16 db.insertOrThrow does not response (!) 
-					Log.d(LOG_TAG, "insert: db path = " + db.getPath());
-					Log.d(LOG_TAG, "insert: going to call insertOrThrow");
-					Log.d(LOG_TAG, "insert: contentValues.size == " + contentValues.size());
 					long _id = db.insertOrThrow(MovieContract.MovieEntry.TABLE_NAME, null, contentValues);
 					if (_id > 0) {
+						// TODO: 18.12.16 _id is always 1
 						Log.d(LOG_TAG, "insert: id = " + _id);
 						return MovieContract.MovieEntry.buildMovieUriWithId(_id);
 					} else {
-						Log.d(LOG_TAG, "insert: EXCEPTION");
 						throw new android.database.SQLException("Failed to insert row into: " + uri);
 					}
 				} finally {

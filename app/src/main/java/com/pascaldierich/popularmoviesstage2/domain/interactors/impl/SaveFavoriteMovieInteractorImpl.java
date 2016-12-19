@@ -42,8 +42,6 @@ public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implemen
 		
 		Log.d(LOG_TAG, "run: success?? -> " + success);
 		
-		// TODO: 17.12.16 save does not work 
-		
 		mMainThread.post(new Runnable() {
 			@Override
 			public void run() {
