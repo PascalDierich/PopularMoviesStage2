@@ -14,7 +14,8 @@
     <!-- ################### -->
     <!-- # ContentProvider # -->
     <!-- ################### -->
-    <string name="content_authority" translatable="false">com.pascaldierich.popularmoviesstage2</string>
+    <string name="content_authority" translatable="false">com.pascaldierich.popularmoviesstage2
+    </string>
 
     <!-- ######################## -->
     <!-- # Intern Communication # -->
@@ -41,16 +42,16 @@
     <!-- ############### -->
     <!-- # Error-Codes # -->
     <!-- ############### -->
-        <!-- Network -->
-        <integer name="error_network_noInternet">-100</integer>
-        <integer name="error_network_failedDownload">-101</integer>
+    <!-- Network -->
+    <integer name="error_network_noInternet">-100</integer>
+    <integer name="error_network_failedDownload">-101</integer>
 
-        <!-- intern Communication -->
-        <integer name="error_internCommunication_isNull">-200</integer>
-        <integer name="error_internCommunication_noSelectedMovie">-201</integer>
-        <integer name="error_internCommunication_missingInfo">-202</integer>
+    <!-- intern Communication -->
+    <integer name="error_internCommunication_isNull">-200</integer>
+    <integer name="error_internCommunication_noSelectedMovie">-201</integer>
+    <integer name="error_internCommunication_missingInfo">-202</integer>
 
-        <!-- data Storage -->
-        <integer name="error_dataStorage_failedSave">-301</integer>
+    <!-- data Storage -->
+    <integer name="error_dataStorage_failedSave">-301</integer>
 
 </resources>

@@ -43,7 +43,6 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 		}
 
 
-
 		Cursor cursor = mContext.getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
 
 		Log.d(LOG_TAG, "getFavoriteMovies: Content Uri = " + MovieContract.MovieEntry.CONTENT_URI);
@@ -79,7 +78,7 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 
 
 	/**
-	Deprecated
+	 * Deprecated
 	 */
 	@Override
 	public String[] getMovie(Uri contentUri) {

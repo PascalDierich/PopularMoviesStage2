@@ -1,0 +1,35 @@
+TODO:
+
+Core :
+
+- save Movie
+
+- query Movies
+
+- add Trailer Column in DB
+
+    -> write Utility function for trailer[] -> trailer String
+
+
+Design :
+
+- get Trailer / Reviews and add them to Recycler View
+
+- implicit Intent for Trailer
+
+- DetailFragment
+    -> image
+    -> fonts
+    -> recycler view
+
+- MainFragment -> images
+
+
+UX :
+
+- Detail Fragment -> when no movie selected show something...
+
+- check internet when error
+
+- check states in Presenter
+    -> dont download new after orientation change
