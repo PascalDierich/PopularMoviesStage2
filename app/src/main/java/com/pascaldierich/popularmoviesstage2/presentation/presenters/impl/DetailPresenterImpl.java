@@ -61,6 +61,9 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		// TODO: 18.12.16 if app starts and no movie selected -> get 1 movie -> do in MainActivity / MainPresenter
 		try {
 			showGivenData(movie);
+
+			getTrailer(movie.getmId());
+			getReviews(movie.getmId());
 		} catch (NullPointerException npe) {
 			Log.e(LOG_TAG, "DetailPresenterImpl: NullPointerException: " + npe.fillInStackTrace());
 			// TODO: 18.12.16 call mainActivity to try download again -> checkForConnection 
@@ -89,6 +92,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 
 	@Override
 	public void getTrailer(int id) {
+		mView.showTrailerProgress();
 		if (id == R.integer.error_internCommunication_missingInfo) {
 			onError(R.integer.error_internCommunication_missingInfo);
 		}
@@ -104,6 +108,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 
 	@Override
 	public void getReviews(int id) {
+		mView.showReviewProgress();
 		if (id == R.integer.error_internCommunication_missingInfo) {
 			onError(R.integer.error_internCommunication_missingInfo);
 		}

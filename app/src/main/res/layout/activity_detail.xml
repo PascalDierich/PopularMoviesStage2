@@ -110,8 +110,10 @@
                         android:gravity="center"
                         app:srcCompat="@android:drawable/btn_star_big_on"
                         android:id="@+id/imageButton_favorite"
+                        android:minHeight="150dp"
                         android:layout_gravity="center"
-                        android:layout_margin="4dp"/>
+                        android:layout_margin="4dp"
+                        android:elevation="5dp"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -130,7 +132,33 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view_trailer">
+
+            <ProgressBar
+                android:id="@+id/progress_bar_trailer"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progress_bar_review"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+        </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
 </ScrollView>

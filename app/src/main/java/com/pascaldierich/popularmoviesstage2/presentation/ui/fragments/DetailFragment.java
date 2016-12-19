@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.SaveMovieRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
@@ -172,6 +174,26 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	private Target loadTarget;
 
+	@Override
+	public void showTrailerProgress() {
+
+	}
+
+	@Override
+	public void showReviewProgress() {
+
+	}
+
+	@Override
+	public void showTrailer(PageTrailers results) {
+
+	}
+
+	@Override
+	public void showReview(PageReviews results) {
+
+	}
+
 	private void getBitmap(String url) {
 		url = getString(R.string.image_base_url)
 				+ url
@@ -185,7 +207,7 @@ public class DetailFragment extends Fragment implements BaseView,
 
 			@Override
 			public void onBitmapFailed(Drawable errorDrawable) {
-				Log.e(LOG_TAG, "onBitmapFailed: couldnt download Bitmap");
+				Log.e(LOG_TAG, "onBitmapFailed: could not download Bitmap");
 			}
 
 			@Override
@@ -200,7 +222,5 @@ public class DetailFragment extends Fragment implements BaseView,
 	private void showBitmap(Bitmap bitmap) {
 		this.mBitmap = bitmap;
 		this.mImageViewThumbnail.setImageBitmap(this.mBitmap);
-
-
 	}
 }

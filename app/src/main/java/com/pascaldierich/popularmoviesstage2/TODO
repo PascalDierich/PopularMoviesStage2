@@ -18,11 +18,7 @@ Design :
 - implicit Intent for Trailer
 
 - DetailFragment
-    -> image
-    -> fonts
     -> recycler view
-
-- MainFragment -> images
 
 
 UX :

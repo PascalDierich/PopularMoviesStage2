@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.data.storage.SaveMovieRepositoryImpl;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
@@ -35,6 +38,8 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	private TextView mTextViewLength;
 	private TextView mTextViewRating;
 	private TextView mTextViewDescription;
+	private ProgressBar mProgressBarTrailer;
+	private ProgressBar mProgressBarReview;
 
 	private ImageButton mImageButtonFavorite;
 
@@ -62,6 +67,8 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mTextViewDescription = (TextView) findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) findViewById(R.id.imageButton_favorite);
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
+		this.mProgressBarReview = (ProgressBar) findViewById(R.id.progress_bar_review);
+		this.mProgressBarTrailer = (ProgressBar) findViewById(R.id.progress_bar_trailer);
 	}
 
 	@Override
@@ -127,21 +134,45 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		Picasso.with(this).load(url).into(loadTarget);
 	}
 
+	@Override
+	public void showTrailerProgress() {
+		this.mProgressBarTrailer.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showReviewProgress() {
+		this.mProgressBarReview.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void showTrailer(PageTrailers results) {
+		this.mProgressBarTrailer.setVisibility(View.GONE);
+
+		Log.d(LOG_TAG, "showTrailer: Got It! " + results.getResults().size());
+		// TODO: 19.12.16 set Adapter to RecyclerView and show Trailer
+	}
+
+	@Override
+	public void showReview(PageReviews results) {
+		this.mProgressBarReview.setVisibility(View.GONE);
+
+		Log.d(LOG_TAG, "showReview: Got It! " + results.getResults().size());
+		// TODO: 19.12.16 set Adapter to Recycler View and show Reviews....
+	}
+
 	private void showBitmap(Bitmap bitmap) {
 		this.mBitmap = bitmap;
 		this.mImageViewThumbnail.setImageBitmap(this.mBitmap);
-
-
 	}
 
 	@Override
 	public void showProgress() {
-
+		// not used
 	}
 
 	@Override
 	public void hideProgress() {
-
+		// not used
 	}
 
 	@Override

@@ -2,6 +2,8 @@ package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
 import android.support.annotation.Nullable;
 
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
+import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 
@@ -15,6 +17,14 @@ public interface DetailPresenter extends BasePresenter {
 		int getSelectedMovieId();
 
 		void showGivenData(DetailMovieObject movie);
+
+		void showTrailerProgress();
+
+		void showReviewProgress();
+
+		void showTrailer(PageTrailers results);
+
+		void showReview(PageReviews results);
 	}
 
 	void showGivenData(@Nullable DetailMovieObject movie);

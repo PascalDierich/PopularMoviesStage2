@@ -158,7 +158,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	@Override
 	public SharedPreferences getPreferences() {
-		return getApplicationContext().getSharedPreferences("", 1); // TODO: 15.12.16 String s &6 int i??
+		return getApplicationContext().getSharedPreferences("", Context.MODE_PRIVATE); // TODO: 15.12.16 String s
 	}
 
 	@Override
