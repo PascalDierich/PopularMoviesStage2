@@ -138,7 +138,9 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mTextViewRating = (TextView) rootView.findViewById(R.id.textView_rating);
 		this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
-		this.mImageButtonTrailer = (ImageButton) rootView.findViewById(R.id.imageButton_play);
+
+		View trailerLayoutView = getActivity().getLayoutInflater().inflate(R.layout.trailer_layout, null);
+		this.mImageButtonTrailer = (ImageButton) trailerLayoutView.findViewById(R.id.imageButton_play);
 		this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) rootView.findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) rootView.findViewById(R.id.recycler_view_review);
@@ -222,6 +224,7 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mImageButtonTrailer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Log.d(LOG_TAG, "onClick: Play Button pressed");
 				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // // TODO: 22.12.16 not null -> results.get(position).getKey()
 				// TODO: 22.12.16 implement in Presenter >:| 
 			}

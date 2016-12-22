@@ -48,7 +48,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	// Buttons
 	private ImageButton mImageButtonFavorite;
-	private ImageButton mImageButtonPlay;
+	private ImageButton mImageButtonTrailer;
 
 	private ImageView mImageViewThumbnail;
 
@@ -77,7 +77,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mTextViewRating = (TextView) findViewById(R.id.textView_rating);
 		this.mTextViewDescription = (TextView) findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) findViewById(R.id.imageButton_favorite);
-		this.mImageButtonPlay = (ImageButton) findViewById(R.id.imageButton_play);
+		View trailerLayoutView = getLayoutInflater().inflate(R.layout.trailer_layout, null);
+		this.mImageButtonTrailer = (ImageButton) trailerLayoutView.findViewById(R.id.imageButton_play);
+
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) findViewById(R.id.recycler_view_review);
@@ -166,16 +168,13 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showTrailer(PageTrailers results) {
-//		this.mTrailerAdapter = new TrailerAdapter(results.getResults());
-//		mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
-
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
 		
-		this.mImageButtonPlay.setOnClickListener(new View.OnClickListener() {
+		this.mImageButtonTrailer.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // TODO: 22.12.16 get real Key 
+				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // TODO: 22.12.16 get real Key
 			}
 		});
 
@@ -185,9 +184,6 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showReview(PageReviews results) {
-//		this.mReviewAdapter = new ReviewAdapter(results.getResults());
-//		mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
-
 		this.mReviewAdapter.setResults(results.getResults());
 		this.mReviewAdapter.notifyDataSetChanged();
 
