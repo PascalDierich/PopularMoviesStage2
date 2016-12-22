@@ -164,12 +164,14 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 	public void onDownloadTrailerFinish(PageTrailers page) {
 		Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It!");
 		// TODO: mView.showTrailer()
+		mView.showTrailer(page);
 	}
 
 	@Override
 	public void onDownloadReviewFinish(PageReviews page) {
 		Log.d(LOG_TAG, "onDownloadReviewFinish: Got It!");
 		// TODO: mView.showRevies()
+		mView.showReview(page);
 	}
 
 	@Override

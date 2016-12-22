@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.model.Detai
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -51,10 +55,17 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	private ImageView mImageViewThumbnail;
 
+	private RecyclerView mRecyclerViewTrailers;
+	private RecyclerView mRecyclerViewReviews;
+
 	private Bundle mSavedInstanceState;
 
 	// Thumbnail Bitmap
 	private Bitmap mBitmap;
+
+	// Adapter
+	private TrailerAdapter mTrailerAdapter;
+	private ReviewAdapter mReviewAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +136,16 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
 		this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
+		this.mRecyclerViewTrailers = (RecyclerView) rootView.findViewById(R.id.recycler_view_trailer);
+		this.mRecyclerViewReviews = (RecyclerView) rootView.findViewById(R.id.recycler_view_review);
+
+		this.mTrailerAdapter = new TrailerAdapter(null);
+		this.mRecyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
+		this.mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
+
+		this.mReviewAdapter = new ReviewAdapter(null);
+		this.mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
+		this.mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
 
 		this.mRootView = rootView;
 		return rootView;
@@ -186,12 +207,15 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	@Override
 	public void showTrailer(PageTrailers results) {
-
+		this.mTrailerAdapter.setResults(results.getResults());
+		this.mTrailerAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void showReview(PageReviews results) {
 
+		this.mReviewAdapter.setResults(results.getResults());
+		this.mReviewAdapter.notifyDataSetChanged();
 	}
 
 	private void getBitmap(String url) {

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Popular Movies Stage 2</string>
 
@@ -54,4 +55,15 @@
     <!-- data Storage -->
     <integer name="error_dataStorage_failedSave">-301</integer>
 
+    <!-- ###### -->
+    <!-- # UI # -->
+    <!-- ###### -->
+    <!-- global -->
+
+    <!-- main -->
+
+    <!-- detail -->
+    <string name="title_user_reviews">User Reviews</string>
+    <string name="loading_reviews">loading reviews...</string>
+    <string name="loading_trailers">loading trailers...</string>
 </resources>

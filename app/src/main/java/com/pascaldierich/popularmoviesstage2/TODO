@@ -13,12 +13,9 @@ Core :
 
 Design :
 
-- get Trailer / Reviews and add them to Recycler View
-
 - implicit Intent for Trailer
 
-- DetailFragment
-    -> recycler view
+- onClickListener for Trailer Button (see above)
 
 
 UX :

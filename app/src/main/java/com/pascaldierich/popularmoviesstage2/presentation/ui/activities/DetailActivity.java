@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -76,6 +77,14 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) findViewById(R.id.recycler_view_review);
+
+		this.mTrailerAdapter = new TrailerAdapter(null);
+		this.mRecyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this));
+		this.mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
+
+		this.mReviewAdapter = new ReviewAdapter(null);
+		this.mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
+		this.mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
 	}
 
 	@Override
@@ -153,9 +162,11 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showTrailer(PageTrailers results) {
-		this.mTrailerAdapter = new TrailerAdapter(this, R.layout.trailer_layout, results.getResults());
-		mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
+//		this.mTrailerAdapter = new TrailerAdapter(results.getResults());
+//		mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
 
+		this.mTrailerAdapter.setResults(results.getResults());
+		this.mTrailerAdapter.notifyDataSetChanged();
 
 		Log.d(LOG_TAG, "showTrailer: Got It! " + results.getResults().size());
 		// TODO: 19.12.16 set Adapter to RecyclerView and show Trailer
@@ -163,6 +174,11 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showReview(PageReviews results) {
+//		this.mReviewAdapter = new ReviewAdapter(results.getResults());
+//		mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
+
+		this.mReviewAdapter.setResults(results.getResults());
+		this.mReviewAdapter.notifyDataSetChanged();
 
 		Log.d(LOG_TAG, "showReview: Got It! " + results.getResults().size());
 		// TODO: 19.12.16 set Adapter to Recycler View and show Reviews....

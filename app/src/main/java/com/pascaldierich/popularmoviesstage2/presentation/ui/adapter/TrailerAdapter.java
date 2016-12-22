@@ -1,63 +1,62 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.adapter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.model.TrailerView;
 
 import java.util.ArrayList;
 
 /**
  * Created by Pascal Dierich on Dez, 2016.
  */
-public class TrailerAdapter extends RecyclerView.Adapter<Trailer> {
+public class TrailerAdapter extends RecyclerView.Adapter<TrailerView> {
 	private static final String LOG_TAG = TrailerAdapter.class.getSimpleName();
-	
-	
-	// TODO: 19.12.16 implement Methods and write Adapter... 
-	
-	
-	private Context mContext;
-	private int mLayoutResourceId;
-	private ArrayList<Trailer> mResults = new ArrayList<Trailer>();
 
+	private ArrayList<Trailer> mTrailers;
 
-	public TrailerAdapter(Context context, int layoutResourceId, ArrayList<Trailer> objects) {
-		super(context, layoutResourceId, objects);
+	public TrailerAdapter(ArrayList<Trailer> trailerList) {
+		this.mTrailers = trailerList;
+	}
 
-		this.mContext = context;
-		this.mLayoutResourceId = layoutResourceId;
-		this.mResults = objects;
+	public void setResults(ArrayList<Trailer> results) {
+		Log.d(LOG_TAG, "setResults: size of results: " + results.size());
+		this.mTrailers = results;
 	}
 
 	@Override
-	@NonNull
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
-		if (convertView == null) {
-			LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-			convertView = inflater.inflate(mLayoutResourceId, parent, false);
-			holder = new ViewHolder();
+	public TrailerView onCreateViewHolder(ViewGroup parent, int viewType) {
+		View itemView = LayoutInflater
+				.from(parent.getContext())
+				.inflate(R.layout.trailer_layout, parent, false);
 
-			holder.sTextView = (TextView) convertView.findViewById(R.id.text_view_trailer_layout);
+		return new TrailerView(itemView);
+	}
 
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
+	@Override
+	public void onBindViewHolder(TrailerView holder, int position) {
+		if (getItemCount() == 0) {
+			Log.d(LOG_TAG, "onBindViewHolder: getItemCount == 0");
+			holder.mTextViewContent.setText("loading...");
+			return;
 		}
+		Trailer trailer = mTrailers.get(position);
+		Log.d(LOG_TAG, "onBindViewHolder: should show now Title");
+		holder.mTextViewContent.setText(trailer.getTitle());
+	}
 
-		// TODO: 19.12.16 write data in TextView
-		holder.sTextView.setText(mResults.get(position).getTitle());
-
-		return convertView;
+	@Override
+	public int getItemCount() {
+		if (mTrailers == null) {
+			return 0;
+		}
+		return mTrailers.size();
 	}
 
 	private static class ViewHolder {
