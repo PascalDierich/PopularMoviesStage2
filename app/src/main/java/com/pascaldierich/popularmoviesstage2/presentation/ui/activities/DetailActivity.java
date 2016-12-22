@@ -77,8 +77,11 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mTextViewRating = (TextView) findViewById(R.id.textView_rating);
 		this.mTextViewDescription = (TextView) findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) findViewById(R.id.imageButton_favorite);
-		View trailerLayoutView = getLayoutInflater().inflate(R.layout.trailer_layout, null);
-		this.mImageButtonTrailer = (ImageButton) trailerLayoutView.findViewById(R.id.imageButton_play);
+
+			this.mImageButtonTrailer = (ImageButton) getLayoutInflater()
+					.inflate(R.layout.trailer_layout, null)
+					.findViewById(R.id.imageButton_play);
+
 
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) findViewById(R.id.recycler_view_trailer);
@@ -179,7 +182,6 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		});
 
 		Log.d(LOG_TAG, "showTrailer: Got It! " + results.getResults().size());
-		// TODO: 19.12.16 set Adapter to RecyclerView and show Trailer
 	}
 
 	@Override

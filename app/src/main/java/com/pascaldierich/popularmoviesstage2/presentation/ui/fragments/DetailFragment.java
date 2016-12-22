@@ -138,9 +138,11 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mTextViewRating = (TextView) rootView.findViewById(R.id.textView_rating);
 		this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
-
-		View trailerLayoutView = getActivity().getLayoutInflater().inflate(R.layout.trailer_layout, null);
-		this.mImageButtonTrailer = (ImageButton) trailerLayoutView.findViewById(R.id.imageButton_play);
+		
+			this.mImageButtonTrailer = (ImageButton) getLayoutInflater(null)
+					.inflate(R.layout.trailer_layout, null)
+					.findViewById(R.id.imageButton_play);
+		
 		this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) rootView.findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) rootView.findViewById(R.id.recycler_view_review);
