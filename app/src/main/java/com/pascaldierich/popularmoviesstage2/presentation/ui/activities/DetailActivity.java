@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -45,7 +46,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	private RecyclerView mRecyclerViewTrailers;
 	private RecyclerView mRecyclerViewReviews;
 
+	// Buttons
 	private ImageButton mImageButtonFavorite;
+	private ImageButton mImageButtonPlay;
 
 	private ImageView mImageViewThumbnail;
 
@@ -74,6 +77,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mTextViewRating = (TextView) findViewById(R.id.textView_rating);
 		this.mTextViewDescription = (TextView) findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) findViewById(R.id.imageButton_favorite);
+		this.mImageButtonPlay = (ImageButton) findViewById(R.id.imageButton_play);
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) findViewById(R.id.recycler_view_review);
@@ -167,6 +171,13 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
+		
+		this.mImageButtonPlay.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // TODO: 22.12.16 get real Key 
+			}
+		});
 
 		Log.d(LOG_TAG, "showTrailer: Got It! " + results.getResults().size());
 		// TODO: 19.12.16 set Adapter to RecyclerView and show Trailer
@@ -184,7 +195,12 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		// TODO: 19.12.16 set Adapter to Recycler View and show Reviews....
 
 	}
-
+	
+	@Override
+	public void startNewActivity(Intent i) {
+		startActivity(i);
+	}
+	
 	private void showBitmap(Bitmap bitmap) {
 		this.mBitmap = bitmap;
 		this.mImageViewThumbnail.setImageBitmap(this.mBitmap);

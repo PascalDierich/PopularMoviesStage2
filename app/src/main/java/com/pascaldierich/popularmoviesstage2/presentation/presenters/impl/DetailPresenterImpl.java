@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.impl;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -104,6 +105,14 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 				id
 		);
 		interactor.execute();
+	}
+
+	@Override
+	public void onPlayPressed(String base_url, String key) {
+		// TODO: 22.12.16 start implicit Intent
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setData(new Uri.Builder().appendPath(base_url + key).build());
+		mView.startNewActivity(i);
 	}
 
 	@Override

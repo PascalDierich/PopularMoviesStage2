@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -51,7 +52,9 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	private View mRootView;
 
+	// Buttons
 	private ImageButton mImageButtonFavorite;
+	private ImageButton mImageButtonTrailer;
 
 	private ImageView mImageViewThumbnail;
 
@@ -135,6 +138,7 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mTextViewRating = (TextView) rootView.findViewById(R.id.textView_rating);
 		this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
+		this.mImageButtonTrailer = (ImageButton) rootView.findViewById(R.id.imageButton_play);
 		this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) rootView.findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) rootView.findViewById(R.id.recycler_view_review);
@@ -209,6 +213,24 @@ public class DetailFragment extends Fragment implements BaseView,
 	public void showTrailer(PageTrailers results) {
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
+
+		if (this.mImageButtonTrailer == null) {
+			Log.d(LOG_TAG, "showTrailer: WTF");
+			return;
+		}
+
+		this.mImageButtonTrailer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // // TODO: 22.12.16 not null -> results.get(position).getKey()
+				// TODO: 22.12.16 implement in Presenter >:| 
+			}
+		});
+	}
+
+	@Override
+	public void startNewActivity(Intent i) {
+		startActivity(i);
 	}
 
 	@Override

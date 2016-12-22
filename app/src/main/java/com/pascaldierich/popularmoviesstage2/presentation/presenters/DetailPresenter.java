@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
@@ -25,9 +26,13 @@ public interface DetailPresenter extends BasePresenter {
 		void showTrailer(PageTrailers results);
 
 		void showReview(PageReviews results);
+
+		void startNewActivity(Intent i);
 	}
 
 	void showGivenData(@Nullable DetailMovieObject movie);
+
+	void onPlayPressed(String base_url, String key);
 
 	// Network
 	void getTrailer(int id);

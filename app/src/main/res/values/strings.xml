@@ -5,12 +5,16 @@
     <!-- ##################### -->
     <!-- # Network-Constants # -->
     <!-- ##################### -->
+    <!-- theMovieDB -->
     <string name="api_key" translatable="false">5c359398433009bb5d168d4cfb3e5cf3</string>
     <string name="base_url" translatable="false">"https://api.themoviedb.org"</string>
     <string name="api_version" translatable="false">/3</string>
     <string name="image_base_url" translatable="false">https://image.tmdb.org/t/p/w500</string>
 
     <string name="poster_path" translatable="false">https://image.tmdb.org/t/p/w500</string>
+
+    <!-- YoutTube -->
+    <string name="base_url_youtube" translatable="false">https://www.youtube.com/watch?=</string>
 
     <!-- ################### -->
     <!-- # ContentProvider # -->
@@ -64,6 +68,8 @@
 
     <!-- detail -->
     <string name="title_user_reviews">User Reviews</string>
+    <string name="title_trailers">official Trailers</string>
+
     <string name="loading_reviews">loading reviews...</string>
     <string name="loading_trailers">loading trailers...</string>
 </resources>
