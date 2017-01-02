@@ -20,9 +20,12 @@ Design :
 
 UX :
 
-- Detail Fragment -> when no movie selected show something...
+(- Detail Fragment -> when no movie selected show something...)
 
-- check internet when error
+(- check internet when error)
 
 - check states in Presenter
-    -> dont download new after orientation change
+    -> don't download new after orientation change
+
+
+

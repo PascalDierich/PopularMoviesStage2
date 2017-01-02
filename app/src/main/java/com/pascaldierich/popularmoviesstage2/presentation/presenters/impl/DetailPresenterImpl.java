@@ -109,10 +109,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 
 	@Override
 	public void onPlayPressed(String base_url, String key) {
-		Log.d(LOG_TAG, "onPlayPressed: is starting");
-		// TODO: 22.12.16 start implicit Intent
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setData(new Uri.Builder().appendPath(base_url + key).build());
+		Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(base_url + key));
 		mView.startNewActivity(i);
 	}
 

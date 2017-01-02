@@ -26,11 +26,13 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.Detail
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-public class DetailActivity extends AppCompatActivity implements BaseView, DetailPresenter.View {
+public class DetailActivity extends AppCompatActivity implements BaseView, DetailPresenter.View,
+		TrailerPlayButtonCallback {
 	private static final String LOG_TAG = DetailActivity.class.getSimpleName();
 
 	// Presenter
@@ -48,7 +50,6 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	// Buttons
 	private ImageButton mImageButtonFavorite;
-	private ImageButton mImageButtonTrailer;
 
 	private ImageView mImageViewThumbnail;
 
@@ -78,22 +79,19 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mTextViewDescription = (TextView) findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) findViewById(R.id.imageButton_favorite);
 
-			this.mImageButtonTrailer = (ImageButton) getLayoutInflater()
-					.inflate(R.layout.trailer_layout, null)
-					.findViewById(R.id.imageButton_play);
-
-
 		this.mImageViewThumbnail = (ImageView) findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) findViewById(R.id.recycler_view_review);
 
-		this.mTrailerAdapter = new TrailerAdapter(null);
+		this.mTrailerAdapter = new TrailerAdapter(null, this);
 		this.mRecyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this));
 		this.mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
 
 		this.mReviewAdapter = new ReviewAdapter(null);
 		this.mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
 		this.mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
+
+
 	}
 
 	@Override
@@ -173,25 +171,12 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	public void showTrailer(PageTrailers results) {
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
-		
-		this.mImageButtonTrailer.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // TODO: 22.12.16 get real Key
-			}
-		});
-
-		Log.d(LOG_TAG, "showTrailer: Got It! " + results.getResults().size());
 	}
 
 	@Override
 	public void showReview(PageReviews results) {
 		this.mReviewAdapter.setResults(results.getResults());
 		this.mReviewAdapter.notifyDataSetChanged();
-
-		Log.d(LOG_TAG, "showReview: Got It! " + results.getResults().size());
-		// TODO: 19.12.16 set Adapter to Recycler View and show Reviews....
-
 	}
 	
 	@Override
@@ -237,5 +222,10 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	public int getSelectedMovieId() {
 		return getIntent().getIntExtra(getString(R.string.intent_string_key), R.integer.error_internCommunication_noSelectedMovie);
 		// TODO: 14.12.16 save String key in strings.xml;
+	}
+
+	@Override
+	public void playButtonPressed(String key) {
+		mPresenter.onPlayPressed(getString(R.string.base_url_youtube), key);
 	}
 }

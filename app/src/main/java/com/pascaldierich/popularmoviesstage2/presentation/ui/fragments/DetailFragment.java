@@ -29,6 +29,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.Detail
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -38,7 +39,8 @@ import com.squareup.picasso.Target;
  */
 
 public class DetailFragment extends Fragment implements BaseView,
-		DetailPresenter.View {
+		DetailPresenter.View,
+		TrailerPlayButtonCallback {
 	private static final String LOG_TAG = DetailFragment.class.getSimpleName();
 
 	private DetailPresenter mPresenter;
@@ -54,7 +56,6 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	// Buttons
 	private ImageButton mImageButtonFavorite;
-	private ImageButton mImageButtonTrailer;
 
 	private ImageView mImageViewThumbnail;
 
@@ -139,15 +140,11 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mTextViewDescription = (TextView) rootView.findViewById(R.id.textView_description);
 		this.mImageButtonFavorite = (ImageButton) rootView.findViewById(R.id.imageButton_favorite);
 		
-			this.mImageButtonTrailer = (ImageButton) getLayoutInflater(null)
-					.inflate(R.layout.trailer_layout, null)
-					.findViewById(R.id.imageButton_play);
-		
 		this.mImageViewThumbnail = (ImageView) rootView.findViewById(R.id.imageView_thumbnail);
 		this.mRecyclerViewTrailers = (RecyclerView) rootView.findViewById(R.id.recycler_view_trailer);
 		this.mRecyclerViewReviews = (RecyclerView) rootView.findViewById(R.id.recycler_view_review);
 
-		this.mTrailerAdapter = new TrailerAdapter(null);
+		this.mTrailerAdapter = new TrailerAdapter(null, this);
 		this.mRecyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
 		this.mRecyclerViewTrailers.setAdapter(this.mTrailerAdapter);
 
@@ -159,6 +156,9 @@ public class DetailFragment extends Fragment implements BaseView,
 		return rootView;
 	}
 
+	/*
+	Deprecated
+	 */
 	@Override
 	public int getSelectedMovieId() {
 		return 3; // TODO: 15.12.16 get Movie Id
@@ -210,27 +210,13 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	@Override
 	public void showReviewProgress() {
-
+		
 	}
 
 	@Override
 	public void showTrailer(PageTrailers results) {
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
-
-		if (this.mImageButtonTrailer == null) {
-			Log.d(LOG_TAG, "showTrailer: WTF");
-			return;
-		}
-
-		this.mImageButtonTrailer.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.d(LOG_TAG, "onClick: Play Button pressed");
-				mPresenter.onPlayPressed(getString(R.string.base_url_youtube), "SUXWAEX2jlg"); // // TODO: 22.12.16 not null -> results.get(position).getKey()
-				// TODO: 22.12.16 implement in Presenter >:| 
-			}
-		});
 	}
 
 	@Override
@@ -273,5 +259,10 @@ public class DetailFragment extends Fragment implements BaseView,
 	private void showBitmap(Bitmap bitmap) {
 		this.mBitmap = bitmap;
 		this.mImageViewThumbnail.setImageBitmap(this.mBitmap);
+	}
+
+	@Override
+	public void playButtonPressed(String key) {
+		mPresenter.onPlayPressed(getString(R.string.base_url_youtube), key);
 	}
 }

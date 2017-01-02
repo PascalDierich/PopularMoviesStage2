@@ -5,11 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.TrailerView;
+import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,11 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerView> {
 
 	private ArrayList<Trailer> mTrailers;
 
-	public TrailerAdapter(ArrayList<Trailer> trailerList) {
+	private TrailerPlayButtonCallback mCallback;
+
+	public TrailerAdapter(ArrayList<Trailer> trailerList, TrailerPlayButtonCallback c) {
 		this.mTrailers = trailerList;
+		this.mCallback = c;
 	}
 
 	public void setResults(ArrayList<Trailer> results) {
@@ -46,9 +49,16 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerView> {
 			holder.mTextViewContent.setText("loading...");
 			return;
 		}
-		Trailer trailer = mTrailers.get(position);
-		Log.d(LOG_TAG, "onBindViewHolder: should show now Title");
-		holder.mTextViewContent.setText(trailer.getTitle());
+		final Trailer TRAILER = mTrailers.get(position);
+		holder.mTextViewContent.setText(TRAILER.getTitle());
+
+		holder.mImageButtonPlay.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Log.d(LOG_TAG, "onClick: Play Button clicked");
+				mCallback.playButtonPressed(TRAILER.getKey());
+			}
+		});
 	}
 
 	@Override
@@ -57,9 +67,5 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerView> {
 			return 0;
 		}
 		return mTrailers.size();
-	}
-
-	private static class ViewHolder {
-		TextView sTextView;
 	}
 }

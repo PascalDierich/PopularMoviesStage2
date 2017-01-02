@@ -18,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@android:drawable/ic_media_play"
-            android:id="@+id/imageButton_play"/>
+            android:id="@+id/imageButton_play"
+            android:elevation="5dp"/>
 
         <TextView
             android:id="@+id/text_view_trailer_layout"

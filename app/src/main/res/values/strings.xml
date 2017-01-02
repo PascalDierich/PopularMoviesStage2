@@ -14,13 +14,12 @@
     <string name="poster_path" translatable="false">https://image.tmdb.org/t/p/w500</string>
 
     <!-- YoutTube -->
-    <string name="base_url_youtube" translatable="false">https://www.youtube.com/watch?=</string>
+    <string name="base_url_youtube" translatable="false">http://www.youtube.com/watch?v=</string>
 
     <!-- ################### -->
     <!-- # ContentProvider # -->
     <!-- ################### -->
-    <string name="content_authority" translatable="false">com.pascaldierich.popularmoviesstage2
-    </string>
+    <string name="content_authority" translatable="false">com.pascaldierich.popularmoviesstage2</string>
 
     <!-- ######################## -->
     <!-- # Intern Communication # -->
