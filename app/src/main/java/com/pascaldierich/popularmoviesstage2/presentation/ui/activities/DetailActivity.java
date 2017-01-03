@@ -45,6 +45,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	private TextView mTextViewRating;
 	private TextView mTextViewDescription;
 
+	private TextView mTextViewTrailerTitle;
+	private TextView mTextViewReviewTitle;
+
 	private RecyclerView mRecyclerViewTrailers;
 	private RecyclerView mRecyclerViewReviews;
 
@@ -91,7 +94,8 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		this.mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this));
 		this.mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
 
-
+		this.mTextViewTrailerTitle = (TextView) findViewById(R.id.textView_Trailer_Title);
+		this.mTextViewReviewTitle = (TextView) findViewById(R.id.textView_Review_Title);
 	}
 
 	@Override
@@ -171,12 +175,18 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	public void showTrailer(PageTrailers results) {
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
+		if (results.getResults().size() == 0) {
+			this.mTextViewTrailerTitle.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
 	public void showReview(PageReviews results) {
 		this.mReviewAdapter.setResults(results.getResults());
 		this.mReviewAdapter.notifyDataSetChanged();
+		if (results.getResults().size() == 0) {
+			this.mTextViewReviewTitle.setVisibility(View.GONE);
+		}
 	}
 	
 	@Override

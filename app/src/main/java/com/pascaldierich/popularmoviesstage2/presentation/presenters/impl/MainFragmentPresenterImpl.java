@@ -65,6 +65,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		this.mView = view;
 	}
 
+	private int time_sleep = 0;
 	private void getInitialData() {
 		if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
 			onError(R.integer.error_network_noInternet);
@@ -132,7 +133,9 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 				mView.showError("No Internet Connection");
 			}
 		}
-		// TODO: 14.12.16 checkConnection at the end
+		if (Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))){
+			getInitialData();
+		}
 	}
 
 	@Override

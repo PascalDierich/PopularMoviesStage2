@@ -52,6 +52,9 @@ public class DetailFragment extends Fragment implements BaseView,
 	private TextView mTextViewRating;
 	private TextView mTextViewDescription;
 
+	private TextView mTextViewTrailerTitle;
+	private TextView mTextViewReviewTitle;
+
 	private View mRootView;
 
 	// Buttons
@@ -152,6 +155,9 @@ public class DetailFragment extends Fragment implements BaseView,
 		this.mRecyclerViewReviews.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
 		this.mRecyclerViewReviews.setAdapter(this.mReviewAdapter);
 
+		this.mTextViewTrailerTitle = (TextView) rootView.findViewById(R.id.textView_Trailer_Title);
+		this.mTextViewReviewTitle = (TextView) rootView.findViewById(R.id.textView_Review_Title);
+
 		this.mRootView = rootView;
 		return rootView;
 	}
@@ -217,6 +223,9 @@ public class DetailFragment extends Fragment implements BaseView,
 	public void showTrailer(PageTrailers results) {
 		this.mTrailerAdapter.setResults(results.getResults());
 		this.mTrailerAdapter.notifyDataSetChanged();
+		if (results.getResults().size() == 0) {
+			this.mTextViewTrailerTitle.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -226,9 +235,11 @@ public class DetailFragment extends Fragment implements BaseView,
 
 	@Override
 	public void showReview(PageReviews results) {
-
 		this.mReviewAdapter.setResults(results.getResults());
 		this.mReviewAdapter.notifyDataSetChanged();
+		if (results.getResults().size() == 0) {
+			this.mTextViewReviewTitle.setVisibility(View.GONE);
+		}
 	}
 
 	private void getBitmap(String url) {

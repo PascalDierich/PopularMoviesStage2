@@ -10,19 +10,9 @@ Core :
 
     -> write Utility function for trailer[] -> trailer String
 
-
-Design :
-
-- implicit Intent for Trailer
-
-- onClickListener for Trailer Button (see above)
-
-
 UX :
 
 (- Detail Fragment -> when no movie selected show something...)
-
-(- check internet when error)
 
 - check states in Presenter
     -> don't download new after orientation change
