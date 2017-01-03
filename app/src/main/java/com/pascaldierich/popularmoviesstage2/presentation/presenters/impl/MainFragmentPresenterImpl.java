@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
@@ -42,6 +43,10 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	private SharedPreferences mSharedPreferences;
 
 	private ArrayList<DetailMovieObject> mDetailMovieObjectArrayList;
+
+	private Bundle mStateBundle = new Bundle();
+
+	private boolean stateChanged = false;
 	
 	public MainFragmentPresenterImpl(Executor executor,
 									 MainThread mainThread,
@@ -55,8 +60,20 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		this.mFavoriteRepository = favoriteRepository;
 
 		this.mSharedPreferences = mView.getPreferences();
-
-		getInitialData();
+		
+		if (super.mSavedInstanceState == null) {
+			getInitialData();
+		} else {
+			Log.d(LOG_TAG, "MainFragmentPresenterImpl: going to show Movies from Bundle in saved State");
+			mView.showMovies(
+					Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
+							super.mSavedInstanceState. <DetailMovieObject> getParcelableArrayList(
+									mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)
+							)
+					)
+			);
+			Log.d(LOG_TAG, "MainFragmentPresenterImpl: whoo... worked");
+		}
 	}
 
 	// TODO: 18.12.16 add Refresh Button in menu -> if downloadFailed
@@ -65,7 +82,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		this.mView = view;
 	}
 
-	private int time_sleep = 0;
 	private void getInitialData() {
 		if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
 			onError(R.integer.error_network_noInternet);
@@ -102,12 +118,21 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void resume() {
-
+		// if state changed since creation
+		if (stateChanged) {
+			Log.d(LOG_TAG, "resume: state changed. Going to show saved Data");
+			mView.showMovies(
+					Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
+							super.mSavedInstanceState. <DetailMovieObject> getParcelableArrayList(
+									mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)
+							)
+					)
+			); 
+		}
 	}
 
 	@Override
 	public void pause() {
-
 	}
 
 	@Override
@@ -147,16 +172,21 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			return;
 		}
 
-		ArrayList<DetailMovieObject> movieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
-		this.mDetailMovieObjectArrayList = movieObjectArrayList;
-		mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(movieObjectArrayList));
+		ArrayList<DetailMovieObject> detailMovieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
+		this.mDetailMovieObjectArrayList = detailMovieObjectArrayList;
+
+		saveState(this.mDetailMovieObjectArrayList);
+
+		mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(detailMovieObjectArrayList));
 	}
 
 	@Override
 	public void movieSelected(int position) {
 		Bundle selectedMovie = new Bundle();
+		DetailMovieObject selectedDetailMovieObject = this.mDetailMovieObjectArrayList.get(position);
+		saveState(selectedDetailMovieObject);
 		selectedMovie.putParcelable(mView.getApplicationContext().getString(R.string.parcelable_detail_movie_object_key),
-				this.mDetailMovieObjectArrayList.get(position));
+				selectedDetailMovieObject);
 
 		((MovieSelectedCallback) mView.getApplicationContext())
 				.onMovieSelected(selectedMovie);
@@ -238,4 +268,43 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		return true;
 	}
 
+	@Override
+	public void saveState(@NonNull Object object) {
+		stateChanged = true;
+		
+		Log.d(LOG_TAG, "saveState: going to save some states");
+
+		// Check if Object represents downloaded Data
+		try {
+			mStateBundle.putParcelableArrayList(
+					mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data),
+					(ArrayList<DetailMovieObject>) object
+			);
+			Log.d(LOG_TAG, "saveState: downloaded Data saved in StateBundle and is null = " 
+					+ (mStateBundle.getParcelableArrayList(mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)) == null));
+			return;
+		} catch (ClassCastException e) {
+			Log.e(LOG_TAG, "saveState: ClassCastException" + "\n" +
+					" --> " + e.fillInStackTrace());
+		}
+
+		// if not, check if it is the selectedMovie
+		try {
+			Log.d(LOG_TAG, "saveState: you shouldnt be here");
+			mStateBundle.putParcelable(
+					mView.getApplicationContext().getString(R.string.main_fragment_selected_movie),
+					(DetailMovieObject) object);
+			return;
+		} catch (ClassCastException e) {
+			Log.e(LOG_TAG, "saveState: ClassCastException" + "\n" +
+					" --> " + e.fillInStackTrace());
+		}
+
+		Log.d(LOG_TAG, "saveState: Why Still here?!?!?!?!?!");
+	}
+
+	@Override
+	public Bundle getState() {
+		return this.mStateBundle;
+	}
 }

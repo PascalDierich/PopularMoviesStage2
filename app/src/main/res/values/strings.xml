@@ -28,6 +28,13 @@
     <string name="parcelable_detail_movie_object_key">selectedMovie</string>
     <string name="extra_intent_key">intentKey</string>
 
+    <!-- ########################### -->
+    <!-- # SavedInstanceState Keys # -->
+    <!-- ########################### -->
+    <string name="main_fragment_downloaded_data">downloaded Data by Main Fragment</string>
+    <string name="main_fragment_selected_movie">selected Movie</string>
+
+
     <!-- ######## -->
     <!-- # Menu # -->
     <!-- ######## -->

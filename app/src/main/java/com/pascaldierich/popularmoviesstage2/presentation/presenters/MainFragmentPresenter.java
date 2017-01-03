@@ -1,6 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters;
 
 import android.content.SharedPreferences;
+import android.os.Bundle;
 
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePresenter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
@@ -24,6 +25,8 @@ public interface MainFragmentPresenter extends BasePresenter {
 		void startDetailActivity(int position);
 
 		SharedPreferences getPreferences();
+
+		Bundle restoreState();
 	}
 
 	boolean onMenuItemSelected(int id);
@@ -36,5 +39,10 @@ public interface MainFragmentPresenter extends BasePresenter {
 	void getTopRatedMovies();
 
 	void getFavoriteMovies();
+
+	// State
+	void saveState(Object object);
+
+	Bundle getState();
 
 }

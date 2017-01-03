@@ -25,7 +25,7 @@ public class MainActivityPresenterImpl extends AbstractPresenter implements Main
 
 		setUiMode();
 	}
-
+	
 	@Override
 	public void setUiMode() {
 		if (mView.getUiMode()) { // TwoPaneMode == true

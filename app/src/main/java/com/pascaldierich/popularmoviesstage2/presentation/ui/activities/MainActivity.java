@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.domain.executor.impl.ThreadExecutor;
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 		setContentView(R.layout.activity_main);
 
 		ConstantsHolder.setApiKey(getString(R.string.api_key));
-		Log.d(LOG_TAG, "onCreate: api_key = " + getString(R.string.api_key));
-
 		initPresenter(savedInstanceState, null);
 	}
 
