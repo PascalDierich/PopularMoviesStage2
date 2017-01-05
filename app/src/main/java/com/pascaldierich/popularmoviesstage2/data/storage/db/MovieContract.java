@@ -39,8 +39,8 @@ public abstract class MovieContract {
 		public static final int COLUMN_RELEASE_ID = 2;
 		public static final int COLUMN_DESCRIPTION_ID = 3;
 		public static final int COLUMN_RATING_ID = 4;
-		public static final int COLUMN_TRAILER_ID = 5;
-		public static final int COLUMN_THUMBNAIL_ID = 6;
+		public static final int COLUMN_THUMBNAIL_ID = 5;
+		public static final int COLUMN_TRAILER_ID = 6;
 
 		public static Uri buildMovieUriWithId(long id) {
 			return ContentUris.withAppendedId(CONTENT_URI, id);

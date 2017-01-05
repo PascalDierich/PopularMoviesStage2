@@ -8,9 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by pascaldierich on 12.12.16.
  */
 
-public class MovieDbHelper extends SQLiteOpenHelper {
+class MovieDbHelper extends SQLiteOpenHelper {
 
-	public MovieDbHelper(Context context, int version) {
+	MovieDbHelper(Context context, int version) {
 		super(context, MovieContract.DB_NAME, null, version);
 	}
 
@@ -19,12 +19,12 @@ public class MovieDbHelper extends SQLiteOpenHelper {
 		final String SQL_CREATE_MOVIE_TABLE = "CREATE TABLE " + MovieContract.MovieEntry.TABLE_NAME + " ("
 				+ MovieContract.MovieEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ MovieContract.MovieEntry.COLUMN_TITLE + " TEXT NOT NULL,"
-				+ MovieContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL,"
 				+ MovieContract.MovieEntry.COLUMN_RELEASE + " TEXT NOT NULL,"
+				+ MovieContract.MovieEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL,"
 				+ MovieContract.MovieEntry.COLUMN_RATING + " REAL NOT NULL,"
-				+ MovieContract.MovieEntry.COLUMN_THUMBNAIL + " BLOB" // save image as Blob
+				+ MovieContract.MovieEntry.COLUMN_THUMBNAIL + " BLOB," // save image as Blob
+				+ MovieContract.MovieEntry.COLUMN_TRAILER + " TEXT NOT NULL"
 				+ ");";
-		// TODO: 18.12.16 add Trailer Column
 		sqLiteDatabase.execSQL(SQL_CREATE_MOVIE_TABLE);
 	}
 
