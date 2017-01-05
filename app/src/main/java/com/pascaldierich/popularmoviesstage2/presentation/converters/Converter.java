@@ -83,6 +83,8 @@ public class Converter {
 
 	private static String sStrSeparator = "__,__";
 	public static String convertArrayToString(String[] array){
+		if (array == null) return null;
+
 		String str = "";
 		for (int i = 0;i<array.length; i++) {
 			str = str+array[i];

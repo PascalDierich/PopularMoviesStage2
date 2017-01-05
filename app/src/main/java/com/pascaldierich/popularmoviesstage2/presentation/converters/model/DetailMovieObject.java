@@ -22,7 +22,7 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 
 	private String[] mTrailers; // optional
 	private String mPosterPath;
-	private Bitmap mThumbnail;  // optinal
+	private Bitmap mThumbnail;  // optional
 	private String[] mReview; // optional
 
 	public DetailMovieObject(int id,

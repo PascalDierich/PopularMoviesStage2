@@ -11,7 +11,7 @@ import android.provider.BaseColumns;
 public abstract class MovieContract {
 	private static final String LOG_TAG = MovieContract.class.getSimpleName();
 
-	static final String DB_NAME = "popularMovies.db";
+	public static final String DB_NAME = "popularMovies.db";
 
 	static final String CONTENT_AUTHORITY = "com.pascaldierich.popularmoviesstage2";
 	private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
@@ -22,7 +22,7 @@ public abstract class MovieContract {
 		public static final Uri CONTENT_URI =
 				BASE_CONTENT_URI.buildUpon().appendPath(MOVIE_PATH).build();
 
-		static final String TABLE_NAME = "favoriteMovies";
+		public static final String TABLE_NAME = "favoriteMovies";
 
 		// Columns in movies -> names
 		public static final String COLUMN_ID = "id";
