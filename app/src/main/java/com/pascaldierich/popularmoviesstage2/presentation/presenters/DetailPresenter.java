@@ -28,6 +28,8 @@ public interface DetailPresenter extends BasePresenter {
 		void showReview(PageReviews results);
 
 		void startNewActivity(Intent i);
+
+		boolean checkConnection();
 	}
 
 	void showGivenData(@Nullable DetailMovieObject movie);

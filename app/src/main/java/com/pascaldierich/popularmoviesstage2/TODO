@@ -1,21 +1,13 @@
 TODO:
 
-Core :
-
-- save Movie
-
-- query Movies
-
-- add Trailer Column in DB
-
-    -> write Utility function for trailer[] -> trailer String
-
 UX :
 
 (- Detail Fragment -> when no movie selected show something...)
 
 - check states in Presenter
     -> don't download new after orientation change
+
+- show downloaded Data the right way
 
 
 

@@ -68,10 +68,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	private int time_sleep = 0;
 	private void getInitialData() {
-		if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
-			onError(R.integer.error_network_noInternet);
-			return;
-		}
 
 		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), -1);
 		
@@ -79,11 +75,21 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			case R.integer.preferences_initial_sort_popularity: {
 				Log.d(LOG_TAG, "getInitialData: getPopular");
 
+				if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+					onError(R.integer.error_network_noInternet);
+					return;
+				}
+
 				getPopularMovies();
 				break;
 			}
 			case R.integer.preferences_initial_sort_rating: {
 				Log.d(LOG_TAG, "getInitialData: getRating");
+
+				if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+					onError(R.integer.error_network_noInternet);
+					return;
+				}
 
 				getTopRatedMovies();
 				break;
@@ -133,9 +139,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 				Log.d(LOG_TAG, "onError: NO_INTERNET");
 				mView.showError("No Internet Connection");
 			}
-		}
-		if (Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))){
-			getInitialData();
 		}
 	}
 
@@ -197,7 +200,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	}
 
 	@Override
-	public void onQueryFinished(ArrayList<DataMovieObject> faveMovies) { // TODO: convert
+	public void onQueryFinished(ArrayList<DataMovieObject> faveMovies) {
+		mView.hideProgress();
+
+		this.mDetailMovieObjectArrayList = Converter.convertDataMovieObjectToDetailMovieObject(faveMovies);
+
 		Log.d(LOG_TAG, "onQueryFinished: faveMovies.size() = " + faveMovies.size());
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
 
@@ -219,7 +226,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 		mView.showMovies(
 				Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
-						Converter.convertDataMovieObjectToDetailMovieObject(faveMovies)
+						this.mDetailMovieObjectArrayList
 				)
 		);
 	}

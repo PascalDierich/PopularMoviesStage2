@@ -1,8 +1,10 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +31,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapt
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.Utility;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -57,6 +60,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	// Buttons
 	private ImageButton mImageButtonFavorite;
 
+	// ImageVire for Thumbnail
 	private ImageView mImageViewThumbnail;
 
 	// Bitmap of Thumbnail
@@ -150,7 +154,6 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 					}
 				}
 				mPresenter.saveAsFavorite(movie);
-
 			}
 		});
 
@@ -260,5 +263,10 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	@Override
 	public void playButtonPressed(String key) {
 		mPresenter.onPlayPressed(getString(R.string.base_url_youtube), key);
+	}
+
+	@Override
+	public boolean checkConnection() {
+		return Utility.checkConnection((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE));
 	}
 }

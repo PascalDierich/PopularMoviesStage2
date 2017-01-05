@@ -1,9 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.utils;
 
-import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
-import com.pascaldierich.popularmoviesstage2.presentation.presenters.impl.DetailPresenterImpl;
-
-import java.util.ArrayList;
+import android.graphics.Bitmap;
 
 /**
  * Created by pascaldierich on 13.12.16.
@@ -21,21 +18,6 @@ public class ConstantsHolder {
 	}
 
 
-	private static ArrayList<DetailMovieObject> sDownloadedData;
-
-	public static void setDownloadedData(ArrayList<DetailMovieObject> list) {
-		sDownloadedData = list;
-	}
-
-	public static ArrayList<DetailMovieObject> getDownloadedData() {
-		return sDownloadedData;
-	}
-
-	public static DetailMovieObject getDownloadedDataFromPosition(int position) {
-		return sDownloadedData.get(position);
-	}
-
-
 	private static boolean sTwoPaneMode;
 
 	public static void setTwoPaneMode(boolean mode) {
@@ -46,15 +28,21 @@ public class ConstantsHolder {
 		return sTwoPaneMode;
 	}
 
+	private static Bitmap sBitmap;
 
-	private static DetailPresenterImpl sDetailPresenter;
-
-	public static void setDetailPresenterImpl(DetailPresenterImpl presenter) {
-		sDetailPresenter = presenter;
+	public static Bitmap getBitmap() {
+		try {
+			return sBitmap;
+		} finally {
+			sBitmap = null;
+		}
 	}
 
-	public static DetailPresenterImpl getDetailPresenterImpl() {
-		return sDetailPresenter;
+	public static void setBitmap(Bitmap bitmap) {
+		sBitmap = bitmap;
 	}
+
+
+
 
 }
