@@ -4,11 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
-import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
-import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_DESCRIPTION;
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_RATING;
@@ -56,12 +54,11 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 		values.put(COLUMN_RATING, movieObject.getmRating());
 		values.put(COLUMN_THUMBNAIL, movieObject.getmThumbnail());
 
-		String trailers = Converter.convertArrayToString(movieObject.getTrailers());
-		if (trailers == null) trailers = R.integer.error_noTrailers + "";
-		values.put(COLUMN_TRAILER, trailers);
-
-		Log.d(LOG_TAG, "detailInfoToContentValues: going to return values with size == " + values.size());
-		Log.d(LOG_TAG, "detailInfoToContentValues: Values ALWAYS have to be 6");
+//		String trailers = Converter.convertArrayToString(movieObject.getTrailers());
+//		if (trailers == null) trailers = R.integer.error_noTrailers + "";
+//		values.put(COLUMN_TRAILER, trailers);
+//
+//		Log.d(LOG_TAG, "detailInfoToContentValues: trailers = " + trailers);
 
 		return values;
 	}
@@ -75,7 +72,7 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 		Log.d(LOG_TAG, "DataMovieObject.getDescription = " + data.get(COLUMN_DESCRIPTION));
 		Log.d(LOG_TAG, "DataMovieObject.getRating = " + data.get(COLUMN_RATING));
 		Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + data.get(COLUMN_THUMBNAIL));
-		Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + data.get(COLUMN_TRAILER).toString());
+		Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + data.get(COLUMN_TRAILER));
 		Log.d(LOG_TAG, "######################################################");
 	}
 }

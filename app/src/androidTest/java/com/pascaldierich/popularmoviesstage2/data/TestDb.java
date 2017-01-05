@@ -1,11 +1,13 @@
 package com.pascaldierich.popularmoviesstage2.data;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieDbHelper;
+import com.pascaldierich.popularmoviesstage2.utils.DataUtility;
 
 import java.util.HashSet;
 
@@ -44,7 +46,7 @@ public class TestDb extends AndroidTestCase {
 		c = db.rawQuery("PRAGMA table_info(" + MovieContract.MovieEntry.TABLE_NAME + ")",
 				null);
 
-		assertTrue("Error: This means that we were unable to query the database for table information.",
+		assertTrue("Error: Unable to query the database for table information.",
 				c.moveToFirst());
 
 		final HashSet<String> locationColumnHashSet = new HashSet<String>();
@@ -64,6 +66,38 @@ public class TestDb extends AndroidTestCase {
 
 		assertTrue("Error: The database doesn't contain all of the required location entry columns",
 				locationColumnHashSet.isEmpty());
+		db.close();
+	}
+
+	public void testInsert() {
+		MovieDbHelper dbHelper = new MovieDbHelper(mContext, 1);
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+		ContentValues values = DataUtility.createDummyData();
+
+		long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, values);
+
+		assertTrue(_id != -1);
+
+		Cursor cursor = db.query(
+				MovieContract.MovieEntry.TABLE_NAME,
+				null,
+				null,
+				null,
+				null,
+				null,
+				null
+		);
+
+		assertTrue("Error: No Records returned from location query", cursor.moveToFirst());
+
+		DataUtility.validateCurrentRecord("Error: Location Query Validation Failed",
+				cursor, values);
+
+		assertFalse( "Error: More than one record returned from location query",
+				cursor.moveToNext() );
+
+		cursor.close();
 		db.close();
 	}
 

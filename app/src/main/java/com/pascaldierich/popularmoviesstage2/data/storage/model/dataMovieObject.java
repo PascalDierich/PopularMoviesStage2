@@ -19,10 +19,10 @@ public class DataMovieObject extends MovieObject {
 						   String release,
 						   float rating,
 						   byte[] thumbnail,
-						   String[] tailers) {
+						   String[] trailers) {
 		super(id, title, description, release, rating);
 		mThumbnail = thumbnail;
-		mTrailers = tailers;
+		mTrailers = trailers;
 	}
 
 	public int getmId() {

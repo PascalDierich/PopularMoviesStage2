@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
@@ -30,6 +31,8 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPla
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity implements BaseView, DetailPresenter.View,
 		TrailerPlayButtonCallback {
@@ -62,6 +65,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	// Adapter
 	private TrailerAdapter mTrailerAdapter;
 	private ReviewAdapter mReviewAdapter;
+
+	// Trailer
+	private ArrayList<Trailer> mTrailers;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +106,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showGivenData(final DetailMovieObject movie) {
-		this.mTextViewLength.setText("hallo");
+		this.mTextViewLength.setText("hallo"); // TODO: 05.01.17 delete "hallo" and get some real data 
 		try {
 			this.mTextViewTitle.setText(movie.getmTitle());
 		} catch (NullPointerException npe) {
@@ -127,6 +133,16 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 			@Override
 			public void onClick(View v) {
 				movie.setThumbnail(mBitmap);
+
+				if (mTrailers == null) {
+					movie.setTrailers(null);
+				} else {
+					for (Trailer trailer : mTrailers) {
+						movie.setTrailers(new String[] {
+								trailer.getKey()
+						});
+					}
+				}
 				mPresenter.saveAsFavorite(movie);
 
 			}
@@ -173,7 +189,8 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showTrailer(PageTrailers results) {
-		this.mTrailerAdapter.setResults(results.getResults());
+		this.mTrailers = results.getResults();
+		this.mTrailerAdapter.setResults(this.mTrailers);
 		this.mTrailerAdapter.notifyDataSetChanged();
 		if (results.getResults().size() == 0) {
 			this.mTextViewTrailerTitle.setVisibility(View.GONE);

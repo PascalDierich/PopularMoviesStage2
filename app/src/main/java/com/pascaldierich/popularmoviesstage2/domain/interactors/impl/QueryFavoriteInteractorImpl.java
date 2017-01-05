@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors.impl;
 
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.QueryFavoriteMoviesInteractor;
@@ -35,7 +36,7 @@ public class QueryFavoriteInteractorImpl extends AbstractInteractor implements Q
 	@Override
 	public void run() {
 
-		final ArrayList<String[]> faveMovies = this.mRepository.getFavoriteMovies();
+		final ArrayList<DataMovieObject> faveMovies = this.mRepository.getFavoriteMovies();
 
 		mMainThread.post(new Runnable() {
 			@Override

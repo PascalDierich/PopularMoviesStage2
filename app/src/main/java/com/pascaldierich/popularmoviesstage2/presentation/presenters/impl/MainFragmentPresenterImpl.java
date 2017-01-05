@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
@@ -196,9 +197,26 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	}
 
 	@Override
-	public void onQueryFinished(ArrayList<String[]> faveMovies) { // TODO: convert
+	public void onQueryFinished(ArrayList<DataMovieObject> faveMovies) { // TODO: convert
 		Log.d(LOG_TAG, "onQueryFinished: faveMovies.size() = " + faveMovies.size());
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
+
+		for (DataMovieObject a: faveMovies) {
+			Log.d(LOG_TAG, "");
+			Log.d(LOG_TAG, "DataMovieObject from Database :");
+			Log.d(LOG_TAG, "######################################################");
+			Log.d(LOG_TAG, "DataMovieObject.getTitle = " + a.getmTitle());
+			Log.d(LOG_TAG, "DataMovieObject.getRelease = " + a.getmRelease());
+			Log.d(LOG_TAG, "DataMovieObject.getDescription = " + a.getmDescription());
+			Log.d(LOG_TAG, "DataMovieObject.getRating = " + a.getmRating());
+			Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + a.getmThumbnail().length);
+			Log.d(LOG_TAG, "Trailers : ");
+			for (String trailer : a.getTrailers()) {
+				Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + trailer);
+			}
+			Log.d(LOG_TAG, "######################################################");
+		}
+
 	}
 
 	@Override

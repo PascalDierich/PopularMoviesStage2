@@ -96,6 +96,7 @@ public class Converter {
 	}
 
 	public static String[] convertStringToArray(String str){
-		return str.split(sStrSeparator);
+		if (str == null) return null;
+		else return str.split(sStrSeparator);
 	}
 }

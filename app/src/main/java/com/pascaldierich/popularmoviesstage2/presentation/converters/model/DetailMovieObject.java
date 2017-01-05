@@ -20,7 +20,10 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 public class DetailMovieObject extends MovieObject implements Parcelable {
 	private static final String LOG_TAG = DetailMovieObject.class.getSimpleName();
 
-	private String[] mTrailers; // optional
+	private String[] mTrailers = {
+			"trailer1",
+			"trailer2"
+	}; // optional
 	private String mPosterPath;
 	private Bitmap mThumbnail;  // optional
 	private String[] mReview; // optional
