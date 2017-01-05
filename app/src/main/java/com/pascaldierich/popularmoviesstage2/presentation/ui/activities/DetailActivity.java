@@ -127,7 +127,13 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		} catch (NullPointerException npe) {
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
 		}
-		getBitmap(movie.getmPosterPath());
+
+		if (movie.getmThumbnail() == null) {
+			getBitmap(movie.getmPosterPath());
+		} else {
+			mImageViewThumbnail.setImageBitmap(movie.getmThumbnail());
+		}
+
 
 		this.mImageButtonFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override

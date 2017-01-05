@@ -56,9 +56,17 @@ public class Converter {
 		ArrayList<GridItem> result = new ArrayList<>();
 
 		for (DetailMovieObject movie : pageMovies) {
-			result.add(new GridItem(
-					movie.getmPosterPath()
-			));
+			if (movie.getmThumbnail() == null) {
+				result.add(new GridItem(
+						movie.getmPosterPath(),
+						null
+				));
+			} else {
+				result.add(new GridItem(
+						null,
+						movie.getmThumbnail()
+				));
+			}
 		}
 
 		return result;
@@ -98,5 +106,25 @@ public class Converter {
 	public static String[] convertStringToArray(String str){
 		if (str == null) return null;
 		else return str.split(sStrSeparator);
+	}
+
+	public static ArrayList<DetailMovieObject> convertDataMovieObjectToDetailMovieObject(ArrayList<DataMovieObject> data) {
+		ArrayList<DetailMovieObject> returnData = new ArrayList<DetailMovieObject>();
+		for (DataMovieObject a: data) {
+			returnData.add(
+					new DetailMovieObject(
+							a.getmId(),
+							a.getmTitle(),
+							a.getmDescription(),
+							a.getmRelease(),
+							a.getmRating(),
+							null, //trailers
+							"", // PosterPath
+							Converter.byteArrayToBitmao(a.getmThumbnail()),
+							null // reviews
+					)
+			);
+		}
+		return returnData;
 	}
 }

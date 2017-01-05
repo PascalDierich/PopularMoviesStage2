@@ -47,18 +47,24 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		GridItem imgURL = mGridData.get(position);
+		if (mGridData.get(position).getBitmap() != null) {
+			holder.imageView.setImageBitmap(mGridData.get(position).getBitmap());
+		} else {
+			GridItem imgURL = mGridData.get(position);
 
-		String imageURL = mContext.getString(R.string.image_base_url)
-				+ imgURL.getImage()
-				+ "?api_key="
-				+ mContext.getString(R.string.api_key);
+			String imageURL = mContext.getString(R.string.image_base_url)
+					+ imgURL.getImage()
+					+ "?api_key="
+					+ mContext.getString(R.string.api_key);
 
-		Picasso.with(mContext)
-				.load(imageURL)
-				.placeholder(R.mipmap.ic_launcher)
-				.fit()
-				.into(holder.imageView);
+			Picasso.with(mContext)
+					.load(imageURL)
+					.placeholder(R.mipmap.ic_launcher)
+					.fit()
+					.into(holder.imageView);
+		}
+
+
 
 		return convertView;
 	}

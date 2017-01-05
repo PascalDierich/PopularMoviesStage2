@@ -217,6 +217,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			Log.d(LOG_TAG, "######################################################");
 		}
 
+		mView.showMovies(
+				Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
+						Converter.convertDataMovieObjectToDetailMovieObject(faveMovies)
+				)
+		);
 	}
 
 	@Override
