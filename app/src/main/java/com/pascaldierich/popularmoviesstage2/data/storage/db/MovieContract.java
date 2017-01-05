@@ -34,7 +34,6 @@ public abstract class MovieContract {
 		public static final String COLUMN_TRAILER = "trailer"; // saves only the link to the trailer
 
 		// Columns in movies -> ID
-		public static final int COLUMN_ID_ID = 0;
 		public static final int COLUMN_TITLE_ID = 1;
 		public static final int COLUMN_RELEASE_ID = 2;
 		public static final int COLUMN_DESCRIPTION_ID = 3;

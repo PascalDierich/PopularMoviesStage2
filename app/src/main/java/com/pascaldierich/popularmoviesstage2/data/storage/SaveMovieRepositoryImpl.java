@@ -7,6 +7,7 @@ import android.util.Log;
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
+import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 
 /**
  * Created by pascaldierich on 12.12.16.
@@ -38,14 +39,15 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 	private ContentValues detailInfoToContentValues(DataMovieObject movieObject) {
 		ContentValues values = new ContentValues();
 
-//		values.put(MovieContract.MovieEntry.COLUMN_ID, movieObject.getmId());
 		values.put(MovieContract.MovieEntry.COLUMN_TITLE, movieObject.getmTitle());
-		values.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, movieObject.getmThumbnail());
+		values.put(MovieContract.MovieEntry.COLUMN_RELEASE, movieObject.getmRelease());
 		values.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, movieObject.getmDescription());
 		values.put(MovieContract.MovieEntry.COLUMN_RATING, movieObject.getmRating());
-		values.put(MovieContract.MovieEntry.COLUMN_RELEASE, movieObject.getmRelease());
+		values.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, movieObject.getmThumbnail());
+		values.put(MovieContract.MovieEntry.COLUMN_TRAILER, Converter.convertArrayToString(movieObject.getTrailers()));
 
 		Log.d(LOG_TAG, "detailInfoToContentValues: going to return values with size == " + values.size());
+		Log.d(LOG_TAG, "detailInfoToContentValues: Values ALWAYS have to be 6");
 
 		return values;
 	}

@@ -47,7 +47,8 @@ public class Converter {
 				object.getmDescription(),
 				object.getmRelease(),
 				object.getmRating(),
-				bitmapToByteArray(object.getmThumbnail())
+				bitmapToByteArray(object.getmThumbnail()),
+				object.getmTrailers()
 		);
 	}
 
@@ -78,5 +79,21 @@ public class Converter {
 		Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
 
 		return bitmap;
+	}
+
+	private static String sStrSeparator = "__,__";
+	public static String convertArrayToString(String[] array){
+		String str = "";
+		for (int i = 0;i<array.length; i++) {
+			str = str+array[i];
+			if(i<array.length-1){
+				str = str+sStrSeparator;
+			}
+		}
+		return str;
+	}
+
+	public static String[] convertStringToArray(String str){
+		return str.split(sStrSeparator);
 	}
 }
