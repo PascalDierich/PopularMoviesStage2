@@ -11,15 +11,18 @@ public class DataMovieObject extends MovieObject {
 	private static final String LOG_TAG = DataMovieObject.class.getSimpleName();
 
 	private byte[] mThumbnail;
+	private String[] mTrailers;
 
 	public DataMovieObject(int id,
 						   String title,
 						   String description,
 						   String release,
 						   float rating,
-						   byte[] thumbnail) {
+						   byte[] thumbnail,
+						   String[] tailers) {
 		super(id, title, description, release, rating);
 		mThumbnail = thumbnail;
+		mTrailers = tailers;
 	}
 
 	public int getmId() {
@@ -44,5 +47,9 @@ public class DataMovieObject extends MovieObject {
 
 	public byte[] getmThumbnail() {
 		return mThumbnail;
+	}
+
+	public String[] getTrailers() {
+		return mTrailers;
 	}
 }

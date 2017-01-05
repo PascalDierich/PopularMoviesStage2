@@ -24,7 +24,7 @@ public abstract class MovieContract {
 
 		static final String TABLE_NAME = "favoriteMovies";
 
-		// Columns in movies
+		// Columns in movies -> names
 		public static final String COLUMN_ID = "id";
 		public static final String COLUMN_TITLE = "title";
 		public static final String COLUMN_RELEASE = "release";
@@ -33,7 +33,7 @@ public abstract class MovieContract {
 		public static final String COLUMN_THUMBNAIL = "thumbnail"; // saves the whole image
 		public static final String COLUMN_TRAILER = "trailer"; // saves only the link to the trailer
 
-		// Columns in movies ID
+		// Columns in movies -> ID
 		public static final int COLUMN_ID_ID = 0;
 		public static final int COLUMN_TITLE_ID = 1;
 		public static final int COLUMN_RELEASE_ID = 2;

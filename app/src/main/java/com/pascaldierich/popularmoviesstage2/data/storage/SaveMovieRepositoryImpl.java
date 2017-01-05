@@ -2,7 +2,6 @@ package com.pascaldierich.popularmoviesstage2.data.storage;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
@@ -24,17 +23,16 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 
 	@Override
 	public boolean saveAsFavorite(DataMovieObject movieObject) {
-		Log.d(LOG_TAG, "saveAsFavorite: going to save");
-
 		ContentValues values = detailInfoToContentValues(movieObject);
 
-		if (values == null) Log.d(LOG_TAG, "saveAsFavorite: values == NULL");
+		ContentValues[] valuesArray = {
+				values
+		};
+		int numberOfRowAdded = mContext.getContentResolver().bulkInsert(MovieContract.MovieEntry.CONTENT_URI, valuesArray);
 
-		Uri uri = mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, values);
+		Log.d(LOG_TAG, "saveAsFavorite: number of rows added: " + numberOfRowAdded);
 
-		if (uri != null) Log.d(LOG_TAG, "saveAsFavorite: uri = " + uri);
-
-		return uri != null; // check if success
+		return numberOfRowAdded != -1;
 	}
 
 	private ContentValues detailInfoToContentValues(DataMovieObject movieObject) {
