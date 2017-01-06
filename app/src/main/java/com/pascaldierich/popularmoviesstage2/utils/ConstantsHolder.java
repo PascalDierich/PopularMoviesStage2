@@ -38,11 +38,13 @@ public class ConstantsHolder {
 		}
 	}
 
+	public static boolean bitmapIsNull() {
+		return sBitmap == null;
+	}
+
 	public static void setBitmap(Bitmap bitmap) {
 		sBitmap = bitmap;
 	}
-
-
 
 
 }

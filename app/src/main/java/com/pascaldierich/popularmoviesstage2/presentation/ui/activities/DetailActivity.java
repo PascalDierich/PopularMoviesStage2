@@ -31,6 +31,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapt
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import com.pascaldierich.popularmoviesstage2.utils.Utility;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -132,12 +133,11 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
 		}
 
-		if (movie.getmThumbnail() == null) {
+		if (ConstantsHolder.bitmapIsNull()) {
 			getBitmap(movie.getmPosterPath());
 		} else {
-			mImageViewThumbnail.setImageBitmap(movie.getmThumbnail());
+			mImageViewThumbnail.setImageBitmap(ConstantsHolder.getBitmap());
 		}
-
 
 		this.mImageButtonFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override

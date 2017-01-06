@@ -45,6 +45,15 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 		this.mReview = review;
 	}
 
+	public boolean bitmapIsNull() {
+		if (this.mThumbnail == null) return true;
+		else return false;
+	}
+
+	public void setThumbnailNull() {
+		this.mThumbnail = null;
+	}
+
 	/*
 	Setter
 	 */

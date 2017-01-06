@@ -115,10 +115,27 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 					.replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG)
 					.commit();
 		} else {
+			DetailMovieObject movieObject = selectedMovie.getParcelable(
+					getString(R.string.parcelable_detail_movie_object_key)
+			);
+
+			if (!movieObject.bitmapIsNull()) { // if bitmap != null we cant transfer DetailMovieObject over Intent because its too heavy
+				ConstantsHolder.setBitmap(movieObject.getmThumbnail()); // going to save the bitmap in a static ConstantHolder
+				movieObject.setThumbnailNull(); // set the Bitmap in the DetailMovieObject null
+
+				selectedMovie = new Bundle(); // initialize Bundle with new MovieObject
+				selectedMovie.putParcelable(
+						getString(R.string.parcelable_detail_movie_object_key),
+						movieObject);
+			}
+			// start DetailActivity normal
 			Intent intent = new Intent(this, DetailActivity.class);
 			intent.putExtra(getString(R.string.extra_intent_key), selectedMovie);
 
 			startActivity(intent);
+
+
+
 		}
 	}
 }
