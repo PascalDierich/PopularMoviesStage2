@@ -40,7 +40,7 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 		ArrayList<DataMovieObject> movieList = new ArrayList<>();
 
 		int i = 0;
-		while (cursor.moveToNext()) {
+		do {
 			Log.d(LOG_TAG, "cursorToArrayList: i = " + ++i);
 			movieList.add(new DataMovieObject(
 					cursor.getInt(MovieContract.MovieEntry.COLUMN_ID_ID),
@@ -52,7 +52,7 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 //					Converter.convertStringToArray(cursor.getString(MovieContract.MovieEntry.COLUMN_TRAILER_ID))
 					new String[] {"trailer"}
 			));
-		}
+		} while (cursor.moveToNext());
 
 		return movieList;
 	}

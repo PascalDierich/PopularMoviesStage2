@@ -66,8 +66,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		this.mView = view;
 	}
 
-	private int time_sleep = 0;
-
 	private void getInitialData() {
 
 		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), 1);
