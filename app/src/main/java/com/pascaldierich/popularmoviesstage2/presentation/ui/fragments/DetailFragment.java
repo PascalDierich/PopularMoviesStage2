@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,6 +32,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapt
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.Utility;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -275,5 +277,10 @@ public class DetailFragment extends Fragment implements BaseView,
 	@Override
 	public void playButtonPressed(String key) {
 		mPresenter.onPlayPressed(getString(R.string.base_url_youtube), key);
+	}
+
+	@Override
+	public boolean checkConnection() {
+		return Utility.checkConnection((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE));
 	}
 }

@@ -1,5 +1,6 @@
 package com.pascaldierich.popularmoviesstage2.domain.interactors;
 
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public interface QueryFavoriteMoviesInteractor extends Interactor {
 
 	interface Callback {
-		void onQueryFinished(ArrayList<String[]> faveMovies);
+		void onQueryFinished(ArrayList<DataMovieObject> faveMovies);
 	}
 
 }

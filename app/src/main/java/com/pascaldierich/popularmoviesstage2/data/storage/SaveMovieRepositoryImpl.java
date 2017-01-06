@@ -2,12 +2,18 @@ package com.pascaldierich.popularmoviesstage2.data.storage;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
 import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieRepository;
+
+import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_DESCRIPTION;
+import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_RATING;
+import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_RELEASE;
+import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_THUMBNAIL;
+import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_TITLE;
+
 
 /**
  * Created by pascaldierich on 12.12.16.
@@ -24,31 +30,48 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 
 	@Override
 	public boolean saveAsFavorite(DataMovieObject movieObject) {
-		Log.d(LOG_TAG, "saveAsFavorite: going to save");
-
 		ContentValues values = detailInfoToContentValues(movieObject);
 
-		if (values == null) Log.d(LOG_TAG, "saveAsFavorite: values == NULL");
+		log(values);
 
-		Uri uri = mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, values);
+		ContentValues[] valuesArray = {
+				values
+		};
+		int numberOfRowAdded = mContext.getContentResolver().bulkInsert(MovieContract.MovieEntry.CONTENT_URI, valuesArray);
 
-		if (uri != null) Log.d(LOG_TAG, "saveAsFavorite: uri = " + uri);
+		Log.d(LOG_TAG, "saveAsFavorite: number of rows added: " + numberOfRowAdded);
 
-		return uri != null; // check if success
+		return numberOfRowAdded > 0;
 	}
 
 	private ContentValues detailInfoToContentValues(DataMovieObject movieObject) {
 		ContentValues values = new ContentValues();
 
-//		values.put(MovieContract.MovieEntry.COLUMN_ID, movieObject.getmId());
-		values.put(MovieContract.MovieEntry.COLUMN_TITLE, movieObject.getmTitle());
-		values.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, movieObject.getmThumbnail());
-		values.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, movieObject.getmDescription());
-		values.put(MovieContract.MovieEntry.COLUMN_RATING, movieObject.getmRating());
-		values.put(MovieContract.MovieEntry.COLUMN_RELEASE, movieObject.getmRelease());
+		values.put(COLUMN_TITLE, movieObject.getmTitle());
+		values.put(COLUMN_RELEASE, movieObject.getmRelease());
+		values.put(COLUMN_DESCRIPTION, movieObject.getmDescription());
+		values.put(COLUMN_RATING, movieObject.getmRating());
+		values.put(COLUMN_THUMBNAIL, movieObject.getmThumbnail());
 
-		Log.d(LOG_TAG, "detailInfoToContentValues: going to return values with size == " + values.size());
+//		String trailers = Converter.convertArrayToString(movieObject.getTrailers());
+//		if (trailers == null) trailers = R.integer.error_noTrailers + "";
+//		values.put(COLUMN_TRAILER, trailers);
+//
+//		Log.d(LOG_TAG, "detailInfoToContentValues: trailers = " + trailers);
 
 		return values;
+	}
+
+	private void log(ContentValues data) {
+		Log.d(LOG_TAG, "");
+		Log.d(LOG_TAG, "SAVE TO DATABASE :");
+		Log.d(LOG_TAG, "######################################################");
+		Log.d(LOG_TAG, "DataMovieObject.getTitle = " + data.get(COLUMN_TITLE));
+		Log.d(LOG_TAG, "DataMovieObject.getRelease = " + data.get(COLUMN_RELEASE));
+		Log.d(LOG_TAG, "DataMovieObject.getDescription = " + data.get(COLUMN_DESCRIPTION));
+		Log.d(LOG_TAG, "DataMovieObject.getRating = " + data.get(COLUMN_RATING));
+		Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + data.get(COLUMN_THUMBNAIL));
+//		Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + data.get(COLUMN_TRAILER));
+		Log.d(LOG_TAG, "######################################################");
 	}
 }

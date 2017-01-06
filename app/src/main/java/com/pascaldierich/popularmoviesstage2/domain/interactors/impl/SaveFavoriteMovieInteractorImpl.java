@@ -16,10 +16,10 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.SaveMovieReposito
 public class SaveFavoriteMovieInteractorImpl extends AbstractInteractor implements SaveFavoriteMovieInteractor {
 	private static final String LOG_TAG = SaveFavoriteMovieInteractorImpl.class.getSimpleName();
 
-	SaveFavoriteMovieInteractor.Callback mCallback;
-	SaveMovieRepository mRepository;
+	private SaveFavoriteMovieInteractor.Callback mCallback;
+	private SaveMovieRepository mRepository;
 
-	DataMovieObject mMovieObject;
+	private DataMovieObject mMovieObject;
 
 	public SaveFavoriteMovieInteractorImpl(Executor threadExecutor, MainThread mainThread,
 										   SaveFavoriteMovieInteractor.Callback callback,

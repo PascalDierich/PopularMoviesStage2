@@ -47,6 +47,8 @@ public class MovieProvider extends ContentProvider {
 					for (ContentValues value : values) {
 						long _id = db.insert(MovieContract.MovieEntry.TABLE_NAME, null, value);
 						if (_id != -1) {
+							Log.d(LOG_TAG, "bulkInsert: _id != 1");
+							Log.d(LOG_TAG, "bulkInsert: _id == " + _id);
 							returnCount++;
 						}
 					}

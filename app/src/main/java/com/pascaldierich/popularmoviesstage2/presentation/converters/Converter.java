@@ -47,7 +47,8 @@ public class Converter {
 				object.getmDescription(),
 				object.getmRelease(),
 				object.getmRating(),
-				bitmapToByteArray(object.getmThumbnail())
+				bitmapToByteArray(object.getmThumbnail()),
+				object.getmTrailers()
 		);
 	}
 
@@ -55,9 +56,17 @@ public class Converter {
 		ArrayList<GridItem> result = new ArrayList<>();
 
 		for (DetailMovieObject movie : pageMovies) {
-			result.add(new GridItem(
-					movie.getmPosterPath()
-			));
+			if (movie.getmThumbnail() == null) {
+				result.add(new GridItem(
+						movie.getmPosterPath(),
+						null
+				));
+			} else {
+				result.add(new GridItem(
+						null,
+						movie.getmThumbnail()
+				));
+			}
 		}
 
 		return result;
@@ -78,5 +87,45 @@ public class Converter {
 		Bitmap bitmap = BitmapFactory.decodeByteArray(array, 0, array.length);
 
 		return bitmap;
+	}
+
+	private static String sStrSeparator = "__,__";
+
+	public static String convertArrayToString(String[] array) {
+		if (array == null) return null;
+
+		String str = "";
+		for (int i = 0; i < array.length; i++) {
+			str = str + array[i];
+			if (i < array.length - 1) {
+				str = str + sStrSeparator;
+			}
+		}
+		return str;
+	}
+
+	public static String[] convertStringToArray(String str) {
+		if (str == null) return null;
+		else return str.split(sStrSeparator);
+	}
+
+	public static ArrayList<DetailMovieObject> convertDataMovieObjectToDetailMovieObject(ArrayList<DataMovieObject> data) {
+		ArrayList<DetailMovieObject> returnData = new ArrayList<DetailMovieObject>();
+		for (DataMovieObject a : data) {
+			returnData.add(
+					new DetailMovieObject(
+							a.getmId(),
+							a.getmTitle(),
+							a.getmDescription(),
+							a.getmRelease(),
+							a.getmRating(),
+							null, //trailers
+							"", // PosterPath
+							Converter.byteArrayToBitmao(a.getmThumbnail()),
+							null // reviews
+					)
+			);
+		}
+		return returnData;
 	}
 }

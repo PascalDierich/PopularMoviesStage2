@@ -64,6 +64,7 @@
 
     <!-- data Storage -->
     <integer name="error_dataStorage_failedSave">-301</integer>
+    <integer name="error_noTrailers">-302</integer>
 
     <!-- ###### -->
     <!-- # UI # -->

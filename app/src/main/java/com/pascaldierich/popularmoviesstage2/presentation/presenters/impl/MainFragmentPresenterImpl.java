@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageMovies;
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadMoviesInteractor;
@@ -83,22 +84,28 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	}
 
 	private void getInitialData() {
-		if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
-			onError(R.integer.error_network_noInternet);
-			return;
-		}
 
-		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), -1);
+		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), 1);
 		
 		switch (initialPreference) {
 			case R.integer.preferences_initial_sort_popularity: {
 				Log.d(LOG_TAG, "getInitialData: getPopular");
+
+				if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+					onError(R.integer.error_network_noInternet);
+					return;
+				}
 
 				getPopularMovies();
 				break;
 			}
 			case R.integer.preferences_initial_sort_rating: {
 				Log.d(LOG_TAG, "getInitialData: getRating");
+
+				if (!Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))) {
+					onError(R.integer.error_network_noInternet);
+					return;
+				}
 
 				getTopRatedMovies();
 				break;
@@ -157,9 +164,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 				Log.d(LOG_TAG, "onError: NO_INTERNET");
 				mView.showError("No Internet Connection");
 			}
-		}
-		if (Utility.checkConnection((ConnectivityManager) mView.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE))){
-			getInitialData();
 		}
 	}
 
@@ -226,9 +230,35 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	}
 
 	@Override
-	public void onQueryFinished(ArrayList<String[]> faveMovies) { // TODO: convert
+	public void onQueryFinished(ArrayList<DataMovieObject> faveMovies) {
+		mView.hideProgress();
+
+		this.mDetailMovieObjectArrayList = Converter.convertDataMovieObjectToDetailMovieObject(faveMovies);
+
 		Log.d(LOG_TAG, "onQueryFinished: faveMovies.size() = " + faveMovies.size());
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
+
+		for (DataMovieObject a : faveMovies) {
+			Log.d(LOG_TAG, "");
+			Log.d(LOG_TAG, "DataMovieObject from Database :");
+			Log.d(LOG_TAG, "######################################################");
+			Log.d(LOG_TAG, "DataMovieObject.getTitle = " + a.getmTitle());
+			Log.d(LOG_TAG, "DataMovieObject.getRelease = " + a.getmRelease());
+			Log.d(LOG_TAG, "DataMovieObject.getDescription = " + a.getmDescription());
+			Log.d(LOG_TAG, "DataMovieObject.getRating = " + a.getmRating());
+			Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + a.getmThumbnail().length);
+			Log.d(LOG_TAG, "Trailers : ");
+			for (String trailer : a.getTrailers()) {
+				Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + trailer);
+			}
+			Log.d(LOG_TAG, "######################################################");
+		}
+
+		mView.showMovies(
+				Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
+						this.mDetailMovieObjectArrayList
+				)
+		);
 	}
 
 	@Override

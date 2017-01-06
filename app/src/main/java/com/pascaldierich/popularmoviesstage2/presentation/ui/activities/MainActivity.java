@@ -20,7 +20,9 @@ import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View,
 		MovieSelectedCallback {
 	private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
 	private static final String DETAILFRAGMENT_TAG = "DetailFragmentTag";
+	private static final String MAINFRAGMENT_TAG = "MainFragmentTag";
 
 	private MainActivityPresenter mMainPresenter;
 
@@ -47,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 			getSupportActionBar().setElevation(0f);
 		}
 
-		MainFragment mainFragment = ((MainFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.fragment_main));
-
-		mainFragment.setUseGridLayout(this.mTwoPaneMode);
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_main_container, new MainFragment(), MAINFRAGMENT_TAG)
+				.commit();
+//		MainFragment mainFragment = ((MainFragment) getSupportFragmentManager()
+//				.findFragmentById(R.id.fragment_main));
+//		mainFragment.setUseGridLayout(this.mTwoPaneMode);
 	}
 
 	@Override
@@ -98,10 +102,26 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 					.replace(R.id.movie_detail_container, fragment, DETAILFRAGMENT_TAG)
 					.commit();
 		} else {
+			DetailMovieObject movieObject = selectedMovie.getParcelable(
+					getString(R.string.parcelable_detail_movie_object_key)
+			);
+
+			if (!movieObject.bitmapIsNull()) { // if bitmap != null we cant transfer DetailMovieObject over Intent because its too heavy
+				ConstantsHolder.setBitmap(movieObject.getmThumbnail()); // going to save the bitmap in a static ConstantHolder
+				movieObject.setThumbnailNull(); // set the Bitmap in the DetailMovieObject null
+
+				selectedMovie = new Bundle(); // initialize Bundle with new MovieObject
+				selectedMovie.putParcelable(
+						getString(R.string.parcelable_detail_movie_object_key),
+						movieObject);
+			}
+			// start DetailActivity normal
 			Intent intent = new Intent(this, DetailActivity.class);
 			intent.putExtra(getString(R.string.extra_intent_key), selectedMovie);
 
 			startActivity(intent);
+
+
 		}
 	}
 }

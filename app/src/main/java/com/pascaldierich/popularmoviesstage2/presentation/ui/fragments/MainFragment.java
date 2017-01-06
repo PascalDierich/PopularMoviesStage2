@@ -29,6 +29,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.activities.DetailAc
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 import java.util.ArrayList;
 
@@ -52,21 +53,19 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	private View mRootView;
 
-	private Bundle mByNowSavedStates;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		
-		Log.d(LOG_TAG, "onCreate: called");
+
+		setUseGridLayout(ConstantsHolder.getTwoPaneMode());
 		initPresenter(savedInstanceState, null);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		Log.d(LOG_TAG, "onCreateView: called");
+
 		mRootView = inflater.inflate(R.layout.fragment_main, container, false);
 		mProgressBar = (ProgressBar) mRootView.findViewById(R.id.progress_bar);
 
@@ -111,9 +110,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	@Override
 	public void showMovies(ArrayList<GridItem> movies) {
-		if (mRootView == null) {
-			Log.d(LOG_TAG, "showMovies: ROOTVIEW == NULL");
-		}
 		mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
 		if (this.mTwoPaneMode) {
 			mImageAdapter = new ImageAdapter(getActivity(), R.layout.list_view_layout, movies);
@@ -127,6 +123,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 		mGridView.setAdapter(mImageAdapter);
 
 		mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 				mPresenter.movieSelected(position);
@@ -167,54 +164,13 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	}
 
 	@Override
+	public Bundle restoreState() {
+		return null;
+	}
+
+	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.main, menu);
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		mByNowSavedStates = outState;
-		final String KEY_DOWNLOADED_DATA = getString(R.string.main_fragment_downloaded_data);
-		final String KEY_SELECTED_MOVIE = getString(R.string.main_fragment_selected_movie);
-
-		Bundle presenterBundle = mPresenter.getState();
-
-		// Check for downloaded Data
-		try {
-			outState.putParcelableArrayList(
-					KEY_DOWNLOADED_DATA,
-					presenterBundle.getParcelableArrayList(KEY_DOWNLOADED_DATA));
-		} catch (NullPointerException e) {
-			Log.e(LOG_TAG, "onSaveInstanceState: NullPointetException" + "\n" +
-					" --> " + e.fillInStackTrace());
-		}
-
-		// Check for selected Movie
-		try {
-			outState.putParcelable(
-					KEY_SELECTED_MOVIE,
-					presenterBundle.getBundle(KEY_SELECTED_MOVIE)
-			);
-		} catch (NullPointerException e) {
-			Log.e(LOG_TAG, "onSaveInstanceState: NullPointerException" + "\n" +
-					" --> " + e.fillInStackTrace());
-		}
-	}
-
-	@Override
-	public Bundle restoreState() {
-		return mByNowSavedStates;
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		mPresenter.resume();
-	}
-	
-	@Override
-	public void onStart() {
-		super.onStart(); // TODO: 03.01.17 save mRootView in State (!!!!)
 	}
 }

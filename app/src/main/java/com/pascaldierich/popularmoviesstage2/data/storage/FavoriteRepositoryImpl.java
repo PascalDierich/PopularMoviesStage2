@@ -1,12 +1,12 @@
 package com.pascaldierich.popularmoviesstage2.data.storage;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
+import com.pascaldierich.popularmoviesstage2.data.storage.model.DataMovieObject;
 import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepository;
 
 import java.util.ArrayList;
@@ -25,24 +25,7 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 	}
 
 	@Override
-	public ArrayList<String[]> getFavoriteMovies() {
-
-		/*
-		for production test
-		 */
-		for (int i = 0; i < 5; i++) {
-			ContentValues testValues = new ContentValues();
-			testValues.put(MovieContract.MovieEntry.COLUMN_TITLE, "test Title");
-			testValues.put(MovieContract.MovieEntry.COLUMN_THUMBNAIL, new byte[0]);
-			testValues.put(MovieContract.MovieEntry.COLUMN_DESCRIPTION, "test Description");
-			testValues.put(MovieContract.MovieEntry.COLUMN_RATING, 0.1);
-			testValues.put(MovieContract.MovieEntry.COLUMN_RELEASE, "NOW");
-
-			Log.d(LOG_TAG, "getFavoriteMovies: uri = "
-					+ mContext.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, testValues));
-		}
-
-
+	public ArrayList<DataMovieObject> getFavoriteMovies() {
 		Cursor cursor = mContext.getContentResolver().query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
 
 		Log.d(LOG_TAG, "getFavoriteMovies: Content Uri = " + MovieContract.MovieEntry.CONTENT_URI);
@@ -51,27 +34,25 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 		return cursorToArrayList(cursor);
 	}
 
-	private ArrayList<String[]> cursorToArrayList(Cursor cursor) {
+	private ArrayList<DataMovieObject> cursorToArrayList(Cursor cursor) {
 		cursor.moveToFirst();
 		Log.d(LOG_TAG, "cursorToArrayList: cursor.getCount() " + cursor.getCount());
-		ArrayList<String[]> movieList = new ArrayList<>();
+		ArrayList<DataMovieObject> movieList = new ArrayList<>();
 
 		int i = 0;
-		while (cursor.moveToNext()) {
+		do {
 			Log.d(LOG_TAG, "cursorToArrayList: i = " + ++i);
-			movieList.add(new String[] {
+			movieList.add(new DataMovieObject(
+					cursor.getInt(MovieContract.MovieEntry.COLUMN_ID_ID),
 					cursor.getString(MovieContract.MovieEntry.COLUMN_TITLE_ID),
 					cursor.getString(MovieContract.MovieEntry.COLUMN_DESCRIPTION_ID),
-					cursor.getString(MovieContract.MovieEntry.COLUMN_RATING_ID),
-					cursor.getString(MovieContract.MovieEntry.COLUMN_RELEASE_ID)
-					// TODO: 18.12.16 get Thumbnail as Byte[]
-			});
-		}
-
-		/*
-		only for production tests
-		 */
-		Log.d(LOG_TAG, "cursorToArrayList: movieList.size() == " + movieList.size());
+					cursor.getString(MovieContract.MovieEntry.COLUMN_RELEASE_ID),
+					cursor.getFloat(MovieContract.MovieEntry.COLUMN_RATING_ID),
+					cursor.getBlob(MovieContract.MovieEntry.COLUMN_THUMBNAIL_ID),
+//					Converter.convertStringToArray(cursor.getString(MovieContract.MovieEntry.COLUMN_TRAILER_ID))
+					new String[] {"trailer"}
+			));
+		} while (cursor.moveToNext());
 
 		return movieList;
 	}
@@ -84,7 +65,7 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 	public String[] getMovie(Uri contentUri) {
 		Log.d(LOG_TAG, "getMovie: going to lag again?");
 
-		Cursor cursor = mContext.getContentResolver().query(contentUri, null, null, null, null); // TODO: 15.12.16 cursor == null
+		Cursor cursor = mContext.getContentResolver().query(contentUri, null, null, null, null);
 
 		Log.d(LOG_TAG, "getMovie: contentUri = " + contentUri);
 

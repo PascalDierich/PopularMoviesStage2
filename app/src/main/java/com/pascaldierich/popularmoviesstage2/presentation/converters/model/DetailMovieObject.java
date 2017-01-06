@@ -20,9 +20,12 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 public class DetailMovieObject extends MovieObject implements Parcelable {
 	private static final String LOG_TAG = DetailMovieObject.class.getSimpleName();
 
-	private String[] mTrailers; // optional
+	private String[] mTrailers = {
+			"trailer1",
+			"trailer2"
+	}; // optional
 	private String mPosterPath;
-	private Bitmap mThumbnail;  // optinal
+	private Bitmap mThumbnail;  // optional
 	private String[] mReview; // optional
 
 	public DetailMovieObject(int id,
@@ -40,6 +43,15 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 		this.mPosterPath = posterPath;
 		this.mThumbnail = bitmap;
 		this.mReview = review;
+	}
+
+	public boolean bitmapIsNull() {
+		if (this.mThumbnail == null) return true;
+		else return false;
+	}
+
+	public void setThumbnailNull() {
+		this.mThumbnail = null;
 	}
 
 	/*

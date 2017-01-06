@@ -1,8 +1,10 @@
 package com.pascaldierich.popularmoviesstage2.presentation.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.pascaldierich.popularmoviesstage2.R;
 import com.pascaldierich.popularmoviesstage2.data.network.DetailRepositoryImpl;
+import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReviews;
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 import com.pascaldierich.popularmoviesstage2.data.storage.FavoriteRepositoryImpl;
@@ -28,8 +31,12 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ReviewAdapt
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.TrailerAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPlayButtonCallback;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
+import com.pascaldierich.popularmoviesstage2.utils.Utility;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity implements BaseView, DetailPresenter.View,
 		TrailerPlayButtonCallback {
@@ -54,6 +61,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	// Buttons
 	private ImageButton mImageButtonFavorite;
 
+	// ImageVire for Thumbnail
 	private ImageView mImageViewThumbnail;
 
 	// Bitmap of Thumbnail
@@ -62,6 +70,9 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	// Adapter
 	private TrailerAdapter mTrailerAdapter;
 	private ReviewAdapter mReviewAdapter;
+
+	// Trailer
+	private ArrayList<Trailer> mTrailers;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +111,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showGivenData(final DetailMovieObject movie) {
-		this.mTextViewLength.setText("hallo");
+		this.mTextViewLength.setText("hallo"); // TODO: 05.01.17 delete "hallo" and get some real data 
 		try {
 			this.mTextViewTitle.setText(movie.getmTitle());
 		} catch (NullPointerException npe) {
@@ -121,14 +132,28 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 		} catch (NullPointerException npe) {
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out description");
 		}
-		getBitmap(movie.getmPosterPath());
+
+		if (ConstantsHolder.bitmapIsNull()) {
+			getBitmap(movie.getmPosterPath());
+		} else {
+			mImageViewThumbnail.setImageBitmap(ConstantsHolder.getBitmap());
+		}
 
 		this.mImageButtonFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				movie.setThumbnail(mBitmap);
-				mPresenter.saveAsFavorite(movie);
 
+				if (mTrailers == null) {
+					movie.setTrailers(null);
+				} else {
+					for (Trailer trailer : mTrailers) {
+						movie.setTrailers(new String[] {
+								trailer.getKey()
+						});
+					}
+				}
+				mPresenter.saveAsFavorite(movie);
 			}
 		});
 
@@ -173,7 +198,8 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showTrailer(PageTrailers results) {
-		this.mTrailerAdapter.setResults(results.getResults());
+		this.mTrailers = results.getResults();
+		this.mTrailerAdapter.setResults(this.mTrailers);
 		this.mTrailerAdapter.notifyDataSetChanged();
 		if (results.getResults().size() == 0) {
 			this.mTextViewTrailerTitle.setVisibility(View.GONE);
@@ -237,5 +263,10 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	@Override
 	public void playButtonPressed(String key) {
 		mPresenter.onPlayPressed(getString(R.string.base_url_youtube), key);
+	}
+
+	@Override
+	public boolean checkConnection() {
+		return Utility.checkConnection((ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE));
 	}
 }
