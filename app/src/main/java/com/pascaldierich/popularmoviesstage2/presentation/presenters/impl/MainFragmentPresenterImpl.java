@@ -67,6 +67,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 	}
 
 	private int time_sleep = 0;
+
 	private void getInitialData() {
 
 		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), -1);
@@ -208,7 +209,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		Log.d(LOG_TAG, "onQueryFinished: faveMovies.size() = " + faveMovies.size());
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
 
-		for (DataMovieObject a: faveMovies) {
+		for (DataMovieObject a : faveMovies) {
 			Log.d(LOG_TAG, "");
 			Log.d(LOG_TAG, "DataMovieObject from Database :");
 			Log.d(LOG_TAG, "######################################################");

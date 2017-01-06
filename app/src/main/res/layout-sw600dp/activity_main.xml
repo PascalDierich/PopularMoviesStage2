@@ -12,7 +12,7 @@
     This layout is a two-pane layout for the Items master/detail flow.
     -->
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment_main"
         android:name="com.pascaldierich.popularmoviesstage2.presentation.ui.fragments.MainFragment"
         android:layout_width="0dp"

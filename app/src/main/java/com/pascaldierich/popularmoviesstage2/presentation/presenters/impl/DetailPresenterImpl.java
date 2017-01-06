@@ -173,14 +173,14 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 	public void onDownloadTrailerFinish(PageTrailers page) {
 		Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It!");
 		// TODO: mView.showTrailer()
-		if(page != null) mView.showTrailer(page);
+		if (page != null) mView.showTrailer(page);
 		else onError(R.integer.error_network_failedDownload);
 	}
 
 	@Override
 	public void onDownloadReviewFinish(PageReviews page) {
 		Log.d(LOG_TAG, "onDownloadReviewFinish: Got It!");
-		if(page != null) mView.showReview(page);
+		if (page != null) mView.showReview(page);
 		else onError(R.integer.error_network_failedDownload);
 	}
 

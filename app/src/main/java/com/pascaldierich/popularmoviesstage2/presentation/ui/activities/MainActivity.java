@@ -52,22 +52,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 			getSupportActionBar().setElevation(0f);
 		}
 
-		if (getSupportFragmentManager().findFragmentByTag(MAINFRAGMENT_TAG) instanceof MainFragment) {
-			// TODO: 03.01.17 restart fragment
-			/*
-			get the SavedInstanceState from MainFragment so you can destroy and create it from here with right state as parameter
-			 */
-		} else {
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.fragment_main_holder, new MainFragment(), MAINFRAGMENT_TAG)
-					.commit();
-		}
-
-		
-
-//		MainFragment mainFragment = ((MainFragment) getSupportFragmentManager()
-//				.findFragmentById(R.id.fragment_main));
-//		mainFragment.setUseGridLayout(this.mTwoPaneMode);
+		MainFragment mainFragment = ((MainFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.fragment_main));
+		mainFragment.setUseGridLayout(this.mTwoPaneMode);
 	}
 
 	@Override
@@ -133,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 			intent.putExtra(getString(R.string.extra_intent_key), selectedMovie);
 
 			startActivity(intent);
-
 
 
 		}
