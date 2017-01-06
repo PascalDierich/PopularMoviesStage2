@@ -5,11 +5,11 @@
             android:layout_height="match_parent"
             android:columnCount="2">
 
-    <ImageView
+    <com.pascaldierich.popularmoviesstage2.presentation.ui.model.ImageViewThumbnail
         android:id="@+id/image_for_adapter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"/>
+        android:layout_height="wrap_content"/>
+        <!--android:scaleType="fitCenter"-->
+        <!--android:adjustViewBounds="true"-->
 
 </GridLayout>
