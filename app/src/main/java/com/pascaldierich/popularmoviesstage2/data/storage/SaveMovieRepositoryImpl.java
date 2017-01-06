@@ -13,7 +13,6 @@ import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContrac
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_RELEASE;
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_THUMBNAIL;
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_TITLE;
-import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_TRAILER;
 
 
 /**
@@ -72,7 +71,7 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 		Log.d(LOG_TAG, "DataMovieObject.getDescription = " + data.get(COLUMN_DESCRIPTION));
 		Log.d(LOG_TAG, "DataMovieObject.getRating = " + data.get(COLUMN_RATING));
 		Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + data.get(COLUMN_THUMBNAIL));
-		Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + data.get(COLUMN_TRAILER));
+//		Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + data.get(COLUMN_TRAILER));
 		Log.d(LOG_TAG, "######################################################");
 	}
 }

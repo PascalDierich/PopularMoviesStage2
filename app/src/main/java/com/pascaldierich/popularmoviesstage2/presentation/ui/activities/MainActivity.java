@@ -52,9 +52,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 			getSupportActionBar().setElevation(0f);
 		}
 
-		MainFragment mainFragment = ((MainFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.fragment_main));
-		mainFragment.setUseGridLayout(this.mTwoPaneMode);
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.fragment_main_container, new MainFragment(), MAINFRAGMENT_TAG)
+				.commit();
+//		MainFragment mainFragment = ((MainFragment) getSupportFragmentManager()
+//				.findFragmentById(R.id.fragment_main));
+//		mainFragment.setUseGridLayout(this.mTwoPaneMode);
 	}
 
 	@Override

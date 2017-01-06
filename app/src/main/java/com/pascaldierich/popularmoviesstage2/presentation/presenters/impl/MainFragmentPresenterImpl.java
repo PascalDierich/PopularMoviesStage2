@@ -70,7 +70,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	private void getInitialData() {
 
-		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), -1);
+		int initialPreference = this.mSharedPreferences.getInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort), 1);
 		
 		switch (initialPreference) {
 			case R.integer.preferences_initial_sort_popularity: {

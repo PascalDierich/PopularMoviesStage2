@@ -11,7 +11,9 @@ public class DataMovieObject extends MovieObject {
 	private static final String LOG_TAG = DataMovieObject.class.getSimpleName();
 
 	private byte[] mThumbnail;
-	private String[] mTrailers;
+	private String[] mTrailers = {
+		""
+	};
 
 	public DataMovieObject(int id,
 						   String title,

@@ -13,7 +13,6 @@ import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContrac
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_RELEASE;
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_THUMBNAIL;
 import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_TITLE;
-import static com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract.MovieEntry.COLUMN_TRAILER;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 
@@ -30,7 +29,6 @@ public class DataUtility {
 		values.put(COLUMN_DESCRIPTION, "this is a movie");
 		values.put(COLUMN_RATING, "4.5");
 		values.put(COLUMN_THUMBNAIL, new byte[] {});
-		values.put(COLUMN_TRAILER, "trailer1__,__trailer2__,__trailer3");
 
 		return values;
 	}

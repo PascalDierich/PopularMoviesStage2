@@ -29,6 +29,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.activities.DetailAc
 import com.pascaldierich.popularmoviesstage2.presentation.ui.adapter.ImageAdapter;
 import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
 import com.pascaldierich.popularmoviesstage2.threading.MainThreadImpl;
+import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 
 import java.util.ArrayList;
 
@@ -57,6 +58,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 
+		setUseGridLayout(ConstantsHolder.getTwoPaneMode());
 		initPresenter(savedInstanceState, null);
 	}
 
