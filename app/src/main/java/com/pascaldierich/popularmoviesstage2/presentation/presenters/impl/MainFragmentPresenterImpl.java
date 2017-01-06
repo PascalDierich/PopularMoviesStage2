@@ -186,6 +186,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void movieSelected(int position) {
+		Log.d(LOG_TAG, "movieSelected: on position: " + position);
 		Bundle selectedMovie = new Bundle();
 		DetailMovieObject selectedDetailMovieObject = this.mDetailMovieObjectArrayList.get(position);
 		saveState(selectedDetailMovieObject);

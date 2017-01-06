@@ -64,7 +64,6 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 					.into(holder.imageView);
 		}
 
-
 		return convertView;
 	}
 
