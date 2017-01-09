@@ -167,7 +167,6 @@ public class DetailFragment extends Fragment implements BaseView,
 	@Override
 	public void showGivenData(final DetailMovieObject movie) {
 		Log.d(LOG_TAG, "showGivenData: called with movie == null -> " + (movie == null));
-		this.mTextViewLength.setText("hallo");
 		try {
 			this.mTextViewTitle.setText(movie.getmTitle());
 		} catch (NullPointerException npe) {

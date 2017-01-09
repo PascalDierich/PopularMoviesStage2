@@ -6,7 +6,7 @@
     <!-- # Network-Constants # -->
     <!-- ##################### -->
     <!-- theMovieDB -->
-    <string name="api_key" translatable="false">5c359398433009bb5d168d4cfb3e5cf3</string>
+    <string name="api_key" translatable="false">INSERT API-KEY HERE</string>
     <string name="base_url" translatable="false">"https://api.themoviedb.org"</string>
     <string name="api_version" translatable="false">/3</string>
     <string name="image_base_url" translatable="false">https://image.tmdb.org/t/p/w500</string>
