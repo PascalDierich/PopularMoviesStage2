@@ -8,7 +8,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.MainActivit
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 
 /**
- * Created by pascaldierich on 08.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class MainActivityPresenterImpl extends AbstractPresenter implements MainActivityPresenter {

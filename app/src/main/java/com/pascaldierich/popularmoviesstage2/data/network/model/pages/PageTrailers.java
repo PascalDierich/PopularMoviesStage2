@@ -6,7 +6,7 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.Trailer;
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class PageTrailers {

@@ -28,7 +28,7 @@ import com.pascaldierich.popularmoviesstage2.utils.Utility;
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class MainFragmentPresenterImpl extends AbstractPresenter implements MainFragmentPresenter,
@@ -130,7 +130,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		switch (code) {
 			case R.integer.error_network_failedDownload: {
 				Log.d(LOG_TAG, "onError: DOWNLOAD_NULL");
-				// TODO: tell User about Problem
 				mView.showError("Download failed");
 			}
 			case R.integer.error_network_noInternet: {
@@ -225,7 +224,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 						.putInt(mView.getApplicationContext().getString(R.string.preferences_initial_sort),
 								R.integer.preferences_initial_sort_popularity)
 						.apply();
-				// TODO: 15.12.16
 				break;
 			}
 			case R.id.menu_rating: {

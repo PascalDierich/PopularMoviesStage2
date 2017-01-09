@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 
 /**
- * Created by pascaldierich on 13.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class GridItem {

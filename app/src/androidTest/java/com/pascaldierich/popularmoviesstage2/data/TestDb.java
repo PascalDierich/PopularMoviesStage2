@@ -17,7 +17,7 @@ import java.util.HashSet;
 public class TestDb extends AndroidTestCase {
 	private static final String LOG_TAG = TestDb.class.getSimpleName();
 
-	void deleteTheDatabase() {
+	private void deleteTheDatabase() {
 		mContext.deleteDatabase(MovieContract.DB_NAME);
 	}
 

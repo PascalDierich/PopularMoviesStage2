@@ -9,7 +9,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.model.GridItem;
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface MainFragmentPresenter extends BasePresenter {

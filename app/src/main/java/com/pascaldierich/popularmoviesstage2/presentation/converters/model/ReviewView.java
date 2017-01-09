@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.pascaldierich.popularmoviesstage2.R;
 
 /**
- * Created by Pascal Dierich on Dez, 2016.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 public class ReviewView extends RecyclerView.ViewHolder {
 	private static final String LOG_TAG = ReviewView.class.getSimpleName();

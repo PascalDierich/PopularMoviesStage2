@@ -3,7 +3,7 @@ package com.pascaldierich.popularmoviesstage2.data.network.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class Movie {

@@ -14,7 +14,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.ui.callback.TrailerPla
 import java.util.ArrayList;
 
 /**
- * Created by Pascal Dierich on Dez, 2016.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerView> {
 	private static final String LOG_TAG = TrailerAdapter.class.getSimpleName();

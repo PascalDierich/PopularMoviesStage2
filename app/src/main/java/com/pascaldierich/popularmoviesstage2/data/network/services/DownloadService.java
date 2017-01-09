@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface DownloadService {

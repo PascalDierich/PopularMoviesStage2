@@ -1,7 +1,7 @@
 package com.pascaldierich.popularmoviesstage2.presentation.presenters.base;
 
 /**
- * Created by pascaldierich on 08.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface BasePresenter {

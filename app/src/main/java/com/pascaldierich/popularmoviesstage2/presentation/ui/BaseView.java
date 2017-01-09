@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.model.DetailMovieObject;
 
 /**
- * Created by pascaldierich on 08.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface BaseView {
@@ -15,8 +15,6 @@ public interface BaseView {
 	 * method should show a progress bar and/or disable buttons before some background work starts.
 	 */
 	void showProgress();
-
-	// TODO: 14.12.16 initViews
 
 	/**
 	 * This is a general method used for hiding progress information after a background task finishes.

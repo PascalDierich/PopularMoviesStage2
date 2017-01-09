@@ -11,18 +11,18 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class MovieProvider extends ContentProvider {
 	private static final String LOG_TAG = MovieProvider.class.getSimpleName();
 	
-	MovieDbHelper mDbHelper;
-	static UriMatcher sUriMatcher = buildUriMatcher();
+	private MovieDbHelper mDbHelper;
+	private static UriMatcher sUriMatcher = buildUriMatcher();
 
-	static final int MOVIE = 200;
+	private static final int MOVIE = 200;
 
-	static UriMatcher buildUriMatcher() {
+	private static UriMatcher buildUriMatcher() {
 		final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
 
 		matcher.addURI(MovieContract.CONTENT_AUTHORITY, MovieContract.MOVIE_PATH, MOVIE);

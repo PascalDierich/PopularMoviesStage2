@@ -78,6 +78,8 @@
     <string name="title_user_reviews">User Reviews</string>
     <string name="title_trailers">official Trailers</string>
 
+    <string name="rating_string">/10</string>
+
     <string name="content_description_activity_detail_thumbnail">Thumbnail of selected Movie</string>
     <string name="content_description_activity_detail_button">Button to save Movie as favorite</string>
 </resources>

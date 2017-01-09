@@ -5,6 +5,3 @@ This package contains:
     - the interfaces Executor & MainThread
         -> This two interfaces gets implemented by AbstractInteractor and lets it choose to run
            either in the BackgroundThread or MainThread
-
-    - the package impl
-        -> TODO: write description

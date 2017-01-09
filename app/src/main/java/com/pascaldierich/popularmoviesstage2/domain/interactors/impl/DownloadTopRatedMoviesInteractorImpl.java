@@ -8,7 +8,7 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.base.AbstractInt
 import com.pascaldierich.popularmoviesstage2.domain.repository.MoviesRepository;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class DownloadTopRatedMoviesInteractorImpl extends AbstractInteractor implements DownloadMoviesInteractor {

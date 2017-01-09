@@ -85,7 +85,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 				.get(getString(R.string.parcelable_detail_movie_object_key)));
 	}
 
-	public void initViews() {
+	private void initViews() {
 		this.mTextViewTitle = (TextView) findViewById(R.id.textView_title);
 		this.mTextViewRelease = (TextView) findViewById(R.id.textView_release);
 		this.mTextViewLength = (TextView) findViewById(R.id.textView_length);
@@ -111,7 +111,6 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 
 	@Override
 	public void showGivenData(final DetailMovieObject movie) {
-		this.mTextViewLength.setText("hallo"); // TODO: 05.01.17 delete "hallo" and get some real data 
 		try {
 			this.mTextViewTitle.setText(movie.getmTitle());
 		} catch (NullPointerException npe) {
@@ -123,7 +122,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out release");
 		}
 		try {
-			this.mTextViewRating.setText(movie.getmRating() + "/10"); // TODO: 14.12.16 save in strings.xml
+			this.mTextViewRating.setText(movie.getmRating() + getString(R.string.rating_string));
 		} catch (NullPointerException npe) {
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out rating");
 		}

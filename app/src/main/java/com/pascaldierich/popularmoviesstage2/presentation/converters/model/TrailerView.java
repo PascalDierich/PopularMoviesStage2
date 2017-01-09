@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.pascaldierich.popularmoviesstage2.R;
 
 /**
- * Created by Pascal Dierich on Dez, 2016.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 public class TrailerView extends RecyclerView.ViewHolder {
 	private static final String LOG_TAG = TrailerView.class.getSimpleName();

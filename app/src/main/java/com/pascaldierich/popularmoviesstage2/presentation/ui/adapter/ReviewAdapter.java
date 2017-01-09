@@ -14,7 +14,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.converters.model.Revie
 import java.util.ArrayList;
 
 /**
- * Created by Pascal Dierich on Dez, 2016.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewView> {
 	private static final String LOG_TAG = ReviewAdapter.class.getSimpleName();

@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 13.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class ImageAdapter extends ArrayAdapter<GridItem> {
@@ -24,7 +24,7 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 
 	private Context mContext;
 	private int mLayoutResourceId;
-	private ArrayList<GridItem> mGridData = new ArrayList<GridItem>();
+	private ArrayList<GridItem> mGridData = new ArrayList<>();
 
 	public ImageAdapter(Context c, int layoutResourceId, ArrayList<GridItem> gridData) {
 		super(c, layoutResourceId, gridData);
@@ -65,7 +65,8 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 		}
 
 		return convertView;
-	/**/}
+	/**/
+	}
 
 	private static class ViewHolder {
 		ImageView imageView;

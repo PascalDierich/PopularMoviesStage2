@@ -14,7 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class Converter {
@@ -90,7 +90,7 @@ public class Converter {
 	}
 
 	public static ArrayList<DetailMovieObject> convertDataMovieObjectToDetailMovieObject(ArrayList<DataMovieObject> data) {
-		ArrayList<DetailMovieObject> returnData = new ArrayList<DetailMovieObject>();
+		ArrayList<DetailMovieObject> returnData = new ArrayList<>();
 		for (DataMovieObject a : data) {
 			returnData.add(
 					new DetailMovieObject(

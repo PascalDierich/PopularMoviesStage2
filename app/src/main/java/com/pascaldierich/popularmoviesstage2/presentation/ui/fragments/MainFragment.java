@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class MainFragment extends Fragment implements MainFragmentPresenter.View {
@@ -46,8 +46,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	private MainFragmentPresenter mPresenter;
 
 	private ProgressBar mProgressBar;
-
-
 
 	private GridView mGridView;
 
@@ -104,7 +102,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 		);
 	}
 
-	public void setUseGridLayout(boolean twoPaneMode) {
+	private void setUseGridLayout(boolean twoPaneMode) {
 		this.mTwoPaneMode = twoPaneMode;
 	}
 
@@ -157,7 +155,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 	@Override
 	public int getInitialPreferences() {
 		return getActivity()
-				.getSharedPreferences(getString(R.string.preferences_initial_sort), Context.MODE_PRIVATE) // TODO: 15.12.16 ???
+				.getSharedPreferences(getString(R.string.preferences_initial_sort), Context.MODE_PRIVATE)
 				.getInt(getString(R.string.preferences_initial_sort), R.integer.preferences_initial_sort_popularity);
 	}
 
@@ -171,7 +169,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	@Override
 	public SharedPreferences getPreferences() {
-		return getApplicationContext().getSharedPreferences("", Context.MODE_PRIVATE); // TODO: 15.12.16 String s
+		return getApplicationContext().getSharedPreferences("", Context.MODE_PRIVATE);
 	}
 
 

@@ -16,13 +16,13 @@ import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 public abstract class AbstractInteractor implements Interactor {
 	private static final String LOG_TAG = "AbstractInteractor";
 
-	protected Executor mThreadExecutor;
+	private Executor mThreadExecutor;
 	protected MainThread mMainThread;
 
-	protected volatile boolean mIsCanceled;
-	protected volatile boolean mIsRunning;
+	private volatile boolean mIsCanceled;
+	private volatile boolean mIsRunning;
 
-	public AbstractInteractor(Executor threadExecutor, MainThread mainThread) {
+	protected AbstractInteractor(Executor threadExecutor, MainThread mainThread) {
 		mThreadExecutor = threadExecutor;
 		mMainThread = mainThread;
 	}

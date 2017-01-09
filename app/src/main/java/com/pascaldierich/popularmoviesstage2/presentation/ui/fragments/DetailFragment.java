@@ -37,7 +37,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class DetailFragment extends Fragment implements BaseView,
@@ -136,7 +136,7 @@ public class DetailFragment extends Fragment implements BaseView,
 		);
 	}
 
-	public View initViews(View rootView) {
+	private View initViews(View rootView) {
 		Log.d(LOG_TAG, "initViews: YEAH!");
 		this.mTextViewTitle = (TextView) rootView.findViewById(R.id.textView_title);
 		this.mTextViewRelease = (TextView) rootView.findViewById(R.id.textView_release);
@@ -179,7 +179,7 @@ public class DetailFragment extends Fragment implements BaseView,
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out release");
 		}
 		try {
-			this.mTextViewRating.setText(movie.getmRating() + "/10"); // TODO: 14.12.16 save in strings.xml
+			this.mTextViewRating.setText(movie.getmRating() + getString(R.string.rating_string));
 		} catch (NullPointerException npe) {
 			Log.d(LOG_TAG, "showGivenData: NullPointerException when reading out rating");
 		}

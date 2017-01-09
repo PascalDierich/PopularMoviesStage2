@@ -25,7 +25,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.DetailPrese
 import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.AbstractPresenter;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
@@ -67,7 +67,6 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 			Log.d(LOG_TAG, "showGivenData: movie == null");
 			return;
 		}
-		Log.d(LOG_TAG, "showGivenData: movie should NOT be null -> " + (movie == null));
 
 		Log.d(LOG_TAG, "showGivenData: " + movie.getmTitle());
 		Log.d(LOG_TAG, "showGivenData: " + movie.getmDescription());
@@ -108,7 +107,7 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 				mMainThread,
 				this,
 				mDetailRepository,
-				id // TODO: get id
+				id
 		);
 		interactor.execute();
 	}

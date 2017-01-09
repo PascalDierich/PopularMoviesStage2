@@ -4,10 +4,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
-public class RestClient {
+class RestClient {
 
 	private static final String BASE_URL = "https://api.themoviedb.org";
 

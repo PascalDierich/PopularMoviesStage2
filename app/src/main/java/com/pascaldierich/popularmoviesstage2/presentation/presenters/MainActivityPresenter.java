@@ -4,7 +4,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePr
 import com.pascaldierich.popularmoviesstage2.presentation.ui.BaseView;
 
 /**
- * Created by pascaldierich on 08.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface MainActivityPresenter extends BasePresenter {

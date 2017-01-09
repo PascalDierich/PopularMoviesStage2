@@ -11,7 +11,7 @@ import com.pascaldierich.popularmoviesstage2.data.storage.model.MovieObject;
 import com.pascaldierich.popularmoviesstage2.presentation.converters.Converter;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 /**
@@ -151,7 +151,7 @@ public class DetailMovieObject extends MovieObject implements Parcelable {
 		}
 	};
 
-	public DetailMovieObject(Parcel in) {
+	private DetailMovieObject(Parcel in) {
 		super(in.readInt(), in.readString(), in.readString(), in.readString(), in.readFloat());
 
 		try {

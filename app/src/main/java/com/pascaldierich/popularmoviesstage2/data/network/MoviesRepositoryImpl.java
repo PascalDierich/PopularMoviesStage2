@@ -10,7 +10,7 @@ import com.pascaldierich.popularmoviesstage2.utils.ConstantsHolder;
 import java.io.IOException;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class MoviesRepositoryImpl implements MoviesRepository {

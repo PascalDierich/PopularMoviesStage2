@@ -4,7 +4,7 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageReview
 import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTrailers;
 
 /**
- * Created by pascaldierich on 10.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface DetailInfoMoviesRepository {

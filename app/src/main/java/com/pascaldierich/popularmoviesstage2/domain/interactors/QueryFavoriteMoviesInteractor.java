@@ -6,7 +6,7 @@ import com.pascaldierich.popularmoviesstage2.domain.interactors.base.Interactor;
 import java.util.ArrayList;
 
 /**
- * Created by pascaldierich on 12.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public interface QueryFavoriteMoviesInteractor extends Interactor {

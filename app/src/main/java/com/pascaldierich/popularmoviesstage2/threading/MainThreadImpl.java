@@ -6,7 +6,7 @@ import android.os.Looper;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 
 /**
- * Created by pascaldierich on 08.12.16.
+ * Created by Pascal Dierich on Jan, 2017.
  */
 
 public class MainThreadImpl implements MainThread {
@@ -16,7 +16,7 @@ public class MainThreadImpl implements MainThread {
 
 	private Handler mHandler;
 
-	public MainThreadImpl() {
+	private MainThreadImpl() {
 		mHandler = new Handler(Looper.getMainLooper());
 	}
 
