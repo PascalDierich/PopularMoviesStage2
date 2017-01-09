@@ -60,7 +60,6 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 			}
 		} catch (NullPointerException npe) {
 			Log.e(LOG_TAG, "DetailPresenterImpl: NullPointerException: " + npe.fillInStackTrace());
-			// TODO: 18.12.16 call mainActivity to try download again -> checkForConnection 
 		}
 	}
 
@@ -156,13 +155,11 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 	@Override
 	public void onError(int code) {
 		Log.d(LOG_TAG, "onError: Error Code: " + code);
-		// TODO: 14.12.16 handle Errors
 	}
 
 	@Override
 	public void onDownloadTrailerFinish(PageTrailers page) {
 		Log.d(LOG_TAG, "onDownloadTrailerFinish: Got It!");
-		// TODO: mView.showTrailer()
 		if (page != null) mView.showTrailer(page);
 		else onError(R.integer.error_network_failedDownload);
 	}

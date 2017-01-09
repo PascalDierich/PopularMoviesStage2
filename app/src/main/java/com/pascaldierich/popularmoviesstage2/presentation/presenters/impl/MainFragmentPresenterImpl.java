@@ -77,8 +77,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		}
 	}
 
-	// TODO: 18.12.16 add Refresh Button in menu -> if downloadFailed
-
 	public void setView(MainFragmentPresenter.View view) {
 		this.mView = view;
 	}
