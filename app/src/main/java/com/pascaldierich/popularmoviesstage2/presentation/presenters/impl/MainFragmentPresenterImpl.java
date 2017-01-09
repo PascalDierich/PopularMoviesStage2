@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.R;
@@ -45,8 +44,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	private ArrayList<DetailMovieObject> mDetailMovieObjectArrayList;
 
-	private Bundle mStateBundle = new Bundle();
-
 	private boolean stateChanged = false;
 	
 	public MainFragmentPresenterImpl(Executor executor,
@@ -62,19 +59,8 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 		this.mSharedPreferences = mView.getPreferences();
 		
-		if (super.mSavedInstanceState == null) {
-			getInitialData();
-		} else {
-			Log.d(LOG_TAG, "MainFragmentPresenterImpl: going to show Movies from Bundle in saved State");
-			mView.showMovies(
-					Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
-							super.mSavedInstanceState.<DetailMovieObject> getParcelableArrayList(
-									mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)
-							)
-					)
-			);
-			Log.d(LOG_TAG, "MainFragmentPresenterImpl: whoo... worked");
-		}
+
+		getInitialData();
 	}
 
 	public void setView(MainFragmentPresenter.View view) {
@@ -123,17 +109,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 
 	@Override
 	public void resume() {
-		// if state changed since creation
-		if (stateChanged) {
-			Log.d(LOG_TAG, "resume: state changed. Going to show saved Data");
-			mView.showMovies(
-					Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
-							super.mSavedInstanceState.<DetailMovieObject> getParcelableArrayList(
-									mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)
-							)
-					)
-			);
-		}
 	}
 
 	@Override
@@ -177,8 +152,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		ArrayList<DetailMovieObject> detailMovieObjectArrayList = Converter.PageMovieToArrayListDetailMovieObject(movies);
 		this.mDetailMovieObjectArrayList = detailMovieObjectArrayList;
 
-		saveState(this.mDetailMovieObjectArrayList);
-
 		mView.showMovies(Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(detailMovieObjectArrayList));
 	}
 
@@ -187,7 +160,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		Log.d(LOG_TAG, "movieSelected: on position: " + position);
 		Bundle selectedMovie = new Bundle();
 		DetailMovieObject selectedDetailMovieObject = this.mDetailMovieObjectArrayList.get(position);
-		saveState(selectedDetailMovieObject);
 		selectedMovie.putParcelable(mView.getApplicationContext().getString(R.string.parcelable_detail_movie_object_key),
 				selectedDetailMovieObject);
 
@@ -237,22 +209,6 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		Log.d(LOG_TAG, "onQueryFinished: faveMovies.size() = " + faveMovies.size());
 		Log.d(LOG_TAG, "onQueryFinished: GOT IT!");
 
-		for (DataMovieObject a : faveMovies) {
-			Log.d(LOG_TAG, "");
-			Log.d(LOG_TAG, "DataMovieObject from Database :");
-			Log.d(LOG_TAG, "######################################################");
-			Log.d(LOG_TAG, "DataMovieObject.getTitle = " + a.getmTitle());
-			Log.d(LOG_TAG, "DataMovieObject.getRelease = " + a.getmRelease());
-			Log.d(LOG_TAG, "DataMovieObject.getDescription = " + a.getmDescription());
-			Log.d(LOG_TAG, "DataMovieObject.getRating = " + a.getmRating());
-			Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + a.getmThumbnail().length);
-			Log.d(LOG_TAG, "Trailers : ");
-			for (String trailer : a.getTrailers()) {
-				Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + trailer);
-			}
-			Log.d(LOG_TAG, "######################################################");
-		}
-
 		mView.showMovies(
 				Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
 						this.mDetailMovieObjectArrayList
@@ -295,45 +251,5 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 		getInitialData();
 
 		return true;
-	}
-
-	@Override
-	public void saveState(@NonNull Object object) {
-		stateChanged = true;
-		
-		Log.d(LOG_TAG, "saveState: going to save some states");
-
-		// Check if Object represents downloaded Data
-		try {
-			mStateBundle.putParcelableArrayList(
-					mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data),
-					(ArrayList<DetailMovieObject>) object
-			);
-			Log.d(LOG_TAG, "saveState: downloaded Data saved in StateBundle and is null = "
-					+ (mStateBundle.getParcelableArrayList(mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)) == null));
-			return;
-		} catch (ClassCastException e) {
-			Log.e(LOG_TAG, "saveState: ClassCastException" + "\n" +
-					" --> " + e.fillInStackTrace());
-		}
-
-		// if not, check if it is the selectedMovie
-		try {
-			Log.d(LOG_TAG, "saveState: you shouldnt be here");
-			mStateBundle.putParcelable(
-					mView.getApplicationContext().getString(R.string.main_fragment_selected_movie),
-					(DetailMovieObject) object);
-			return;
-		} catch (ClassCastException e) {
-			Log.e(LOG_TAG, "saveState: ClassCastException" + "\n" +
-					" --> " + e.fillInStackTrace());
-		}
-
-		Log.d(LOG_TAG, "saveState: Why Still here?!?!?!?!?!");
-	}
-
-	@Override
-	public Bundle getState() {
-		return this.mStateBundle;
 	}
 }

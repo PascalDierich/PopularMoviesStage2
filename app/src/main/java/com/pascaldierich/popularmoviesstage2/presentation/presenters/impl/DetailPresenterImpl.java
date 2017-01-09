@@ -12,7 +12,6 @@ import com.pascaldierich.popularmoviesstage2.data.network.model.pages.PageTraile
 import com.pascaldierich.popularmoviesstage2.domain.executor.Executor;
 import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.DownloadInfoForMovieInteractor;
-import com.pascaldierich.popularmoviesstage2.domain.interactors.QuerySelectedMovieInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.SaveFavoriteMovieInteractor;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoReviewsInteractorImpl;
 import com.pascaldierich.popularmoviesstage2.domain.interactors.impl.DownloadInfoTrailersInteractorImpl;
@@ -31,8 +30,7 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.Abstra
 
 public class DetailPresenterImpl extends AbstractPresenter implements DetailPresenter,
 		DownloadInfoForMovieInteractor.Callback,
-		SaveFavoriteMovieInteractor.Callback,
-		QuerySelectedMovieInteractor.Callback {
+		SaveFavoriteMovieInteractor.Callback {
 	private static final String LOG_TAG = DetailPresenterImpl.class.getSimpleName();
 
 	private DetailPresenter.View mView;
@@ -61,11 +59,6 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		} catch (NullPointerException npe) {
 			Log.e(LOG_TAG, "DetailPresenterImpl: NullPointerException: " + npe.fillInStackTrace());
 		}
-	}
-
-	@Override
-	public void onLoadFinished(String[] movie) {
-		Log.d(LOG_TAG, "onLoadFinished: REALLY? GOT IT :D " + (movie != null));
 	}
 
 	@Override

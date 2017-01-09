@@ -43,7 +43,7 @@ public class ImageAdapter extends ArrayAdapter<GridItem> {
 			holder = new ViewHolder();
 			holder.imageView = (ImageView) convertView.findViewById(R.id.image_for_adapter);
 			convertView.setTag(holder);
-		} else {/**/
+		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 

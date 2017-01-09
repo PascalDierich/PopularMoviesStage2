@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	private ProgressBar mProgressBar;
 
-	private ImageAdapter mImageAdapter;
+
 
 	private GridView mGridView;
 
@@ -110,10 +110,17 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 
 	@Override
 	public void showMovies(ArrayList<GridItem> movies) {
+		if (movies == null || R.layout.list_view_layout < 1) {
+			return;
+		}
+		ImageAdapter mImageAdapter;
 		mGridView = (GridView) mRootView.findViewById(R.id.grid_view_main_fragment);
 		if (this.mTwoPaneMode) {
-			mImageAdapter = new ImageAdapter(getActivity(), R.layout.list_view_layout, movies);
-			Log.d(LOG_TAG, "showMovies: selected list_view_layout");
+			try {
+				mImageAdapter = new ImageAdapter(getApplicationContext(), R.layout.list_view_layout, movies);
+			} catch (NullPointerException e) {
+				return;
+			}
 		} else {
 			mGridView.setNumColumns(GridView.AUTO_FIT);
 			mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
@@ -164,10 +171,6 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 		return getApplicationContext().getSharedPreferences("", Context.MODE_PRIVATE); // TODO: 15.12.16 String s
 	}
 
-	@Override
-	public Bundle restoreState() {
-		return null;
-	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
