@@ -12,7 +12,7 @@ public class DataMovieObject extends MovieObject {
 
 	private byte[] mThumbnail;
 	private String[] mTrailers = {
-		""
+			""
 	};
 
 	public DataMovieObject(int id,

@@ -70,6 +70,7 @@
     <!-- # UI # -->
     <!-- ###### -->
     <!-- global -->
+    <string name="content_descrption_trailer_button">Button to play trailer</string>
 
     <!-- main -->
 
@@ -77,6 +78,6 @@
     <string name="title_user_reviews">User Reviews</string>
     <string name="title_trailers">official Trailers</string>
 
-    <string name="loading_reviews">loading reviews...</string>
-    <string name="loading_trailers">loading trailers...</string>
+    <string name="content_description_activity_detail_thumbnail">Thumbnail of selected Movie</string>
+    <string name="content_description_activity_detail_button">Button to save Movie as favorite</string>
 </resources>

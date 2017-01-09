@@ -7,14 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:id="@+id/movie_detail_container"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
@@ -25,7 +22,6 @@
             android:id="@+id/toolbar">
 
             <TextView
-                android:text="Title"
                 style="@style/text_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +45,8 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="4dp"
                 android:scaleType="fitCenter"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description_activity_detail_thumbnail"/>
 
             <android.support.v7.widget.CardView
                 android:layout_height="wrap_content"
@@ -65,7 +62,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
                         android:layout_height="0dp"
@@ -78,7 +74,6 @@
                         style="@style/text_normal"/>
 
                     <TextView
-                        android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
                         android:layout_height="0dp"
@@ -91,7 +86,6 @@
                         style="@style/text_small_italic"/>
 
                     <TextView
-                        android:text="TextView"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
                         android:layout_height="0dp"
@@ -113,15 +107,14 @@
                         android:minHeight="150dp"
                         android:layout_gravity="center"
                         android:layout_margin="4dp"
-                        android:elevation="5dp"/>
+                        android:elevation="5dp"
+                        android:contentDescription="@string/content_description_activity_detail_button"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
-
         <TextView
-            android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView_description"

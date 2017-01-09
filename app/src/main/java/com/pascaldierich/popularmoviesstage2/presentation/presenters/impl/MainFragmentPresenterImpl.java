@@ -68,7 +68,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			Log.d(LOG_TAG, "MainFragmentPresenterImpl: going to show Movies from Bundle in saved State");
 			mView.showMovies(
 					Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
-							super.mSavedInstanceState. <DetailMovieObject> getParcelableArrayList(
+							super.mSavedInstanceState.<DetailMovieObject> getParcelableArrayList(
 									mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)
 							)
 					)
@@ -130,11 +130,11 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 			Log.d(LOG_TAG, "resume: state changed. Going to show saved Data");
 			mView.showMovies(
 					Converter.ArrayListWithDetailMovieObjectToArrayListWithGridItem(
-							super.mSavedInstanceState. <DetailMovieObject> getParcelableArrayList(
+							super.mSavedInstanceState.<DetailMovieObject> getParcelableArrayList(
 									mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)
 							)
 					)
-			); 
+			);
 		}
 	}
 
@@ -311,7 +311,7 @@ public class MainFragmentPresenterImpl extends AbstractPresenter implements Main
 					mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data),
 					(ArrayList<DetailMovieObject>) object
 			);
-			Log.d(LOG_TAG, "saveState: downloaded Data saved in StateBundle and is null = " 
+			Log.d(LOG_TAG, "saveState: downloaded Data saved in StateBundle and is null = "
 					+ (mStateBundle.getParcelableArrayList(mView.getApplicationContext().getString(R.string.main_fragment_downloaded_data)) == null));
 			return;
 		} catch (ClassCastException e) {

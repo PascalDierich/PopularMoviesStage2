@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_view_layout"
-        android:orientation="vertical"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_view_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.pascaldierich.popularmoviesstage2.presentation.ui.model.ImageViewThumbnail
+        android:id="@+id/image_for_adapter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <com.pascaldierich.popularmoviesstage2.presentation.ui.model.ImageViewThumbnail
-            android:id="@+id/image_for_adapter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-            <!--android:adjustViewBounds="true"-->
-            <!--android:scaleType="centerCrop"-->
-
-    </LinearLayout>
+</LinearLayout>
