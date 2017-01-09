@@ -27,7 +27,7 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 		PageMovies movieList;
 
 		try {
-			movieList = mClient.getPopular("5c359398433009bb5d168d4cfb3e5cf3").execute().body(); // TODO: 14.12.16 change api_key to Constant
+			movieList = mClient.getPopular(ConstantsHolder.getApiKey()).execute().body();
 			return movieList;
 		} catch (IOException e) {
 			Log.e(LOG_TAG, "downloadPopularMovies: " + "\n" +

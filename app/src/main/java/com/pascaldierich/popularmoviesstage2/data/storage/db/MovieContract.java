@@ -31,7 +31,6 @@ public abstract class MovieContract {
 		public static final String COLUMN_DESCRIPTION = "description";
 		public static final String COLUMN_RATING = "rating";
 		public static final String COLUMN_THUMBNAIL = "thumbnail"; // saves the whole image
-		public static final String COLUMN_TRAILER = "trailer"; // saves only the link to the trailer
 
 		// Columns in movies -> ID
 		public static final int COLUMN_ID_ID = 0;
@@ -40,7 +39,6 @@ public abstract class MovieContract {
 		public static final int COLUMN_DESCRIPTION_ID = 3;
 		public static final int COLUMN_RATING_ID = 4;
 		public static final int COLUMN_THUMBNAIL_ID = 5;
-		public static final int COLUMN_TRAILER_ID = 6;
 
 		public static Uri buildMovieUriWithId(long id) {
 			return ContentUris.withAppendedId(CONTENT_URI, id);

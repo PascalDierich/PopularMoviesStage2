@@ -44,8 +44,6 @@ public class DetailRepositoryImpl implements DetailInfoMoviesRepository {
 			return page;
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return null;
 	}

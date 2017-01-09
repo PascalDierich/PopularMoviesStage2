@@ -100,7 +100,6 @@ public class MovieProvider extends ContentProvider {
 				try {
 					long _id = db.insertOrThrow(MovieContract.MovieEntry.TABLE_NAME, null, contentValues);
 					if (_id > 0) {
-						// TODO: 18.12.16 _id is always 1
 						Log.d(LOG_TAG, "insert: id = " + _id);
 						return MovieContract.MovieEntry.buildMovieUriWithId(_id);
 					} else {

@@ -2,7 +2,6 @@ package com.pascaldierich.popularmoviesstage2.data.storage;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.util.Log;
 
 import com.pascaldierich.popularmoviesstage2.data.storage.db.MovieContract;
@@ -49,40 +48,10 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
 					cursor.getString(MovieContract.MovieEntry.COLUMN_RELEASE_ID),
 					cursor.getFloat(MovieContract.MovieEntry.COLUMN_RATING_ID),
 					cursor.getBlob(MovieContract.MovieEntry.COLUMN_THUMBNAIL_ID),
-//					Converter.convertStringToArray(cursor.getString(MovieContract.MovieEntry.COLUMN_TRAILER_ID))
 					new String[] {"trailer"}
 			));
 		} while (cursor.moveToNext());
 
 		return movieList;
-	}
-
-
-	/**
-	 * Deprecated
-	 */
-	@Override
-	public String[] getMovie(Uri contentUri) {
-		Log.d(LOG_TAG, "getMovie: going to lag again?");
-
-		Cursor cursor = mContext.getContentResolver().query(contentUri, null, null, null, null);
-
-		Log.d(LOG_TAG, "getMovie: contentUri = " + contentUri);
-
-		return cursorToStringArray(cursor);
-	}
-
-	/**
-	 * Deprecated
-	 */
-	private String[] cursorToStringArray(Cursor cursor) {
-		cursor.moveToFirst();
-
-		return new String[] {
-				cursor.getString(MovieContract.MovieEntry.COLUMN_TITLE_ID),
-				cursor.getString(MovieContract.MovieEntry.COLUMN_DESCRIPTION_ID),
-				cursor.getString(MovieContract.MovieEntry.COLUMN_RATING_ID),
-				cursor.getString(MovieContract.MovieEntry.COLUMN_RELEASE_ID)
-		};
 	}
 }

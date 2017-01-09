@@ -32,8 +32,6 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 	public boolean saveAsFavorite(DataMovieObject movieObject) {
 		ContentValues values = detailInfoToContentValues(movieObject);
 
-		log(values);
-
 		ContentValues[] valuesArray = {
 				values
 		};
@@ -53,25 +51,6 @@ public class SaveMovieRepositoryImpl implements SaveMovieRepository {
 		values.put(COLUMN_RATING, movieObject.getmRating());
 		values.put(COLUMN_THUMBNAIL, movieObject.getmThumbnail());
 
-//		String trailers = Converter.convertArrayToString(movieObject.getTrailers());
-//		if (trailers == null) trailers = R.integer.error_noTrailers + "";
-//		values.put(COLUMN_TRAILER, trailers);
-//
-//		Log.d(LOG_TAG, "detailInfoToContentValues: trailers = " + trailers);
-
 		return values;
-	}
-
-	private void log(ContentValues data) {
-		Log.d(LOG_TAG, "");
-		Log.d(LOG_TAG, "SAVE TO DATABASE :");
-		Log.d(LOG_TAG, "######################################################");
-		Log.d(LOG_TAG, "DataMovieObject.getTitle = " + data.get(COLUMN_TITLE));
-		Log.d(LOG_TAG, "DataMovieObject.getRelease = " + data.get(COLUMN_RELEASE));
-		Log.d(LOG_TAG, "DataMovieObject.getDescription = " + data.get(COLUMN_DESCRIPTION));
-		Log.d(LOG_TAG, "DataMovieObject.getRating = " + data.get(COLUMN_RATING));
-		Log.d(LOG_TAG, "DataMovieObject.getThumbnail.length = " + data.get(COLUMN_THUMBNAIL));
-//		Log.d(LOG_TAG, "DataMovieObject.getTrailers = " + data.get(COLUMN_TRAILER));
-		Log.d(LOG_TAG, "######################################################");
 	}
 }
