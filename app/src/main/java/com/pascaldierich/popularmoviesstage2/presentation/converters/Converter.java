@@ -89,26 +89,6 @@ public class Converter {
 		return bitmap;
 	}
 
-	private static String sStrSeparator = "__,__";
-
-	public static String convertArrayToString(String[] array) {
-		if (array == null) return null;
-
-		String str = "";
-		for (int i = 0; i < array.length; i++) {
-			str = str + array[i];
-			if (i < array.length - 1) {
-				str = str + sStrSeparator;
-			}
-		}
-		return str;
-	}
-
-	public static String[] convertStringToArray(String str) {
-		if (str == null) return null;
-		else return str.split(sStrSeparator);
-	}
-
 	public static ArrayList<DetailMovieObject> convertDataMovieObjectToDetailMovieObject(ArrayList<DataMovieObject> data) {
 		ArrayList<DetailMovieObject> returnData = new ArrayList<DetailMovieObject>();
 		for (DataMovieObject a : data) {

@@ -61,7 +61,7 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 	// Buttons
 	private ImageButton mImageButtonFavorite;
 
-	// ImageVire for Thumbnail
+	// ImageView for Thumbnail
 	private ImageView mImageViewThumbnail;
 
 	// Bitmap of Thumbnail
@@ -252,12 +252,6 @@ public class DetailActivity extends AppCompatActivity implements BaseView, Detai
 				new FavoriteRepositoryImpl(getApplicationContext()),
 				arguments
 		);
-	}
-
-	@Override
-	public int getSelectedMovieId() {
-		return getIntent().getIntExtra(getString(R.string.intent_string_key), R.integer.error_internCommunication_noSelectedMovie);
-		// TODO: 14.12.16 save String key in strings.xml;
 	}
 
 	@Override

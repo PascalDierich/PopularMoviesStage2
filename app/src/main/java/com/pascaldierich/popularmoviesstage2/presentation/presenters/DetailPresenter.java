@@ -15,7 +15,6 @@ import com.pascaldierich.popularmoviesstage2.presentation.presenters.base.BasePr
 public interface DetailPresenter extends BasePresenter {
 
 	interface View {
-		int getSelectedMovieId();
 
 		void showGivenData(DetailMovieObject movie);
 

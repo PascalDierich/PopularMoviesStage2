@@ -11,7 +11,6 @@ public class GridItem {
 	private String image;
 	private Bitmap bitmap;
 
-
 	public GridItem(@Nullable String image, @Nullable Bitmap bitmap) {
 		super();
 		this.image = image;

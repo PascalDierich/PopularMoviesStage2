@@ -38,12 +38,6 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 	private DetailPresenter.View mView;
 	private DetailInfoMoviesRepository mDetailRepository;
 	private SaveMovieRepository mSaveRepository;
-	private FavoriteRepository mFavoriteRepository;
-
-	private int mMovieInternId;
-	private DetailMovieObject mDetailMovieObject;
-
-	private Uri mMovieUri;
 
 	public DetailPresenterImpl(Executor executor,
 							   MainThread mainThread,
@@ -57,9 +51,6 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		this.mView = view;
 		this.mDetailRepository = detailRepository;
 		this.mSaveRepository = saveRepository;
-		this.mFavoriteRepository = faveRepository;
-
-		// TODO: 18.12.16 if app starts and no movie selected -> get 1 movie -> do in MainActivity / MainPresenter
 		try {
 			showGivenData(movie);
 
@@ -90,7 +81,6 @@ public class DetailPresenterImpl extends AbstractPresenter implements DetailPres
 		Log.d(LOG_TAG, "showGivenData: " + movie.getmDescription());
 
 		mView.showGivenData(movie);
-		// TODO: 14.12.16 mView.mTextViewTitle.setText(this.mDetailMovieObject) ... etc
 	}
 
 	@Override

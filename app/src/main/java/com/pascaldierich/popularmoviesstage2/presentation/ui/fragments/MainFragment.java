@@ -128,7 +128,7 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 			public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 				Log.d(LOG_TAG, "onItemClick: movie selected on position: " + position);
 				mPresenter.movieSelected(position);
-			}
+			}/**/
 		});
 	}
 

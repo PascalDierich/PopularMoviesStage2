@@ -10,7 +10,7 @@ import com.pascaldierich.popularmoviesstage2.domain.executor.MainThread;
  */
 
 public class MainThreadImpl implements MainThread {
-	private static final String LOG_TAG = "MainThreadImpl";
+	private static final String LOG_TAG = MainThreadImpl.class.getSimpleName();
 
 	private static MainThread sMainThread;
 

@@ -46,7 +46,6 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerView> {
 	public void onBindViewHolder(TrailerView holder, int position) {
 		if (getItemCount() == 0) {
 			Log.d(LOG_TAG, "onBindViewHolder: getItemCount == 0");
-			holder.mTextViewContent.setText("loading...");
 			return;
 		}
 		final Trailer TRAILER = mTrailers.get(position);

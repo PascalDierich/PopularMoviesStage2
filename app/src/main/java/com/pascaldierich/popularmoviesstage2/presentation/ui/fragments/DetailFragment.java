@@ -164,14 +164,6 @@ public class DetailFragment extends Fragment implements BaseView,
 		return rootView;
 	}
 
-	/*
-	Deprecated
-	 */
-	@Override
-	public int getSelectedMovieId() {
-		return 3; // TODO: 15.12.16 get Movie Id
-	}
-
 	@Override
 	public void showGivenData(final DetailMovieObject movie) {
 		Log.d(LOG_TAG, "showGivenData: called with movie == null -> " + (movie == null));
