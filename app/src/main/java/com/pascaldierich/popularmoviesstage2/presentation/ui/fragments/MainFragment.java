@@ -123,8 +123,11 @@ public class MainFragment extends Fragment implements MainFragmentPresenter.View
 			}
 		} else {
 			mGridView.setNumColumns(GridView.AUTO_FIT);
-			mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
-			Log.d(LOG_TAG, "showMovies: selected grid_view_layout");
+			try {
+				mImageAdapter = new ImageAdapter(getActivity(), R.layout.grid_view_layout, movies);
+			} catch (NullPointerException e) {
+				return;
+			}
 		}
 
 		mGridView.setAdapter(mImageAdapter);
