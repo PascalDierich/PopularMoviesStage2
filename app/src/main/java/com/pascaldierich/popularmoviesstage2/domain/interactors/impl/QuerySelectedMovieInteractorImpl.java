@@ -15,9 +15,9 @@ import com.pascaldierich.popularmoviesstage2.domain.repository.FavoriteRepositor
 public class QuerySelectedMovieInteractorImpl extends AbstractInteractor implements QuerySelectedMovieInteractor {
 	private static final String LOG_TAG = QuerySelectedMovieInteractorImpl.class.getSimpleName();
 
-	QuerySelectedMovieInteractor.Callback mCallback;
-	FavoriteRepository mRepository;
-	Uri mContentUri;
+	private QuerySelectedMovieInteractor.Callback mCallback;
+	private FavoriteRepository mRepository;
+	private Uri mContentUri;
 
 	public QuerySelectedMovieInteractorImpl(Executor threadExecutor,
 											MainThread mainThread,
