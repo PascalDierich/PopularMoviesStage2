@@ -2,7 +2,7 @@
 
 Browse through the
 * most popular and 
-* highest rating 
+* highest rated 
 
 movies in TheMovieDB.
 
